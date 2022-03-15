@@ -17,7 +17,7 @@ class BorderBtnWidget extends StatelessWidget {
   /// Asset para el botón
   final String btnAsset;
   /// Acción del botón
-  final Function btnAccion;
+  final VoidCallback btnAccion;
   /// Largo del botón
   final double btnWidth;
 
@@ -25,9 +25,7 @@ class BorderBtnWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return OutlinedButton(
-      onPressed: () {
-        btnAccion();
-      },
+      onPressed: btnAccion,
       style: OutlinedButton.styleFrom(
         primary: Color(0xFF757575),
         minimumSize: btnWidth != 0 ? Size(btnWidth, 48) : null,

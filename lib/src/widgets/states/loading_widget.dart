@@ -105,6 +105,7 @@ class LoadingWidget extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       color: kGeneralGray,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),

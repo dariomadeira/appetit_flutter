@@ -5,19 +5,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("hola"),
-      ),
       body: Center(
-        child: Text('Hola Mundo'),
+        child: Text('Hola loguin'),
      ),
-     floatingActionButton: FloatingActionButton(
-      child: Icon(Icons.add),
-        backgroundColor: Colors.black,
-        onPressed: () {
-
-        },
-      ),
-    );
+   );
   }
 }

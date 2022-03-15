@@ -1,4 +1,5 @@
-import 'package:appetit/src/widgets/buttons/border_btn_widget.dart';
+import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/constants.dart';
 import 'package:provider/provider.dart';
@@ -271,7 +272,7 @@ class _Slide extends StatelessWidget {
   Widget build(BuildContext context) {
     final totalSliders = Provider.of<_SliderModel>(context).slidersCount - 1;
     return Padding(
-      padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
+      padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
       child: Column(
         children: <Widget>[
           Expanded(
@@ -286,7 +287,7 @@ class _Slide extends StatelessWidget {
             style: TextStyle(
               fontSize: 26,
               color: kPrimaryColor,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w900,
             ),
           ),
           SizedBox(
@@ -296,28 +297,22 @@ class _Slide extends StatelessWidget {
             this.description,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 16,
               color: kGeneralGray,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
-            height: kDefaultPadding / 2,
+            height: kDefaultPadding*2-10,
           ),
           if (totalSliders == theSlider) Container(
             alignment: Alignment.bottomCenter,
             width: double.infinity,
             height: 60,
-            child:  BorderBtnWidget(
-              btnText: "holaaaa",
-              btnAccion: this.finalsliderbutton,
+            child: RoundedButtonWidget(
+              btnText: tr('general_btn_understood'),
+              buttonAction: this.finalsliderbutton,
             ),
-            // child: GeneralButtonWidget(
-            //   btnText: AppLocalizations.of(context).translate("welcome.slider.btnLogin"),
-            //   buttonAction: this.finalsliderbutton,
-            //   styleBtn: 1,
-            // ),
-
           ),
         ],
       ),
