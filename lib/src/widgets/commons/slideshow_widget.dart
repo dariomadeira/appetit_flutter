@@ -1,4 +1,5 @@
-import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
+import 'package:appetit/src/providers/theme_provider.dart';
+import 'package:appetit/src/widgets/buttons/rounded_gradient_btn_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/constants.dart';
@@ -270,7 +271,10 @@ class _Slide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final totalSliders = Provider.of<_SliderModel>(context).slidersCount - 1;
+    final _themeProvider = Provider.of<ThemeProvider>(context);
+
     return Padding(
       padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
       child: Column(
@@ -298,7 +302,7 @@ class _Slide extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,
-              color: kGeneralGray,
+              color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -309,7 +313,7 @@ class _Slide extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             width: double.infinity,
             height: 60,
-            child: RoundedButtonWidget(
+            child: RoundedGradientButtonWidget(
               btnText: tr('general_btn_understood'),
               buttonAction: this.finalsliderbutton,
             ),

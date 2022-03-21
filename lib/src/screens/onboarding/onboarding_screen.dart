@@ -1,37 +1,44 @@
+import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/src/widgets/commons/preload_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:appetit/src/widgets/commons/slideshow_widget.dart';
-import 'package:appetit/src/helpers/helpers.dart';
+import 'package:appetit/src/helpers/image_helper.dart';
 import 'package:appetit/src/services/preferences_service.dart';
 import 'package:appetit/src/widgets/commons/background_widget.dart';
 import 'package:appetit/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final _themeProvider = Provider.of<ThemeProvider>(context);
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
       statusBarColor: Colors.transparent,
-      systemNavigationBarColor: kDetaitNavbarColor,
-      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: _themeProvider.darkTheme ? kDetaitNavbarColorDark : kDetaitNavbarColorLight,
+      systemNavigationBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
     ));
+
     return Scaffold(
       body: PreloadWidget(
         loadingFutures: [
-          loadSvg(context, "assets/svgs/background.svg"),
+          loadSvg(context, _themeProvider.darkTheme ? "assets/svgs/background_d.svg" : "assets/svgs/background_l.svg"),
           loadSvg(context, "assets/svgs/1.svg"),
           loadSvg(context, "assets/svgs/2.svg"),
           loadSvg(context, "assets/svgs/3.svg"),
           Future.delayed(Duration(seconds: kLoaderTime)),
+          // Future.delayed(Duration(minutes: 30)),
         ],
-        backgroundColor: kDetaitNavbarColor,
+        backgroundColor: _themeProvider.darkTheme ? kDetaitNavbarColorDark : kDetaitNavbarColorLight,
         child: Stack(
           children: <Widget>[
             BackgroundApp(
-              svgAsset: "assets/svgs/background.svg",
+              svgAsset: _themeProvider.darkTheme ? "assets/svgs/background_d.svg" : "assets/svgs/background_l.svg",
               useLoader: false,
             ),
             SafeArea(
@@ -63,10 +70,13 @@ class OnboardingScreen extends StatelessWidget {
 class _OnboardingSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     final _prefs = AppPreferences();
+    final _themeProvider = Provider.of<ThemeProvider>(context);
+
     return Slideshow(
       dotColorSelect: kPrimaryColor,
-      dotsColor: kGeneralGray,
+      dotsColor: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
       dotSizeSelect: 14,
       dotSizeNormal: 10,
       dotsTop: false,
@@ -87,7 +97,7 @@ class _OnboardingSlider extends StatelessWidget {
       ],
       finalsliderbutton: () async {
         _prefs.savePreferenceBool('userSeeOnboarding', true);
-        await Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+        await Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
       }
     );
   }

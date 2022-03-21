@@ -1,36 +1,41 @@
 import 'package:appetit/constants.dart';
+import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Crea un botón con border
 class BorderBtnWidget extends StatelessWidget {
 
   /// Constructor
   const BorderBtnWidget({
+    Key? key,
     required this.btnText,
     required this.btnAccion,
     this.btnWidth = 0,
     this.btnAsset = '',
-  });
+  }) : super(key: key);
 
   /// Texto del botón
   final String btnText;
   /// Asset para el botón
   final String btnAsset;
   /// Acción del botón
-  final VoidCallback btnAccion;
+  final VoidCallback? btnAccion;
   /// Largo del botón
   final double btnWidth;
 
   @override
   Widget build(BuildContext context) {
 
+    final _themeProvider = Provider.of<ThemeProvider>(context);
+
     return OutlinedButton(
       onPressed: btnAccion,
       style: OutlinedButton.styleFrom(
-        primary: Color(0xFF757575),
+        primary: kTextLight,
         minimumSize: btnWidth != 0 ? Size(btnWidth, 48) : null,
         side: BorderSide(
-          color: Colors.black.withOpacity(0.2),
+          color: _themeProvider.darkTheme ? kTextDark.withOpacity(0.2) : kTextLight.withOpacity(0.2),
           width: kDefaultBorder
         ),
         shape: RoundedRectangleBorder(
@@ -42,9 +47,8 @@ class BorderBtnWidget extends StatelessWidget {
           btnText,
           style: TextStyle(
             fontSize: 16,
-            // fontFamily: 'ProductSans',
             fontWeight: FontWeight.w400,
-            color: Colors.white,
+            color: _themeProvider.darkTheme ? kTextDark : kTextLight,
           ),
         )
         : Row(
@@ -60,9 +64,8 @@ class BorderBtnWidget extends StatelessWidget {
               btnText,
               style: TextStyle(
                 fontSize: 16,
-                // fontFamily: 'ProductSans',
                 fontWeight: FontWeight.w400,
-                color: Colors.white,
+                color: _themeProvider.darkTheme ? kTextDark : kTextLight,
               ),
             ),
           ],

@@ -1,11 +1,16 @@
 {
   "general_btn_understood": "Entendido",
+  "general_question": "?",
+  "general_google": "Google",
+  "general_facebook": "Facebook",
+
   "onboarding_slider1_title": "Empieza buscando",
   "onboarding_slider1_description": "Explora los mejores sitios para comer cerca tuyo.",
   "onboarding_slider2_title": "Realiza tu orden",
   "onboarding_slider2_description": "Escanea el código QR de la mesa para ver el menú y realizar tu pedido.",
   "onboarding_slider3_title": "¡Listo!",
   "onboarding_slider3_description": "Disfruta tu pedido con la mejor atención, en los mejores lugares.",
+
   "general_loading": "Cargando...",
   "bbq_l_loading": "Prendiendo...",
   "cake_l_loading": "Sirviendo..",
@@ -30,6 +35,21 @@
   "slow-cooker_l_loading": "Calentando...",
   "toaster_l_loading": "Tostando...",
   "coffe-cup_l_loading": "Sirviendo...",
-  "salt-and-pepper_l_loading": "Salando..."
+  "salt-and-pepper_l_loading": "Salando...",
 
+  "login_area_title": "Ingresar",
+  "login_area_subtitle": "Completa los datos para ingresar",
+  "login_btn": "Iniciar sesión",
+  "login_not_account": "¿No tienes cuenta?",
+  "login_register_btn": "Crear una",
+  "login_alternative": "Puedes iniciar con",
+  "login_success": "Se ha iniciado sesión",
+  "login_no_user": "No hay usuario registrado",
+  "login_wrong_password": "Contraseña incorrecta",
+  "login_reset_link": "Olvidé mi contraseña",
+
+  "bottomsheet_use": "Completa usando...",
+  "bottomsheet_from_cammera": "La cámara",
+  "bottomsheet_from_gallery": "La galería"
+  
 }

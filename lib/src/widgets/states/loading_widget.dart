@@ -1,9 +1,12 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/helpers/helpers.dart';
+import 'package:appetit/src/helpers/image_helper.dart';
+import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'dart:math';
+
+import 'package:provider/provider.dart';
 
 /// ANIMACIÓN DE CARGA
 class LoadingWidget extends StatelessWidget {
@@ -22,6 +25,7 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final _themeProvider = Provider.of<ThemeProvider>(context);
     final _size = MediaQuery.of(context).size;
     final String _defaultMessage = loadingMessage == "" ? tr('general_loading') : tr(loadingMessage!);
     final String _defaultAnimation = 'assets/animations/loader.json';
@@ -104,7 +108,7 @@ class LoadingWidget extends StatelessWidget {
                     simpleLoad ? _defaultMessage : _listTexts[_randomNumber],
                     style: TextStyle(
                       fontSize: 16,
-                      color: kGeneralGray,
+                      color: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
                       fontWeight: FontWeight.w800,
                     ),
                   ),

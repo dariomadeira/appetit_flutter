@@ -1,8 +1,11 @@
 
+import 'package:appetit/constants.dart';
+import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/src/widgets/commons/preload_widget.dart';
-import 'package:appetit/src/helpers/helpers.dart';
+import 'package:appetit/src/helpers/image_helper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class BackgroundApp extends StatelessWidget {
 
@@ -43,7 +46,11 @@ class _CreateBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final _themeProvider = Provider.of<ThemeProvider>(context);
+
     return Container(
+      color: _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,
       width: double.infinity,
       height: double.infinity,
       child: SvgPicture.asset(
