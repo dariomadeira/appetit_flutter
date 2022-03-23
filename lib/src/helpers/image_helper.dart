@@ -15,6 +15,12 @@ Future<Image> loadByNetwork(BuildContext context, String path) async {
   return picture;
 }
 
+Future<Image> loadLocal(BuildContext context, String path) async {
+  var picture = Image.asset(path);
+  await precacheImage(picture.image, context);
+  return picture;
+}
+
 Future<LottieComposition> loadComposition(String path) async {
   var assetData = await rootBundle.load(path);
   return await LottieComposition.fromByteData(assetData);

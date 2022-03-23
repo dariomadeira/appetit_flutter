@@ -37,10 +37,10 @@ class DividerTitleWidget extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 24,
-              color: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
+              fontSize: 26,
+              color: kSecondaryColor,
               height: 1,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.bold,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -52,7 +52,8 @@ class DividerTitleWidget extends StatelessWidget {
               subTitle,
               style: TextStyle(
                 fontSize: 16,
-                color: _themeProvider.darkTheme ? kTextDark : kTextLight,
+                fontWeight: FontWeight.w600,
+                color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

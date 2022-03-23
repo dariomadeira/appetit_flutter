@@ -289,7 +289,7 @@ class _Slide extends StatelessWidget {
             this.title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 26,
+              fontSize: 30,
               color: kPrimaryColor,
               fontWeight: FontWeight.w900,
             ),
@@ -301,7 +301,7 @@ class _Slide extends StatelessWidget {
             this.description,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 18,
               color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
               fontWeight: FontWeight.bold,
             ),
@@ -316,6 +316,7 @@ class _Slide extends StatelessWidget {
             child: RoundedGradientButtonWidget(
               btnText: tr('general_btn_understood'),
               buttonAction: this.finalsliderbutton,
+              usePadding: kDefaultPadding/2 + 4,
             ),
           ),
         ],

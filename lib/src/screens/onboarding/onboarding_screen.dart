@@ -32,7 +32,6 @@ class OnboardingScreen extends StatelessWidget {
           loadSvg(context, "assets/svgs/2.svg"),
           loadSvg(context, "assets/svgs/3.svg"),
           Future.delayed(Duration(seconds: kLoaderTime)),
-          // Future.delayed(Duration(minutes: 30)),
         ],
         backgroundColor: _themeProvider.darkTheme ? kDetaitNavbarColorDark : kDetaitNavbarColorLight,
         child: Stack(

@@ -5,10 +5,12 @@ class RoundedGradientButtonWidget extends StatelessWidget {
 
   final String? btnText;
   final VoidCallback buttonAction;
+  final double? usePadding;
 
   RoundedGradientButtonWidget({
     @required this.btnText,
     required this.buttonAction,
+    this.usePadding = kDefaultPadding,
   });
 
   @override
@@ -26,7 +28,7 @@ class RoundedGradientButtonWidget extends StatelessWidget {
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: const StadiumBorder(),
         child: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
+          padding: EdgeInsets.all(usePadding!),
           child: Text(
             this.btnText!,
             style: TextStyle(

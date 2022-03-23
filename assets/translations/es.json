@@ -4,9 +4,9 @@
   "general_google": "Google",
   "general_facebook": "Facebook",
 
-  "onboarding_slider1_title": "Empieza buscando",
-  "onboarding_slider1_description": "Explora los mejores sitios para comer cerca tuyo.",
-  "onboarding_slider2_title": "Realiza tu orden",
+  "onboarding_slider1_title": "¡Bienvenido!",
+  "onboarding_slider1_description": "Con Appetit explora los mejores sitios para comer cerca tuyo.",
+  "onboarding_slider2_title": "Mira el menú",
   "onboarding_slider2_description": "Escanea el código QR de la mesa para ver el menú y realizar tu pedido.",
   "onboarding_slider3_title": "¡Listo!",
   "onboarding_slider3_description": "Disfruta tu pedido con la mejor atención, en los mejores lugares.",
@@ -37,7 +37,7 @@
   "coffe-cup_l_loading": "Sirviendo...",
   "salt-and-pepper_l_loading": "Salando...",
 
-  "login_area_title": "Ingresar",
+  "login_area_title": "Inicio",
   "login_area_subtitle": "Completa los datos para ingresar",
   "login_btn": "Iniciar sesión",
   "login_not_account": "¿No tienes cuenta?",

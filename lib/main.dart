@@ -79,8 +79,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         routes: appRoutes,
-        // home: showOnboarding ? LoginScreen() : OnboardingScreen(),
-        home: OnboardingScreen(),
+        home: showOnboarding ? LoginScreen() : OnboardingScreen(),
       ),
     );
   }

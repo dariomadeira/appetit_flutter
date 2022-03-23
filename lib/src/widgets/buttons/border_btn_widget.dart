@@ -13,6 +13,7 @@ class BorderBtnWidget extends StatelessWidget {
     required this.btnAccion,
     this.btnWidth = 0,
     this.btnAsset = '',
+    this.backColor = Colors.transparent,
   }) : super(key: key);
 
   /// Texto del botón
@@ -23,6 +24,8 @@ class BorderBtnWidget extends StatelessWidget {
   final VoidCallback? btnAccion;
   /// Largo del botón
   final double btnWidth;
+  /// color de fondo
+  final Color backColor;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +35,12 @@ class BorderBtnWidget extends StatelessWidget {
     return OutlinedButton(
       onPressed: btnAccion,
       style: OutlinedButton.styleFrom(
+        backgroundColor: backColor,
         primary: kTextLight,
         minimumSize: btnWidth != 0 ? Size(btnWidth, 48) : null,
         side: BorderSide(
-          color: _themeProvider.darkTheme ? kTextDark.withOpacity(0.2) : kTextLight.withOpacity(0.2),
-          width: kDefaultBorder
+          color: _themeProvider.darkTheme ? kTextDark.withOpacity(0.6) : kTextLight.withOpacity(0.6),
+          width: kDefaultBorder + 0.2,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),

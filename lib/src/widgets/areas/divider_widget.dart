@@ -24,7 +24,7 @@ class DividerWidget extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Divider(
-            color: _themeProvider.darkTheme ? kTextDark.withOpacity(0.2) : kTextLight.withOpacity(0.2),
+            color: _themeProvider.darkTheme ? kTextDark : kTextLight,
             thickness: kDefaultBorder,
           )
         ),
@@ -36,14 +36,15 @@ class DividerWidget extends StatelessWidget {
               dividerText,
               style: TextStyle(
                 fontSize: 16,
-                color: _themeProvider.darkTheme ? kTextDark : kTextLight,
+                fontWeight: FontWeight.w600,
+                color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
               ),
             ),
           ),
         ),
         Expanded(
           child: Divider(
-            color: _themeProvider.darkTheme ? kTextDark.withOpacity(0.2) : kTextLight.withOpacity(0.2),
+            color: _themeProvider.darkTheme ? kTextDark : kTextLight,
             thickness: kDefaultBorder,
           )
         ),
