@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-const double kDefaultPadding = 20;
+
 const kPrimaryColor = Color(0xFFE20000);
 const kSecondaryColor = Color(0xFFFF896D);
-const int kLoaderTime = 3;
+
 
 /// Color para los precios
 const kPriceColor = Color(0xFF378E42);
@@ -42,4 +42,29 @@ const kGeneralDark = Color(0xFFf2f2f2);
 
 
 /// ANCHO DEL BORDE DE LOS BOTONES
+
+
+
+
+
+
+/// generales
+const double kDefaultPadding = 20;
+const int kLoaderTime = 3;
 const double kDefaultBorder = 1.4;
+
+/// Light theme
+// const Color kSpecialPrimary = Color(0xFF6750A4);
+// const Color kSpecialBackground = Color(0xFFEADDFF);
+// const Color kSpecialSecondary = Color(0xFF625B71);
+// const Color kSpecialSurfaceVariant = Color(0xFFE7E0EC);
+// const Color kSpecialOnSurfaceVariant = Color(0xFF49454F);
+const Color kSpecialError = Color.fromARGB(255, 248, 102, 65);
+
+const Color kSpecialPrimary = Color(0xFFE20000);
+// const Color kSpecialSecondary = Color(0xFF6750A4);
+// const Color kSpecialTerciary = Color(0xFF6750A4);
+
+const kSpecialTextColor = Colors.black;
+const kSpecialGray = Color(0xff666667);
+

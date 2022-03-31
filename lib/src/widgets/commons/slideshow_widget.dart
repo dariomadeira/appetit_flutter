@@ -1,9 +1,10 @@
-import 'package:appetit/src/providers/theme_provider.dart';
-import 'package:appetit/src/widgets/buttons/rounded_gradient_btn_widget.dart';
+import 'package:appetit/src/helpers/colors_helper.dart';
+import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 // modelo de datos privado para el provider
 class _SliderModel with ChangeNotifier {
@@ -157,7 +158,7 @@ class _Dots extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: kDefaultPadding * 2,
+      height: 7.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(this.slidesCount, (index) => _Dot(index)),
@@ -273,7 +274,7 @@ class _Slide extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final totalSliders = Provider.of<_SliderModel>(context).slidersCount - 1;
-    final _themeProvider = Provider.of<ThemeProvider>(context);
+    final _colorsHelper = ColorsHelper();
 
     return Padding(
       padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
@@ -289,7 +290,7 @@ class _Slide extends StatelessWidget {
             this.title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 24.sp,
               color: kPrimaryColor,
               fontWeight: FontWeight.w900,
             ),
@@ -301,8 +302,8 @@ class _Slide extends StatelessWidget {
             this.description,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 18,
-              color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
+              fontSize: 14.sp,
+              color: _colorsHelper.darken( amount: 0.3, color: kSpecialPrimary),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -313,10 +314,9 @@ class _Slide extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             width: double.infinity,
             height: 60,
-            child: RoundedGradientButtonWidget(
+            child: RoundedBtnWidget(
+              btnAccion: this.finalsliderbutton,
               btnText: tr('general_btn_understood'),
-              buttonAction: this.finalsliderbutton,
-              usePadding: kDefaultPadding/2 + 4,
             ),
           ),
         ],

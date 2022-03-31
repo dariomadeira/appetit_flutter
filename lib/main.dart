@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,20 +68,33 @@ class _MyAppState extends State<MyApp> {
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: MaterialApp(
-        title: 'Appetit',
-        theme: ThemeData(
-          textTheme: GoogleFonts.quicksandTextTheme(
-            Theme.of(context).textTheme,
-          ),
-        ),
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        routes: appRoutes,
-        home: showOnboarding ? LoginScreen() : OnboardingScreen(),
-      ),
+      child: Sizer(
+        builder: (context, orientation, deviceType) {
+          return MaterialApp(
+            title: 'Appetit',
+            theme: ThemeData(
+              brightness: Brightness.light,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              textSelectionTheme: TextSelectionThemeData(
+                cursorColor: kSpecialTextColor,
+                selectionColor: kSpecialGray.withOpacity(0.2),
+                selectionHandleColor: kSpecialPrimary,
+              ),
+              textTheme: GoogleFonts.quicksandTextTheme(
+                Theme.of(context).textTheme,
+              ),
+              scaffoldBackgroundColor: Colors.white,
+            ),
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            routes: appRoutes,
+            // home: showOnboarding ? LoginScreen() : OnboardingScreen(),
+            home: OnboardingScreen(),
+          );
+        }
+      )
     );
   }
 }

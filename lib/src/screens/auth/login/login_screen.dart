@@ -1,35 +1,21 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/helpers/image_helper.dart';
-// import 'package:appetit/src/customs/snacks_customs.dart';
-// import 'package:appetit/src/helpers/colors_helper.dart';
-// import 'package:appetit/src/helpers/validations_helper.dart';
-import 'package:appetit/src/providers/theme_provider.dart';
-import 'package:appetit/src/widgets/appbars/general_appbar_widget.dart';
+import 'package:appetit/src/helpers/colors_helper.dart';
+import 'package:appetit/src/helpers/validations_helper.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
-import 'package:appetit/src/widgets/areas/divider_widget.dart';
-import 'package:appetit/src/widgets/buttons/border_btn_widget.dart';
+import 'package:appetit/src/widgets/buttons/big_btn_widget.dart';
 import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
-import 'package:appetit/src/widgets/buttons/rounded_gradient_btn_widget.dart';
-import 'package:appetit/src/widgets/commons/background_widget.dart';
-import 'package:appetit/src/widgets/commons/link_text_widget.dart';
-import 'package:appetit/src/widgets/commons/preload_widget.dart';
-// import 'package:appetit/src/widgets/states/loading_widget.dart';
+import 'package:appetit/src/widgets/inputs/simple_input_password_widget.dart';
+import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
-
-/// Pantalla de iniciar sesión
 class LoginScreen extends StatefulWidget {
 
-  /// Constructor
-  const LoginScreen({
-    Key? key
-  }) : super(key: key);
-
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -37,607 +23,233 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  // final _validationHelper = ValidationsHelper();
-  // final _colorsHelper = ColorsHelper();
-  // bool _obscureText = true;
+  final _validationHelper = ValidationsHelper();
+  ScrollController _scrollController = ScrollController();
+  bool _handleStatusBarColor = false;
+  double _decorationHeight = 100.w/2;
+
+  _scrollListener() {
+    if (_scrollController.offset >= _decorationHeight - kDefaultPadding - kDefaultPadding/2) {
+      if (_handleStatusBarColor != true) {
+        setState(() {
+          _handleStatusBarColor = true;
+        });
+      }
+    } else {
+      if (_handleStatusBarColor != false) {
+        setState(() {
+          _handleStatusBarColor = false;
+        });
+      }
+    }
+  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _scrollController.dispose();
     super.dispose();
-  }  
-  
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    
-    // final _translate = AppLocalizations.of(context).translate;
-    // final _auth = Provider.of<AuthProvider>(context);
-    final _themeProvider = Provider.of<ThemeProvider>(context);
+
+    final _colorsHelper = ColorsHelper();
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
-      statusBarColor: _themeProvider.darkTheme ? kDetaitNavbarColorDark : kDetaitNavbarColorLight,
-      systemNavigationBarColor: _themeProvider.darkTheme ? kDetaitNavbarColorDark : kDetaitNavbarColorLight,
-      systemNavigationBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
-    ));
-
-    // void _showPassword() {
-    //   setState(() {
-    //     _obscureText = !_obscureText;  
-    //   });
-    // }
-
-    // void _loginWithServices({String authService}) async {
-    //   AuthUser _loginResult;
-    //   if (authService == "GOOGLE") {
-    //     _loginResult = await _auth.googleLogin(context: context);
-    //   } else if (authService == "FACEBOOK") {
-    //     _loginResult = await _auth.facebookLogin(context: context);
-    //   }
-    //   if (_loginResult.authToken == null) {
-    //     wSnackError(
-    //       message: _loginResult.authMessage,
-    //       context: context
-    //     );
-    //   } else {
-    //     wSnackSuccess(
-    //       message: _loginResult.authMessage,
-    //       context: context
-    //     );
-    //     if (_loginResult.userPhone == "") {
-    //       await Navigator.pushNamedAndRemoveUntil(context, 'phone', (route) => false);
-    //     } else {
-    //       await Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-    //     }
-    //   }
-    // }
-
-    // void _loginNow() async {
-    //   AuthUser _loginResult = await _auth.singIn(
-    //     email: _emailController.text.trim(),
-    //     password: _passwordController.text.trim(),
-    //     context: context
-    //   );
-    //   if (_loginResult.authToken == null) {
-    //     wSnackError(
-    //       message: _loginResult.authMessage,
-    //       context: context
-    //     );
-    //   } else {
-    //     wSnackSuccess(
-    //       message: _loginResult.authMessage,
-    //       context: context
-    //     );
-    //     if (_loginResult.userPhone == "") {
-    //       await Navigator.pushNamedAndRemoveUntil(context, 'phone', (route) => false);
-    //     } else {
-    //       await Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-    //     }
-    //   }
-    // }
-
-    // return Scaffold(
-    //   appBar: GeneralAppbarWidget(
-    //     showAvatar: false,
-    //     showLogo: false,
-    //     backgroundColor: kPrimaryColor,
-    //   ),
-    //   body:Container(
-    //     width: MediaQuery.of(context).size.width,
-    //     height: MediaQuery.of(context).size.height,
-    //     child: Stack(
-    //       children: [
-    //         Container(
-    //           height: 170,
-    //           width: MediaQuery.of(context).size.width,
-    //           child: Container(),
-              
-    //           // FadeIn(
-    //           //   child:
-    //           //   Image.asset("assets/images/rest.png")
-    //           // ),
-
-    //           decoration: BoxDecoration(
-    //             gradient: LinearGradient(
-    //               begin: Alignment.topCenter,
-    //               end: Alignment.bottomCenter,
-    //               colors: [
-    //                 kPrimaryColor,
-    //                 _colorsHelper.darken(color: kPrimaryColor, amount: 0.3),
-    //               ]
-    //             )
-    //           ),
-    //         ),
-    //         Positioned.fill(
-    //           top: 150,
-    //           child: Container(
-    //             decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(kDefaultPadding),
-    //               color: kBackgroundLight,
-    //             ),
-    //             child: _auth.isLoading
-    //               ? const LoadingWidget(
-    //                 loadingMessage: 'login_process',
-    //               )
-    //               : SingleChildScrollView(
-    //                   physics: const BouncingScrollPhysics(),
-    //                   child: Padding(
-    //                     padding: EdgeInsets.only(
-    //                       bottom: kDefaultPadding,
-    //                       left: kDefaultPadding,
-    //                       right: kDefaultPadding,
-    //                     ),
-    //                     child: Column(
-    //                       crossAxisAlignment: CrossAxisAlignment.start,
-    //                       children: [
-    //                         const SizedBox(height: kDefaultPadding*2),
-    //                         Center(
-    //                           child: DividerTitleWidget(
-    //                             title: tr('login_area_title'),
-    //                             subTitle: tr('login_area_subtitle'),
-    //                             alignmentText: CrossAxisAlignment.center,
-    //                           ),
-    //                         ),
-    //                         const SizedBox(height: kDefaultPadding),
-    //                         Form(
-    //                           key: _formKey,
-    //                           child: Column(
-    //                             children: [
-    //                               SimpleInput(
-    //                                 icon: Icons.alternate_email,
-    //                                 placeholder: tr('general_email_hint'),
-    //                                 keyboardType: TextInputType.emailAddress,
-    //                                 textController: _emailController,
-    //                                 inputValidate: (value) {
-    //                                   bool _valid = _validationHelper.isValidEmail(value: value);
-    //                                   if (_valid) {
-    //                                     return {"status": true };
-    //                                   } else {
-    //                                     return {"status": false, "message" : tr('register_invalid_email')};
-    //                                   }
-    //                                 }
-    //                               ),
-    //                               const SizedBox(height: kDefaultPadding),
-    //                               SimpleInput(
-    //                                 icon: Icons.visibility_outlined,
-    //                                 placeholder: tr('register_password_hint'),
-    //                                 textController: _passwordController,
-    //                                 isPassword: _obscureText,
-    //                                 showPassword: _showPassword,
-    //                                 obscureText: true,
-    //                                 inputValidate: (value) {
-    //                                   bool _valid = _validationHelper.isValidPassword(value: value);
-    //                                   if (_valid) {
-    //                                     return {"status": true };
-    //                                   } else {
-    //                                     return {"status": false, "message" : tr('register_invalid_password')};
-    //                                   }
-    //                                 }
-    //                               ),
-    //                             ]
-    //                           ),
-    //                         ),
-    //                         const SizedBox(height: kDefaultPadding),
-    //                         Row(
-    //                           mainAxisAlignment: MainAxisAlignment.end,
-    //                           children: [
-    //                             LinkTextWidget(
-    //                               btnText: tr('login_reset_link'),
-    //                               onTap: () {
-    //                                 Navigator.pushNamed(context, 'reset');
-    //                               },
-    //                             ),
-    //                           ],
-    //                         ),
-    //                         const SizedBox(height: kDefaultPadding*3),
-    //                         Row(
-    //                           mainAxisAlignment: MainAxisAlignment.center,
-    //                           children: [
-    //                             RoundedBtnWidget(
-    //                               btnAccion: () {
-    //                                 if (_formKey.currentState.validate()) {
-    //                                   _loginNow();
-    //                                 }
-    //                               },
-    //                               // btnIcon: Icons.login,
-    //                               btnText: tr('login_btn'),
-    //                             ),
-    //                           ],
-    //                         ),
-    //                         const SizedBox(height: kDefaultPadding*3),
-    //                         Row(
-    //                           mainAxisAlignment: MainAxisAlignment.center,
-    //                           children: [
-    //                             Text(
-    //                               tr('login_not_account'),
-    //                               style: TextStyle(
-    //                                 fontSize: 16,
-    //                                 color: _themeProvider.darkTheme ? kTextDark : kTextLight,
-    //                               ),
-    //                             ),
-    //                             const SizedBox(width: kDefaultPadding/2),
-    //                             RoundedBtnWidget(
-    //                               btnAccion: () {
-    //                                 Navigator.pushNamed(context, 'register');
-    //                               },
-    //                               btnText: tr('login_register_btn'),
-    //                             ),
-    //                           ],
-    //                         ),
-    //                         const SizedBox(height: kDefaultPadding),
-    //                         DividerWidget(
-    //                           dividerText: tr('login_alternative'),
-    //                         ),
-    //                         const SizedBox(height: kDefaultPadding),
-    //                         Row(
-    //                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                           children: [
-    //                             BorderBtnWidget(
-    //                               btnText: tr('general_google'),
-    //                               btnAccion: () {
-    //                                 _loginWithServices(authService: "GOOGLE");
-    //                               },
-    //                               btnWidth: MediaQuery.of(context).size.width/2.6,
-    //                               btnAsset: 'assets/images/googleLogo.png',
-    //                             ),
-    //                             BorderBtnWidget(
-    //                               btnText: tr('general_facebook'),
-    //                               btnAccion: () {
-    //                                 _loginWithServices(authService: "FACEBOOK");
-    //                               },
-    //                               btnWidth: MediaQuery.of(context).size.width/2.6,
-    //                               btnAsset: 'assets/images/facebookLogo.png',
-    //                             ),
-    //                           ],
-    //                         ),
-    //                         const SizedBox(height: kDefaultPadding),
-    //                       ],
-    //                     ),
-    //                   ),
-    //               ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
-
-
-
-
-
-
-
-
-
-
-
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: _handleStatusBarColor ? _colorsHelper.darken(amount: 0.02,color: kSpecialError) : Colors.transparent,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));     
 
     return Scaffold(
-      appBar: GeneralAppbarWidget(
-        showAvatar: false,
-        // showLogo: false,
-        backgroundColor: _themeProvider.darkTheme ? kDetaitNavbarColorDark : kDetaitNavbarColorLight,
-      ),
-      body: PreloadWidget(
-        loadingFutures: [
-          loadSvg(context, _themeProvider.darkTheme ? "assets/svgs/background_d.svg" : "assets/svgs/background_l.svg"),
-          Future.delayed(Duration(seconds: kLoaderTime)),
-        ],
-        backgroundColor: _themeProvider.darkTheme ? kDetaitNavbarColorDark : kDetaitNavbarColorLight,
-        child: Stack(
-          children: <Widget>[
-            BackgroundApp(
-              svgAsset: _themeProvider.darkTheme ? "assets/svgs/background_d.svg" : "assets/svgs/background_l.svg",
-              useLoader: false,
-            ),
-            SafeArea(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    bottom: kDefaultPadding,
-                    left: kDefaultPadding,
-                    right: kDefaultPadding,
+      body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (OverscrollIndicatorNotification? overscroll) {
+            overscroll!.disallowIndicator();
+            return true;
+          },
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    height: _decorationHeight + kDefaultPadding,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Svg('assets/svgs/login.svg'),
+                        fit: BoxFit.cover
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          kPrimaryColor,
+                          kSecondaryColor,
+                        ]
+                      )
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width,
-                      //   height: MediaQuery.of(context).size.width/2.6,
-                      //   child: Placeholder(),
-                      // ),
-                      const SizedBox(height: kDefaultPadding),
-                      DividerTitleWidget(
-                        title: tr('login_area_title'),
-                        subTitle: tr('login_area_subtitle'),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            // SimpleInput(
-                            //   icon: Icons.alternate_email,
-                            //   placeholder: tr('general_email_hint'),
-                            //   keyboardType: TextInputType.emailAddress,
-                            //   textController: _emailController,
-                            //   inputValidate: (value) {
-                            //     bool _valid = _validationHelper.isValidEmail(value: value);
-                            //     if (_valid) {
-                            //       return {"status": true };
-                            //     } else {
-                            //       return {"status": false, "message" : tr('register_invalid_email')};
-                            //     }
-                            //   }
-                            // ),
-                            const SizedBox(height: kDefaultPadding),
-                            // SimpleInput(
-                            //   icon: Icons.visibility_outlined,
-                            //   placeholder: tr('register_password_hint'),
-                            //   textController: _passwordController,
-                            //   isPassword: _obscureText,
-                            //   showPassword: _showPassword,
-                            //   obscureText: true,
-                            //   inputValidate: (value) {
-                            //     bool _valid = _validationHelper.isValidPassword(value: value);
-                            //     if (_valid) {
-                            //       return {"status": true };
-                            //     } else {
-                            //       return {"status": false, "message" : tr('register_invalid_password')};
-                            //     }
-                            //   }
-                            // ),
-                          ]
+                  Padding(
+                    padding: const EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DividerTitleWidget(
+                          title: tr('login_area_title'),
+                          subTitle: tr('login_area_subtitle'),
                         ),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          LinkTextWidget(
-                            btnText: tr('login_reset_link'),
-                            onTap: () {
+                        const SizedBox(height: kDefaultPadding),
+                        Form(
+                          key: _formKey,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          child: Column(
+                            children: [
+                              SimpleInputWidget(
+                                textController: _emailController,
+                                placeholder: tr('general_email_hint'),
+                                inputValidate: (value) {
+                                  bool _valid = _validationHelper.isValidEmail(value: value);
+                                  if (_valid) {
+                                    return {
+                                      "status": true
+                                    };
+                                  } else {
+                                    return {
+                                      "status": false,
+                                      "message" : tr('register_invalid_email')
+                                    };
+                                  }
+                                }
+                              ),
+                              const SizedBox(height: kDefaultPadding),
+                              SimpleInputPasswordWidget(
+                                textController: _passwordController,
+                                placeholder: tr('register_password_hint'),
+                                inputValidate: (value) {
+                                  bool _valid = _validationHelper.isValidPassword(value: value);
+                                  if (_valid) {
+                                    return {
+                                      "status": true
+                                    };
+                                  } else {
+                                    return {
+                                      "status": false,
+                                      "message" : tr('register_invalid_password')
+                                    };
+                                  }
+                                }
+                              ),
+                            ]
+                          ),
+                        ),
+                        const SizedBox(height: kDefaultPadding*2),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundedBtnWidget(
+                              btnAccion: () {
+                                if (_formKey.currentState!.validate()) {
+                                  // _loginNow();
+                                }
+                              },
+                              btnText: tr('login_btn'),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: kDefaultPadding*2),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              tr('login_not_account'),
+                              style: TextStyle(
+                                fontSize: 11.sp,
+                                color: _colorsHelper.darken( amount: 0.3, color: kSpecialPrimary),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(width: kDefaultPadding/2),
+                            RoundedBtnWidget(
+                              btnAccion: () {
+                                Navigator.pushNamed(context, 'register');
+                              },
+                              btnText: tr('login_register_btn'),
+                              isLighten: true,
+                              btnColor: Colors.green,
+                              variation: 2,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: kDefaultPadding),
+                        Center(
+                          child: RoundedBtnWidget(
+                            btnAccion: () {
                               Navigator.pushNamed(context, 'reset');
                             },
+                            btnText: tr('login_reset_link'),
+                            isLighten: true,
+                            btnColor: Colors.teal[400],
+                            variation: 2,
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: kDefaultPadding*3),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RoundedGradientButtonWidget(
-                            buttonAction: () {
-                              if (_formKey.currentState!.validate()) {
-                                // _loginNow();
-                              }
-                            },
-                            btnText: tr('login_btn'),
-                            usePadding: kDefaultPadding/2 + 4,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: kDefaultPadding*3),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            tr('login_not_account'),
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
+                        ),
+                        const SizedBox(height: kDefaultPadding*2),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            BigBtnWidget(
+                              btnAsset: 'assets/images/googleLogo.png',
+                              btnSecondLine: tr('general_google'),
+                              btnFirstLine: "Iniciar con",
+                              btnAccion: () {
+                                // _loginWithServices(authService: "GOOGLE");
+                              },
+                              btnWidth: 40.w,
+                              btnColor: kSpecialGray,
                             ),
-                          ),
-                          const SizedBox(width: kDefaultPadding/2),
-                          RoundedGradientButtonWidget(
-                            buttonAction: () {
-                              Navigator.pushNamed(context, 'register');
-                            },
-                            btnText: tr('login_register_btn'),
-                            usePadding: kDefaultPadding/2 + 4,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      DividerWidget(
-                        dividerText: tr('login_alternative'),
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          BorderBtnWidget(
-                            btnText: tr('general_google'),
-                            btnAccion: () {
-                              // _loginWithServices(authService: "GOOGLE");
-                            },
-                            btnWidth: MediaQuery.of(context).size.width/2.6,
-                            btnAsset: 'assets/images/googleLogo.png',
-                            backColor: Colors.white,
-                          ),
-                          BorderBtnWidget(
-                            btnText: tr('general_facebook'),
-                            btnAccion: () {
-                              // _loginWithServices(authService: "FACEBOOK");
-                            },
-                            btnWidth: MediaQuery.of(context).size.width/2.6,
-                            btnAsset: 'assets/images/facebookLogo.png',
-                            backColor: Colors.white,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: kDefaultPadding),
-                    ],
+                            BigBtnWidget(
+                              btnAsset: 'assets/images/facebookLogo.png',
+                              btnSecondLine: tr('general_facebook'),
+                              btnFirstLine: "Iniciar con",
+                              btnAccion: () {
+                                // _loginWithServices(authService: "FACEBOOK");
+                              },
+                              btnWidth: 40.w,
+                              btnColor: kSpecialGray,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: kDefaultPadding),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                top: _decorationHeight,
+                child: Container(
+                  width: 100.w,
+                  height: kDefaultPadding + 5,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                    color: Colors.white,
                   ),
                 ),
-            ),
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
-    
-    
-    
-    
-    
-    
-    
-    
-    // Scaffold(
-    //   appBar: GeneralAppbarWidget(
-    //     showAvatar: false,
-    //     showLogo: false,
-    //   ),
-    //   // body: _auth.isLoading
-    //   //   ? const LoadingWidget()
-    //   //   : SingleChildScrollView(
-    //   body: SingleChildScrollView(
-    //         physics: const BouncingScrollPhysics(),
-    //         child: Padding(
-    //           padding: EdgeInsets.only(
-    //             bottom: kDefaultPadding,
-    //             left: kDefaultPadding,
-    //             right: kDefaultPadding,
-    //           ),
-    //           child: Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Container(
-    //                 width: MediaQuery.of(context).size.width,
-    //                 height: MediaQuery.of(context).size.width/2.6,
-    //                 child: Placeholder(),
-    //               ),
-    //               const SizedBox(height: kDefaultPadding),
-    //               DividerTitleWidget(
-    //                 title: tr('login_area_title'),
-    //                 subTitle: tr('login_area_subtitle'),
-    //               ),
-    //               const SizedBox(height: kDefaultPadding),
-    //               Form(
-    //                 key: _formKey,
-    //                 child: Column(
-    //                   children: [
-    //                     // SimpleInput(
-    //                     //   icon: Icons.alternate_email,
-    //                     //   placeholder: tr('general_email_hint'),
-    //                     //   keyboardType: TextInputType.emailAddress,
-    //                     //   textController: _emailController,
-    //                     //   inputValidate: (value) {
-    //                     //     bool _valid = _validationHelper.isValidEmail(value: value);
-    //                     //     if (_valid) {
-    //                     //       return {"status": true };
-    //                     //     } else {
-    //                     //       return {"status": false, "message" : tr('register_invalid_email')};
-    //                     //     }
-    //                     //   }
-    //                     // ),
-    //                     const SizedBox(height: kDefaultPadding),
-    //                     // SimpleInput(
-    //                     //   icon: Icons.visibility_outlined,
-    //                     //   placeholder: tr('register_password_hint'),
-    //                     //   textController: _passwordController,
-    //                     //   isPassword: _obscureText,
-    //                     //   showPassword: _showPassword,
-    //                     //   obscureText: true,
-    //                     //   inputValidate: (value) {
-    //                     //     bool _valid = _validationHelper.isValidPassword(value: value);
-    //                     //     if (_valid) {
-    //                     //       return {"status": true };
-    //                     //     } else {
-    //                     //       return {"status": false, "message" : tr('register_invalid_password')};
-    //                     //     }
-    //                     //   }
-    //                     // ),
-    //                   ]
-    //                 ),
-    //               ),
-    //               const SizedBox(height: kDefaultPadding),
-    //               Row(
-    //                 mainAxisAlignment: MainAxisAlignment.end,
-    //                 children: [
-    //                   LinkTextWidget(
-    //                     btnText: tr('login_reset_link'),
-    //                     onTap: () {
-    //                       Navigator.pushNamed(context, 'reset');
-    //                     },
-    //                   ),
-    //                 ],
-    //               ),
-    //               const SizedBox(height: kDefaultPadding*3),
-    //               Row(
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //                 children: [
-    //                   RoundedBtnWidget(
-    //                     btnAccion: () {
-    //                       if (_formKey.currentState!.validate()) {
-    //                         // _loginNow();
-    //                       }
-    //                     },
-    //                     btnText: tr('login_btn'),
-    //                   ),
-    //                 ],
-    //               ),
-    //               const SizedBox(height: kDefaultPadding*3),
-    //               Row(
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //                 children: [
-    //                   Text(
-    //                     tr('login_not_account'),
-    //                     style: TextStyle(
-    //                       fontSize: 16,
-    //                       color: _themeProvider.darkTheme ? kTextDark : kTextLight,
-    //                     ),
-    //                   ),
-    //                   const SizedBox(width: kDefaultPadding/2),
-    //                   RoundedBtnWidget(
-    //                     btnAccion: () {
-    //                       Navigator.pushNamed(context, 'register');
-    //                     },
-    //                     btnText: tr('login_register_btn'),
-    //                   ),
-    //                 ],
-    //               ),
-    //               const SizedBox(height: kDefaultPadding),
-    //               DividerWidget(
-    //                 dividerText: tr('login_alternative'),
-    //               ),
-    //               const SizedBox(height: kDefaultPadding),
-    //               Row(
-    //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                 children: [
-    //                   BorderBtnWidget(
-    //                     btnText: tr('general_google'),
-    //                     btnAccion: () {
-    //                       // _loginWithServices(authService: "GOOGLE");
-    //                     },
-    //                     btnWidth: MediaQuery.of(context).size.width/2.6,
-    //                     btnAsset: 'assets/images/googleLogo.png',
-    //                   ),
-    //                   BorderBtnWidget(
-    //                     btnText: tr('general_facebook'),
-    //                     btnAccion: () {
-    //                       // _loginWithServices(authService: "FACEBOOK");
-    //                     },
-    //                     btnWidth: MediaQuery.of(context).size.width/2.6,
-    //                     btnAsset: 'assets/images/facebookLogo.png',
-    //                   ),
-    //                 ],
-    //               ),
-    //               const SizedBox(height: kDefaultPadding),
-    //             ],
-    //           ),
-    //         ),
-    //     ),
-    // );
-
-
-
-
-
   }
 }

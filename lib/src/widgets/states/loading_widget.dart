@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'dart:math';
-
+import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
 
 /// ANIMACIÓN DE CARGA
@@ -107,7 +107,7 @@ class LoadingWidget extends StatelessWidget {
                   child: Text(
                     simpleLoad ? _defaultMessage : _listTexts[_randomNumber],
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14.sp,
                       color: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
                       fontWeight: FontWeight.w800,
                     ),

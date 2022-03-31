@@ -1,7 +1,7 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/providers/theme_provider.dart';
+import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 /// Crea un botón con border
 class BorderBtnWidget extends StatelessWidget {
@@ -30,7 +30,7 @@ class BorderBtnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _themeProvider = Provider.of<ThemeProvider>(context);
+    final _colorsHelper = ColorsHelper();
 
     return OutlinedButton(
       onPressed: btnAccion,
@@ -39,7 +39,7 @@ class BorderBtnWidget extends StatelessWidget {
         primary: kTextLight,
         minimumSize: btnWidth != 0 ? Size(btnWidth, 48) : null,
         side: BorderSide(
-          color: _themeProvider.darkTheme ? kTextDark.withOpacity(0.6) : kTextLight.withOpacity(0.6),
+          color: _colorsHelper.lighten(amount: 0.6, color: kSpecialGray),
           width: kDefaultBorder + 0.2,
         ),
         shape: RoundedRectangleBorder(
@@ -50,9 +50,9 @@ class BorderBtnWidget extends StatelessWidget {
         ? Text(
           btnText,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 11.sp,
             fontWeight: FontWeight.w400,
-            color: _themeProvider.darkTheme ? kTextDark : kTextLight,
+            color: kSpecialGray,
           ),
         )
         : Row(
@@ -67,9 +67,9 @@ class BorderBtnWidget extends StatelessWidget {
             Text(
               btnText,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 11.sp,
                 fontWeight: FontWeight.w400,
-                color: _themeProvider.darkTheme ? kTextDark : kTextLight,
+                color: kSpecialGray,
               ),
             ),
           ],

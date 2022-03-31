@@ -1,7 +1,7 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/providers/theme_provider.dart';
+import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 /// Crea un título destacado
 class DividerTitleWidget extends StatelessWidget {
@@ -27,8 +27,8 @@ class DividerTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _themeProvider = Provider.of<ThemeProvider>(context);
-    
+    final _colorsHelper = ColorsHelper();
+
     return Padding(
       padding: useTopPadding ? const EdgeInsets.only(top: kDefaultPadding/2) : EdgeInsets.zero,
       child: Column(
@@ -37,10 +37,10 @@ class DividerTitleWidget extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              fontSize: 26,
-              color: kSecondaryColor,
+              fontSize: 21.sp,
+              color: kSpecialPrimary,
               height: 1,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -51,9 +51,9 @@ class DividerTitleWidget extends StatelessWidget {
             child: Text(
               subTitle,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 12.sp,
+                color: _colorsHelper.darken( amount: 0.3, color: kSpecialPrimary),
                 fontWeight: FontWeight.w600,
-                color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

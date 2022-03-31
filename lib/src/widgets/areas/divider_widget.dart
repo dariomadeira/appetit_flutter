@@ -1,31 +1,41 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/providers/theme_provider.dart';
+import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 /// Divisor de áreas
 class DividerWidget extends StatelessWidget {
 
+  /// Texto para el divisor
+  final String dividerText;
+  /// Mostrar linea
+  final bool showLines;
+  /// Tamaño deñ borde
+  final double thicknessBorder;
+
   /// Constructor
   const DividerWidget({
     Key? key,
-    this.dividerText = ''
+    required this.dividerText,
+    this.showLines = false,
+    this.thicknessBorder = kDefaultBorder,
   }) : super(key: key);
 
-  /// Texto para el divisor
-  final String dividerText;
 
   @override
   Widget build(BuildContext context) {
 
-    final _themeProvider = Provider.of<ThemeProvider>(context);
+    final _colorsHelper = ColorsHelper();
 
     return Row(
       children: <Widget>[
         Expanded(
-          child: Divider(
-            color: _themeProvider.darkTheme ? kTextDark : kTextLight,
-            thickness: kDefaultBorder,
+          child: Visibility(
+            visible: showLines,
+            child: Divider(
+              color: kSpecialPrimary,
+              thickness: thicknessBorder,
+            ),
           )
         ),
         Visibility(
@@ -35,17 +45,20 @@ class DividerWidget extends StatelessWidget {
             child: Text(
               dividerText,
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: _themeProvider.darkTheme ? kGeneralDark : kGeneralLight,
+                fontSize: 11.sp,
+                color: _colorsHelper.darken( amount: 0.3, color: kSpecialPrimary),
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
         ),
         Expanded(
-          child: Divider(
-            color: _themeProvider.darkTheme ? kTextDark : kTextLight,
-            thickness: kDefaultBorder,
+          child: Visibility(
+            visible: showLines,
+            child: Divider(
+              color: kSpecialPrimary,
+              thickness: thicknessBorder,
+            ),
           )
         ),
       ]

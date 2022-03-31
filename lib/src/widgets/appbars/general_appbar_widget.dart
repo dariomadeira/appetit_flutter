@@ -7,6 +7,7 @@ import 'package:appetit/src/widgets/commons/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 /// Appbar para toda la app
 class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -63,7 +64,7 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
       bottom: false,
       child: Container(
         height: 56,
-        width: MediaQuery.of(context).size.width,
+        width: 100.w,
         color: backgroundColor != null ? backgroundColor : _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,
         child: Row(
           children: [

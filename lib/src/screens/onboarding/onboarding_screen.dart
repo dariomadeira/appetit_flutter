@@ -10,6 +10,7 @@ import 'package:appetit/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class OnboardingScreen extends StatelessWidget {
   @override
@@ -47,8 +48,8 @@ class OnboardingScreen extends StatelessWidget {
                     height: kDefaultPadding,
                   ),
                   Container(
-                    width: double.infinity,
-                    height: kDefaultPadding + kDefaultPadding/2,
+                    width: 100.w,
+                    height: 3.5.h,
                     child: SvgPicture.asset("assets/svgs/appLogo.svg"),
                   ),
                   Expanded(

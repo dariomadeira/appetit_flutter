@@ -11,7 +11,7 @@ class ColorsHelper {
   Color calculateBGColor({
     Color? color,
     BuildContext? context,
-    double opacity = 0.2
+    double opacity = 0.16
   }) {
     final _themeProvider = Provider.of<ThemeProvider>(context!, listen: false);
     if (_themeProvider.darkTheme) {
@@ -30,7 +30,7 @@ class ColorsHelper {
     if (_themeProvider.darkTheme) {
       return color!;
     } else {
-      return color!.withOpacity(0.4);
+      return color!.withOpacity(0.5);
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:appetit/constants.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 /// Texto con link
 class LinkTextWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class LinkTextWidget extends StatelessWidget {
     Key? key, 
     required this.onTap,
     required this.btnText,
-    this.linkColor = kPrimaryColor,
+    this.linkColor = kTextLight,
   }) : super(key: key);  
 
   /// Acción al tocar
@@ -22,21 +22,16 @@ class LinkTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: btnText,
-            style: TextStyle(
-              fontSize: 14,
-              color: linkColor,
-              decoration: TextDecoration.underline,
-              fontWeight: FontWeight.w400,
-            ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = onTap,
-          ),
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Text(
+        btnText,
+        style: TextStyle(
+          fontSize: 11.sp,
+          color: kSpecialPrimary,
+          fontWeight: FontWeight.w600,
+          // decoration: TextDecoration.underline,
+        ),
       ),
     );
   }
