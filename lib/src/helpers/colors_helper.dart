@@ -30,7 +30,7 @@ class ColorsHelper {
     if (_themeProvider.darkTheme) {
       return color!;
     } else {
-      return color!.withOpacity(0.5);
+      return color!.withOpacity(0.6);
     }
   }
 

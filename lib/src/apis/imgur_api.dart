@@ -14,11 +14,11 @@ class ImgurApi {
   /// Cargar la imágen
   Future<HttpResponses> loadImage({
     required BuildContext context,
-    required String filePath
+    String? filePath
   }) async {
     try {
       FormData _formData = FormData.fromMap({
-        'image': await MultipartFile.fromFile(filePath, filename: 'dp')
+        'image': await MultipartFile.fromFile(filePath!, filename: 'dp')
       });
       final response = await _dio.post('https://api.imgur.com/3/image', 
         options: Options(

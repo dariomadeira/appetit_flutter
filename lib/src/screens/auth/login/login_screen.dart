@@ -9,6 +9,7 @@ import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:focus_detector/focus_detector.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
 
@@ -64,193 +65,190 @@ class _LoginScreenState extends State<LoginScreen> {
     final _colorsHelper = ColorsHelper();
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.light,
       statusBarColor: _handleStatusBarColor ? kSpecialPrimary : Colors.transparent,
       systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
-    ));     
+    ));
 
-    return Scaffold(
-      body: NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: (OverscrollIndicatorNotification? overscroll) {
-            overscroll!.disallowIndicator();
-            return true;
-          },
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Stack(
-                    children: [
-                      Container(
-                        height: _decorationHeight + kDefaultPadding*2,
-                        width: 100.w,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: Svg('assets/svgs/login.svg'),
-                            fit: BoxFit.cover
-                          ),
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              kPrimaryColor,
-                              kSecondaryColor,
-                            ]
-                          )
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+    return FocusDetector(
+      onVisibilityGained: () {
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.light,
+          statusBarColor: _handleStatusBarColor ? kSpecialPrimary : Colors.transparent,
+        ));
+      },
+      child: Scaffold(
+        body: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: (OverscrollIndicatorNotification? overscroll) {
+              overscroll!.disallowIndicator();
+              return true;
+            },
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    Stack(
                       children: [
-                        DividerTitleWidget(
-                          title: tr('login_area_title'),
-                          subTitle: tr('login_area_subtitle'),
-                        ),
-                        const SizedBox(height: kDefaultPadding),
-                        Form(
-                          key: _formKey,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          child: Column(
-                            children: [
-                              SimpleInputWidget(
-                                textController: _emailController,
-                                placeholder: tr('general_email_hint'),
-                                inputValidate: (value) {
-                                  bool _valid = _validationHelper.isValidEmail(value: value);
-                                  if (_valid) {
-                                    return {
-                                      "status": true
-                                    };
-                                  } else {
-                                    return {
-                                      "status": false,
-                                      "message" : tr('register_invalid_email')
-                                    };
-                                  }
-                                }
-                              ),
-                              const SizedBox(height: kDefaultPadding),
-                              SimpleInputPasswordWidget(
-                                textController: _passwordController,
-                                placeholder: tr('register_password_hint'),
-                                inputValidate: (value) {
-                                  bool _valid = _validationHelper.isValidPassword(value: value);
-                                  if (_valid) {
-                                    return {
-                                      "status": true
-                                    };
-                                  } else {
-                                    return {
-                                      "status": false,
-                                      "message" : tr('register_invalid_password')
-                                    };
-                                  }
-                                }
-                              ),
-                            ]
+                        Container(
+                          height: _decorationHeight + kDefaultPadding*2,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: Svg('assets/svgs/login.svg'),
+                              fit: BoxFit.cover
+                            ),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                kPrimaryColor,
+                                kSecondaryColor,
+                              ]
+                            )
                           ),
                         ),
-                        const SizedBox(height: kDefaultPadding*2),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RoundedBtnWidget(
-                              btnAccion: () {
-                                if (_formKey.currentState!.validate()) {
-                                  // _loginNow();
-                                }
-                              },
-                              btnText: tr('login_btn'),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: kDefaultPadding*2),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              tr('login_not_account'),
-                              style: TextStyle(
-                                fontSize: 11.sp,
-                                color: _colorsHelper.darken( amount: 0.3, color: kSpecialPrimary),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(width: kDefaultPadding/2),
-                            RoundedBtnWidget(
-                              btnAccion: () {
-                                Navigator.pushNamed(context, 'register');
-                              },
-                              btnText: tr('login_register_btn'),
-                              isLighten: true,
-                              btnColor: Colors.green,
-                              variation: 2,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: kDefaultPadding),
-                        Center(
-                          child: RoundedBtnWidget(
-                            btnAccion: () {
-                              Navigator.pushNamed(context, 'reset');
-                            },
-                            btnText: tr('login_reset_link'),
-                            isLighten: true,
-                            btnColor: Colors.teal[400],
-                            variation: 2,
-                          ),
-                        ),
-                        const SizedBox(height: kDefaultPadding*2),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            BigBtnWidget(
-                              btnAsset: 'assets/images/googleLogo.png',
-                              btnSecondLine: tr('general_google'),
-                              btnFirstLine: tr('general_start_from'),
-                              btnAccion: () {
-                                // _loginWithServices(authService: "GOOGLE");
-                              },
-                              btnWidth: 40.w,
-                              btnColor: Color(0xffc59326),
-                            ),
-                            BigBtnWidget(
-                              btnAsset: 'assets/images/facebookLogo.png',
-                              btnSecondLine: tr('general_facebook'),
-                              btnFirstLine: tr('general_start_from'),
-                              btnAccion: () {
-                                // _loginWithServices(authService: "FACEBOOK");
-                              },
-                              btnWidth: 40.w,
-                              btnColor: Color(0xff3278ef),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: kDefaultPadding),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              Positioned(
-                top: _decorationHeight + kDefaultPadding,
-                child: Container(
-                  width: 100.w,
-                  height: kDefaultPadding + 5,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(_handleStatusBarColor ? 0 : 20)),
-                    color: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          DividerTitleWidget(
+                            title: tr('login_area_title'),
+                            subTitle: tr('login_area_subtitle'),
+                          ),
+                          const SizedBox(height: kDefaultPadding),
+                          Form(
+                            key: _formKey,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            child: Column(
+                              children: [
+                                SimpleInputWidget(
+                                  textController: _emailController,
+                                  placeholder: tr('general_email_hint'),
+                                  inputValidate: (value) {
+                                    bool _valid = _validationHelper.isValidEmail(value: value);
+                                    if (_valid) {
+                                      return {
+                                        "status": true
+                                      };
+                                    } else {
+                                      return {
+                                        "status": false,
+                                        "message" : tr('register_invalid_email')
+                                      };
+                                    }
+                                  }
+                                ),
+                                const SizedBox(height: kDefaultPadding),
+                                SimpleInputPasswordWidget(
+                                  textController: _passwordController,
+                                  placeholder: tr('register_password_hint'),
+                                  inputValidate: (value) {
+                                    bool _valid = _validationHelper.isValidPassword(value: value);
+                                    if (_valid) {
+                                      return {
+                                        "status": true
+                                      };
+                                    } else {
+                                      return {
+                                        "status": false,
+                                        "message" : tr('register_invalid_password')
+                                      };
+                                    }
+                                  }
+                                ),
+                              ]
+                            ),
+                          ),
+                          const SizedBox(height: kDefaultPadding*2.2),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundedBtnWidget(
+                                btnAccion: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // _loginNow();
+                                  }
+                                },
+                                btnText: tr('login_btn'),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: kDefaultPadding*2.2),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              BigBtnWidget(
+                                btnIcon: Icons.key,
+                                btnFirstLine: tr('login_reset_fl'),
+                                btnSecondLine: tr('login_reset_sl'),
+                                btnAccion: () {
+                                  // _loginWithServices(authService: "GOOGLE");
+                                },
+                                btnWidth: 41.w,
+                                btnColor: Colors.teal[400],
+                              ),
+                              BigBtnWidget(
+                                btnFirstLine: tr('login_register_btn_fl'),
+                                btnSecondLine: tr('login_register_btn_sl'),
+                                btnIcon: Icons.person_add_alt,
+                                btnAccion: () {
+                                  Navigator.pushNamed(context, 'register');
+                                },
+                                btnWidth: 41.w,
+                                btnColor: Colors.green,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: kDefaultPadding),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              BigBtnWidget(
+                                btnAsset: 'assets/images/googleLogo.png',
+                                btnFirstLine: tr('general_start_from'),
+                                btnSecondLine: tr('general_google'),
+                                btnAccion: () {
+                                  // _loginWithServices(authService: "GOOGLE");
+                                },
+                                btnWidth: 41.w,
+                                btnColor: Color(0xffFFAB00),
+                              ),
+                              BigBtnWidget(
+                                btnAsset: 'assets/images/facebookLogo.png',
+                                btnFirstLine: tr('general_start_from'),
+                                btnSecondLine: tr('general_facebook'),
+                                btnAccion: () {
+                                  // _loginWithServices(authService: "FACEBOOK");
+                                },
+                                btnWidth: 41.w,
+                                btnColor: Color(0xff3278ef),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: kDefaultPadding),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  top: _decorationHeight + kDefaultPadding,
+                  child: Container(
+                    width: 100.w,
+                    height: kDefaultPadding + 5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(_handleStatusBarColor ? 0 : 20)),
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

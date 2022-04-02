@@ -40,20 +40,22 @@ class AuthPhotoProvider with ChangeNotifier {
     // if (updateProfile) {
     //   currentUser.userProfilePicture = '';
     // }
-    // addPhotoUrl="";
-    // notifyListeners();
-    final HttpResponses _response = await _imgurApi.loadImage(
-      context: context,
-      filePath: image!.path,
-    );
-    if (_response.data != null) {
-      if (_response.data['status'] == 200) {
-        addPhotoUrl = _response.data['data']['link'];
-        _result = true;
-        // if (updateProfile) {
-        //   await _auth.currentUser.updatePhotoURL(addPhotoUrl);
-        //   getLoginData();
-        // }
+    addPhotoUrl="";
+    notifyListeners();
+    if (image != null) {
+      final HttpResponses _response = await _imgurApi.loadImage(
+        context: context,
+        filePath: image.path,
+      );
+      if (_response.data != null) {
+        if (_response.data['status'] == 200) {
+          addPhotoUrl = _response.data['data']['link'];
+          _result = true;
+          // if (updateProfile) {
+          //   await _auth.currentUser.updatePhotoURL(addPhotoUrl);
+          //   getLoginData();
+          // }
+        }
       }
     }
     isLoadingImg = false;

@@ -40,7 +40,7 @@ void sheetSelectphoto({
                     Navigator.pop(context);
                     actionCamera();
                   },
-                  btnWidth: 40.w,
+                  btnWidth: 41.w,
                   btnColor: Colors.orange[600],
                   btnIcon: Icons.camera_alt_outlined,
                 ),
@@ -51,7 +51,7 @@ void sheetSelectphoto({
                     Navigator.pop(context);
                     actionGallery();
                   },
-                  btnWidth: 40.w,
+                  btnWidth: 41.w,
                   btnIcon: Icons.collections,
                   btnColor: Colors.pink,
                 ),

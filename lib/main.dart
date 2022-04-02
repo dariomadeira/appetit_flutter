@@ -1,16 +1,17 @@
 import 'package:appetit/constants.dart';
+import 'package:appetit/src/providers/auth_photo_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
 import 'package:appetit/src/routers/app_screens.dart';
 import 'package:appetit/src/services/preferences_service.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,10 @@ void main() async {
   final _prefs = AppPreferences();
   await _prefs.initPref();
   await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, 'assets/svgs/appLogo.svg'), null);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(
     EasyLocalization(
       supportedLocales: [
@@ -29,6 +34,7 @@ void main() async {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_)=> ThemeProvider()),
+          ChangeNotifierProvider(create: (_)=> AuthPhotoProvider()),
         ],    
         child: MyApp()
       ),
