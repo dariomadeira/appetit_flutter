@@ -114,8 +114,9 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
             : Text(
               appbarTitle,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 15.sp,
                 color: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
+                fontWeight: FontWeight.w400,
               ),
             ),
 

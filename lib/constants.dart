@@ -44,7 +44,8 @@ const kGeneralDark = Color(0xFFf2f2f2);
 /// ANCHO DEL BORDE DE LOS BOTONES
 
 
-
+/// Calidad de captura de fotos
+const int kDefaultImageQuality = 50;
 
 
 

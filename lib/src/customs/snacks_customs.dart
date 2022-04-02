@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 /// Snack normal
 void wSnackNormal({
@@ -10,18 +11,19 @@ void wSnackNormal({
   ThemeProvider? themeProvider
 }) async{
   await Flushbar(
-    flushbarPosition: FlushbarPosition.TOP,
+    flushbarPosition: FlushbarPosition.BOTTOM,
     messageText: Text(
       message!,
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white,
-        fontSize: 15
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w600,
       ),
     ),
     duration: Duration(seconds: 2),
-    margin: EdgeInsets.all(kDefaultPadding/2),
-    borderRadius: BorderRadius.circular(kDefaultPadding/2),
+    margin: EdgeInsets.all(kDefaultPadding),
+    borderRadius: BorderRadius.circular(kDefaultPadding/1.4),
     backgroundColor: themeProvider!.darkTheme ? kSnackDark : kSnackLight,
   ).show(context!);
 }
@@ -32,18 +34,19 @@ void wSnackError({
   BuildContext? context
 }) async {
   await Flushbar(
-    flushbarPosition: FlushbarPosition.TOP,
+    flushbarPosition: FlushbarPosition.BOTTOM,
     messageText: Text(
       message!,
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white,
-        fontSize: 15
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w600,
       ),
     ),
     duration: Duration(seconds: 2),
-    margin: EdgeInsets.all(kDefaultPadding/2),
-    borderRadius: BorderRadius.circular(kDefaultPadding/2),
+    margin: EdgeInsets.all(kDefaultPadding),
+    borderRadius: BorderRadius.circular(kDefaultPadding/1.4),
     backgroundColor: kSnackError,
   ).show(context!);
 }
@@ -54,18 +57,19 @@ void wSnackSuccess({
   BuildContext? context
 }) async {
   await Flushbar(
-    flushbarPosition: FlushbarPosition.TOP,
+    flushbarPosition: FlushbarPosition.BOTTOM,
     messageText: Text(
       message!,
       textAlign: TextAlign.center,
       style: TextStyle(
         color: Colors.white,
-        fontSize: 15
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w600,
       ),
     ),
     duration: Duration(seconds: 2),
-    margin: EdgeInsets.all(kDefaultPadding/2),
-    borderRadius: BorderRadius.circular(kDefaultPadding/2),
+    margin: EdgeInsets.all(kDefaultPadding),
+    borderRadius: BorderRadius.circular(kDefaultPadding/1.4),
     backgroundColor: kSnackSuccess,
   ).show(context!);
 }

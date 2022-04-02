@@ -8,9 +8,9 @@ import 'package:appetit/src/widgets/inputs/simple_input_password_widget.dart';
 import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   double _decorationHeight = 100.w/2;
 
   _scrollListener() {
-    if (_scrollController.offset >= _decorationHeight - kDefaultPadding - kDefaultPadding/2) {
+    if (_scrollController.offset >= _decorationHeight - kDefaultPadding/2) {
       if (_handleStatusBarColor != true) {
         setState(() {
           _handleStatusBarColor = true;
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.light,
-      statusBarColor: _handleStatusBarColor ? _colorsHelper.darken(amount: 0.02,color: kSpecialError) : Colors.transparent,
+      statusBarColor: _handleStatusBarColor ? kSpecialPrimary : Colors.transparent,
       systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));     
@@ -82,23 +82,27 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Column(
                 children: [
-                  Container(
-                    height: _decorationHeight + kDefaultPadding,
-                    width: 100.w,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: Svg('assets/svgs/login.svg'),
-                        fit: BoxFit.cover
+                  Stack(
+                    children: [
+                      Container(
+                        height: _decorationHeight + kDefaultPadding*2,
+                        width: 100.w,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: Svg('assets/svgs/login.svg'),
+                            fit: BoxFit.cover
+                          ),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              kPrimaryColor,
+                              kSecondaryColor,
+                            ]
+                          )
+                        ),
                       ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          kPrimaryColor,
-                          kSecondaryColor,
-                        ]
-                      )
-                    ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding),
@@ -210,22 +214,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             BigBtnWidget(
                               btnAsset: 'assets/images/googleLogo.png',
                               btnSecondLine: tr('general_google'),
-                              btnFirstLine: "Iniciar con",
+                              btnFirstLine: tr('general_start_from'),
                               btnAccion: () {
                                 // _loginWithServices(authService: "GOOGLE");
                               },
                               btnWidth: 40.w,
-                              btnColor: kSpecialGray,
+                              btnColor: Color(0xffc59326),
                             ),
                             BigBtnWidget(
                               btnAsset: 'assets/images/facebookLogo.png',
                               btnSecondLine: tr('general_facebook'),
-                              btnFirstLine: "Iniciar con",
+                              btnFirstLine: tr('general_start_from'),
                               btnAccion: () {
                                 // _loginWithServices(authService: "FACEBOOK");
                               },
                               btnWidth: 40.w,
-                              btnColor: kSpecialGray,
+                              btnColor: Color(0xff3278ef),
                             ),
                           ],
                         ),
@@ -236,12 +240,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               Positioned(
-                top: _decorationHeight,
+                top: _decorationHeight + kDefaultPadding,
                 child: Container(
                   width: 100.w,
                   height: kDefaultPadding + 5,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(_handleStatusBarColor ? 0 : 20)),
                     color: Colors.white,
                   ),
                 ),

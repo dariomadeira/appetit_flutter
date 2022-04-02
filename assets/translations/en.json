@@ -3,6 +3,7 @@
   "general_question": "?",
   "general_google": "Google",
   "general_facebook": "Facebook",
+  "general_start_from": "Iniciar con",
   "general_empty": "Este dato es requerido",
   "general_error": "Error no especificado",
   "general_error_internet": "Parece que no está conectado a Internet",
@@ -57,9 +58,11 @@
   "login_wrong_password": "Contraseña incorrecta",
   "login_reset_link": "Olvidé mi contraseña",
 
-  "bottomsheet_use": "Completa usando...",
-  "bottomsheet_from_cammera": "La cámara",
-  "bottomsheet_from_gallery": "La galería",
+  "bottomsheet_take": "Tomate",
+  "bottomsheet_select": "Seleciona",
+  "bottomsheet_photo": "una foto",
+  "cam_or_gal_success": "Ya tenemos una foto para tu perfil",
+  "cam_or_gal_error": "Mmm... inténtalo de nuevo...",
 
   "register_appbar_title": "Crear cuenta",
   "register_process": "Creando tu cuenta...",
@@ -77,5 +80,5 @@
   "register_invalid_email": "No es un mail válido",
   "register_invalid_password": "No es una contraseña válida",
   "register_no_photo": "No elegiste tu foto"
-  
+
 }

@@ -64,6 +64,7 @@ class _MyAppState extends State<MyApp> {
       systemNavigationBarColor: _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,
       systemNavigationBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
     ));
+    
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -90,8 +91,7 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             routes: appRoutes,
-            // home: showOnboarding ? LoginScreen() : OnboardingScreen(),
-            home: OnboardingScreen(),
+            home: showOnboarding ? LoginScreen() : OnboardingScreen(),
           );
         }
       )

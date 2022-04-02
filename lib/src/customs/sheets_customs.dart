@@ -1,10 +1,10 @@
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
-import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
-import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
+import 'package:appetit/src/widgets/buttons/big_btn_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 /// Crear un sheet para elegir una imágen   
 void sheetSelectphoto({
@@ -30,32 +30,33 @@ void sheetSelectphoto({
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            DividerTitleWidget(
-              title: tr('bottomsheet_use'),
-            ),
-            const SizedBox(height: kDefaultPadding),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                RoundedBtnWidget(
+                BigBtnWidget(
+                  btnSecondLine: tr('bottomsheet_photo'),
+                  btnFirstLine: tr('bottomsheet_take'),
                   btnAccion: () {
                     Navigator.pop(context);
                     actionCamera();
                   },
+                  btnWidth: 40.w,
+                  btnColor: Colors.orange[600],
                   btnIcon: Icons.camera_alt_outlined,
-                  btnText: tr('bottomsheet_from_cammera'),
                 ),
-                const SizedBox(width: kDefaultPadding),
-                RoundedBtnWidget(
+                BigBtnWidget(
+                  btnSecondLine: tr('bottomsheet_photo'),
+                  btnFirstLine: tr('bottomsheet_select'),
                   btnAccion: () {
                     Navigator.pop(context);
                     actionGallery();
                   },
+                  btnWidth: 40.w,
                   btnIcon: Icons.collections,
-                  btnText: tr('bottomsheet_from_gallery'),
+                  btnColor: Colors.pink,
                 ),
-              ],     
-            )
+              ],
+            ),
           ],
         ),
       );

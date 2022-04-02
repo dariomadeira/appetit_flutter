@@ -27,7 +27,7 @@ class AvatarWidget extends StatelessWidget {
   /// Modo de carga
   final bool isLoading;
   /// Color del avatar
-  final Color avatarColor;
+  final Color? avatarColor;
 
   @override
   Widget build(BuildContext context) {
