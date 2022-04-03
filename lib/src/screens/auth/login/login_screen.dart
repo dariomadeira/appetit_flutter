@@ -1,5 +1,4 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:appetit/src/helpers/validations_helper.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
 import 'package:appetit/src/widgets/buttons/big_btn_widget.dart';
@@ -61,8 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    final _colorsHelper = ColorsHelper();
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: _handleStatusBarColor ? kSpecialPrimary : Colors.transparent,
@@ -187,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 btnFirstLine: tr('login_reset_fl'),
                                 btnSecondLine: tr('login_reset_sl'),
                                 btnAccion: () {
-                                  // _loginWithServices(authService: "GOOGLE");
+                                  Navigator.pushNamed(context, 'reset');
                                 },
                                 btnWidth: 41.w,
                                 btnColor: Colors.teal[400],

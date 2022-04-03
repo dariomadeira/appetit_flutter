@@ -15,4 +15,9 @@ class ValidationsHelper {
     return regExp.hasMatch(value!);
   }
 
+  /// Validar ambas contraseñas iguales
+  bool isPasswordsSame({String? pass1 , String? pass2}) {
+    return pass1 == pass2;
+  }
+
 }

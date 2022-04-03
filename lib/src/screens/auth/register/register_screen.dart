@@ -30,9 +30,10 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _passwordVerificationController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _validationsHelper = ValidationsHelper();
@@ -133,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         key: _scaffoldKey,
         appBar: GeneralAppbarWidget(
           showAvatar: false,
-          showBack: true,
+          showBack: !_authPhoto.isLoadingImg,
           appbarTitle: tr('register_appbar_title'),
         ),
         body: SingleChildScrollView(
@@ -164,17 +165,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     const SizedBox(width: kDefaultPadding),
                     RoundedBtnWidget(
-                      btnAccion: () {
-                        sheetSelectphoto(
-                          context: context,
-                          actionCamera: () {
-                            takePhoto(fromCam: true);
-                          },
-                          actionGallery: () {
-                            takePhoto(fromCam: false);
-                          }
-                        );
-                      },
+                      btnAccion: _authPhoto.isLoadingImg 
+                        ? () {}
+                        : () {
+                          sheetSelectphoto(
+                            context: context,
+                            actionCamera: () {
+                              takePhoto(fromCam: true);
+                            },
+                            actionGallery: () {
+                              takePhoto(fromCam: false);
+                            }
+                          );
+                        },
                       btnIcon: Icons.account_circle_outlined,
                       btnText: tr('register_search_photo'),
                       btnColor: Colors.deepPurple,
@@ -231,13 +234,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         }
                       ),
+                      const SizedBox(height: kDefaultPadding),
+                      SimpleInputPasswordWidget(
+                        textController: _passwordVerificationController,
+                        placeholder: tr('register_password_verification'),
+                        inputValidate: (value) {
+                          bool _valid = _validationsHelper.isValidPassword(value: value);
+                          bool _validVerification = _validationsHelper.isPasswordsSame(
+                            pass1: _passwordController.text.trim(), 
+                            pass2: value,
+                          );
+                          if (_valid && _validVerification) {
+                            return {
+                              "status": true
+                            };
+                          } else {
+                            if (!_valid) {
+                              return {
+                                "status": false,
+                                "message" : tr('register_invalid_password'),
+                              };
+                            }
+                            if (!_validVerification) {
+                              return {
+                                "status": false,
+                                "message" : tr('register_invalid_same'),
+                              };
+                            }
+                          }
+                        }
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: kDefaultPadding*3),
                 Center(
                   child: RoundedBtnWidget(
-                    btnAccion: (){},
+                    btnAccion: _authPhoto.isLoadingImg 
+                      ? () {}
+                      : () {
+
+
+                      },
                     btnText: tr('register_btn_create'),
                   ),
                 ),

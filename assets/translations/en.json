@@ -50,13 +50,14 @@
   "login_area_title": "Inicio",
   "login_area_subtitle": "Completa los datos para ingresar",
   "login_btn": "Iniciar sesión",
-  "login_not_account": "¿No tienes cuenta?",
-  "login_register_btn": "Crear una",
-  "login_alternative": "Puedes iniciar con",
+
+  "login_register_btn_fl": "Crear una",
+  "login_register_btn_sl": "Cuenta",
+  "login_reset_fl": "Recordar",
+  "login_reset_sl": "contraseña",
   "login_success": "Se ha iniciado sesión",
   "login_no_user": "No hay usuario registrado",
   "login_wrong_password": "Contraseña incorrecta",
-  "login_reset_link": "Olvidé mi contraseña",
 
   "bottomsheet_take": "Tomate",
   "bottomsheet_select": "Seleciona",
@@ -69,6 +70,7 @@
   "register_btn_create": "Guardar y continuar",
   "register_name_hint": "Nombre y apellido",
   "register_password_hint": "Contraseña",
+  "register_password_verification": "Confirmar contraseña",
   "register_photo_area_title": "¡Bienvenido!",
   "register_photo_area_subtitle": "Busca una foto para tu perfíl",
   "register_data_area_title": "Tus datos",
@@ -79,6 +81,14 @@
   "register_mail_used": "Ya existe un usuario con ese correo eletrónico",
   "register_invalid_email": "No es un mail válido",
   "register_invalid_password": "No es una contraseña válida",
-  "register_no_photo": "No elegiste tu foto"
+  "register_invalid_same": "Ambas contraseñas no son iguales",
+  "register_no_photo": "No elegiste tu foto",
+
+  "reset_appbar_title": "Mi contraseña",
+  "reset_area_title": "Cambiar",
+  "reset_area_subtitle": "Te enviaremos un mail para cambiar tu contraseña",
+  "reset_btn_sendmail": "Enviar mail",
+  "reset_send_success": "Se ha enviado el mail con los pasos a seguir",
+  "reset_send_error": "No se pudo enviar el mail ,inténtelo de nuevo"
 
 }
