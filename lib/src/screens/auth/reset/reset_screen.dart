@@ -6,6 +6,8 @@ import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
 import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_detector/focus_detector.dart';
+import 'package:flutter/services.dart';
 
 /// Pantalla de reseteo de contraseña
 class ResetScreen extends StatefulWidget {
@@ -56,56 +58,66 @@ class _ResetScreenState extends State<ResetScreen> {
     //   }
     // }
 
-    return Scaffold(
-      appBar: GeneralAppbarWidget(
-        showAvatar: false,
-        showBack: true,
-        appbarTitle: tr('reset_appbar_title'),
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DividerTitleWidget(
-                title: tr('reset_area_title'),
-                subTitle: tr('reset_area_subtitle'),
-              ),
-              const SizedBox(height: kDefaultPadding),
-              Form(
-                key: _formKey,
-                child: SimpleInputWidget(
-                  placeholder: tr('general_email_hint'),
-                  keyboardType: TextInputType.emailAddress,
-                  textController: _emailController,
-                  inputValidate: (value) {
-                    bool _valid = _validationsHelper.isValidEmail(value: value);
-                    if (_valid) {
-                        return {"status": true };
-                    } else {
-                        return {"status": false, "message" : tr('register_invalid_email')};
-                    }
-                  }
+    return FocusDetector(
+      onVisibilityGained: () {
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ));
+      },
+      child: Scaffold(
+        appBar: GeneralAppbarWidget(
+          showAvatar: false,
+          showBack: true,
+          appbarTitle: tr('reset_appbar_title'),
+        ),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(kDefaultPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DividerTitleWidget(
+                  title: tr('reset_area_title'),
+                  subTitle: tr('reset_area_subtitle'),
                 ),
-              ),
-              const SizedBox(height: kDefaultPadding*3),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RoundedBtnWidget(
-                    btnAccion: () {
-                      // if (_formKey.currentState.validate()) {
-                      //   _sendMail();
-                      // }                      
-                    },
-                    btnText: tr('reset_btn_sendmail'),
+                const SizedBox(height: kDefaultPadding),
+                Form(
+                  key: _formKey,
+                  child: SimpleInputWidget(
+                    placeholder: tr('general_email_hint'),
+                    keyboardType: TextInputType.emailAddress,
+                    textController: _emailController,
+                    inputValidate: (value) {
+                      bool _valid = _validationsHelper.isValidEmail(value: value);
+                      if (_valid) {
+                          return {"status": true };
+                      } else {
+                          return {"status": false, "message" : tr('register_invalid_email')};
+                      }
+                    }
                   ),
-                ],
-              ),
-              const SizedBox(height: kDefaultPadding),
-            ],
+                ),
+                const SizedBox(height: kDefaultPadding*3),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RoundedBtnWidget(
+                      btnAccion: () {
+                        // if (_formKey.currentState.validate()) {
+                        //   _sendMail();
+                        // }                      
+                      },
+                      btnText: tr('reset_btn_sendmail'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: kDefaultPadding),
+              ],
+            ),
           ),
         ),
       ),
