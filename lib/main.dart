@@ -4,7 +4,7 @@ import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
-import 'package:appetit/src/routers/app_screens.dart';
+import 'package:appetit/src/routers/routes.dart';
 import 'package:appetit/src/services/preferences_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
