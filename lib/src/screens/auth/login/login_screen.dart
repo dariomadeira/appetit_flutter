@@ -11,6 +11,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -184,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 btnFirstLine: tr('login_reset_fl'),
                                 btnSecondLine: tr('login_reset_sl'),
                                 btnAccion: () {
-                                  Navigator.pushNamed(context, 'reset');
+                                  context.pushNamed(resetRouteName);
                                 },
                                 btnWidth: 41.w,
                                 btnColor: Colors.teal[400],
@@ -194,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 btnSecondLine: tr('login_register_btn_sl'),
                                 btnIcon: Icons.person_add_alt,
                                 btnAccion: () {
-                                  Navigator.pushNamed(context, 'register');
+                                  context.pushNamed(registerRouteName);
                                 },
                                 btnWidth: 41.w,
                                 btnColor: Colors.green,

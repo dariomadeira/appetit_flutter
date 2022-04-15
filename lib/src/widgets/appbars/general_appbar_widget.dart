@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:go_router/go_router.dart';
 
 /// Appbar para toda la app
 class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -77,7 +78,8 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
                     visible: showBack,
                     child: CircleBtnWidget(
                       accion: accionBack ?? () {
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
+                        context.pop();
                       },
                       btnSize: 40,
                       icon: Icons.arrow_back,
