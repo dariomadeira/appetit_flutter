@@ -1,9 +1,11 @@
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/providers/auth_photo_provider.dart';
+import 'package:appetit/src/providers/bottom_navigation_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
-import 'package:appetit/src/screens/auth/login/login_screen.dart';
+// import 'package:appetit/src/screens/auth/login/login_screen.dart';
+import 'package:appetit/src/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
+// import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
 import 'package:appetit/src/routers/routes.dart';
 import 'package:appetit/src/services/preferences_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,8 +35,18 @@ void main() async {
       fallbackLocale: Locale('en'),
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_)=> ThemeProvider()),
-          ChangeNotifierProvider(create: (_)=> AuthPhotoProvider()),
+          ChangeNotifierProvider(
+            lazy: false,
+            create: (_)=> ThemeProvider()
+          ),
+          ChangeNotifierProvider(
+            lazy: false,
+            create: (_)=> AuthPhotoProvider()
+          ),
+          ChangeNotifierProvider(
+            lazy: false,
+            create: (_)=> new BottomNavigationProvider()
+          ),
         ],    
         child: MyApp()
       ),
@@ -59,8 +71,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
 
-    final _prefs = AppPreferences();
-    final bool showOnboarding = _prefs.readPreferenceBool("userSeeOnboarding");
+    // final _prefs = AppPreferences();
+    // final bool showOnboarding = _prefs.readPreferenceBool("userSeeOnboarding");
     final _themeProvider = Provider.of<ThemeProvider>(context);
 
     WidgetsBinding.instance!.renderView.automaticSystemUiAdjustment=false;
@@ -97,7 +109,8 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             routes: appRoutes,
-            home: showOnboarding ? LoginScreen() : OnboardingScreen(),
+            // home: showOnboarding ? LoginScreen() : OnboardingScreen(),
+            home: HomeScreen(),
           );
         }
       )

@@ -89,6 +89,11 @@
   "reset_area_subtitle": "Te enviaremos un mail para cambiar tu contraseña",
   "reset_btn_sendmail": "Enviar mail",
   "reset_send_success": "Se ha enviado el mail con los pasos a seguir",
-  "reset_send_error": "No se pudo enviar el mail ,inténtelo de nuevo"
+  "reset_send_error": "No se pudo enviar el mail ,inténtelo de nuevo",
+
+  "bottom_nav_explorer": "Explorar",
+  "bottom_nav_cart": "Pedidos",
+  "bottom_nav_favorites": "Favoritos",
+  "bottom_nav_news": "Nuevos"
 
 }

@@ -69,3 +69,4 @@ const Color kSpecialPrimary = Color(0xFFE20000);
 const kSpecialTextColor = Colors.black;
 const kSpecialGray = Color(0xff666667);
 
+Color? kBadgeColor = Colors.amber[900];
