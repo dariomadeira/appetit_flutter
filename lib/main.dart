@@ -3,10 +3,8 @@ import 'package:appetit/src/providers/auth_photo_provider.dart';
 import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/routers/routes.dart';
-// import 'package:appetit/src/screens/auth/login/login_screen.dart';
+import 'package:appetit/src/services/app_service.dart';
 import 'package:flutter/material.dart';
-// import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
-// import 'package:appetit/src/routers/app_screens.dart';
 import 'package:appetit/src/services/preferences_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -14,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,20 +38,8 @@ void main() async {
             lazy: false,
             create: (_)=> ThemeProvider(),
           ),
-          ChangeNotifierProvider(
-            lazy: false,
-            create: (_)=> AuthPhotoProvider(),
-          ),
-          ChangeNotifierProvider<AuthProvider>(
-            lazy: false,
-            create: (BuildContext createContext) => AuthProvider(),
-          ),
-          Provider<AppRoutes>(
-            lazy: false,
-            create: (BuildContext createContext) => AppRoutes(),
-          ),
         ],    
-        child: MyApp()
+        child: MyApp(),
       ),
     ),
   );
@@ -66,17 +53,37 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  late AppService appService;
+  late AuthProvider authProvider;
+  late StreamSubscription<bool> authSubscription;
+
   @override
   void initState() {
-    super.initState();
     Provider.of<ThemeProvider>(context, listen: false).initTheme();
+    appService = AppService();
+    authProvider = AuthProvider();
+    authSubscription = authProvider.onAuthStateChange.listen(onAuthStateChange);
+    onStartUp();
+    super.initState();
   }
+
+  @override
+  void dispose() {
+    authSubscription.cancel();
+    super.dispose();
+  }
+
+  void onStartUp() async {
+    await appService.onAppStart();
+  }  
+
+  void onAuthStateChange(bool login) {
+    appService.isLoggedUser = login;
+  }  
 
   @override
   Widget build(BuildContext context) {
 
-    // final _prefs = AppPreferences();
-    // final bool showOnboarding = _prefs.readPreferenceBool("userSeeOnboarding");
     final _themeProvider = Provider.of<ThemeProvider>(context);
 
     WidgetsBinding.instance!.renderView.automaticSystemUiAdjustment=false;
@@ -87,39 +94,57 @@ class _MyAppState extends State<MyApp> {
       systemNavigationBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
     ));
     
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).requestFocus(FocusNode());
-      },
-      child: Sizer(
-        builder: (context, orientation, deviceType) {
-          final router = Provider.of<AppRoutes>(context, listen: false).router;
-          return MaterialApp.router(
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
-            title: 'Appetit',
-            theme: ThemeData(
-              brightness: Brightness.light,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-              textSelectionTheme: TextSelectionThemeData(
-                cursorColor: kSpecialTextColor,
-                selectionColor: kSpecialGray.withOpacity(0.2),
-                selectionHandleColor: kSpecialPrimary,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          lazy: false,
+          create: (_)=> AuthPhotoProvider(),
+        ),
+        ChangeNotifierProvider(
+          lazy: false,
+          create: (BuildContext createContext) => appService,
+        ),
+        Provider<AppRoutes>(
+          lazy: false,
+          create: (BuildContext createContext) => AppRoutes(appService),
+        ),
+        ChangeNotifierProvider<AuthProvider>(
+          lazy: false,
+          create: (BuildContext createContext) => authProvider,
+        ),
+      ],
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Sizer(
+          builder: (context, orientation, deviceType) {
+            final router = Provider.of<AppRoutes>(context, listen: false).router;
+            return MaterialApp.router(
+              routeInformationParser: router.routeInformationParser,
+              routerDelegate: router.routerDelegate,
+              title: 'Appetit',
+              theme: ThemeData(
+                brightness: Brightness.light,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+                textSelectionTheme: TextSelectionThemeData(
+                  cursorColor: kSpecialTextColor,
+                  selectionColor: kSpecialGray.withOpacity(0.2),
+                  selectionHandleColor: kSpecialPrimary,
+                ),
+                textTheme: GoogleFonts.quicksandTextTheme(
+                  Theme.of(context).textTheme,
+                ),
+                scaffoldBackgroundColor: Colors.white,
               ),
-              textTheme: GoogleFonts.quicksandTextTheme(
-                Theme.of(context).textTheme,
-              ),
-              scaffoldBackgroundColor: Colors.white,
-            ),
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            // routes: appRoutes,
-            // home: showOnboarding ? LoginScreen() : OnboardingScreen(),
-          );
-        }
-      )
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+            );
+          }
+        )
+      ),
     );
   }
 }

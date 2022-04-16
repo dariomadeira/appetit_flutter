@@ -1,6 +1,7 @@
 // import 'package:appetit/constants.dart';
 // import 'package:appetit/src/services/preferences_service.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 // class AuthProvider extends ChangeNotifier {
 
@@ -26,22 +27,43 @@ import 'package:flutter/material.dart';
 
 
 
+// class AuthProvider extends ChangeNotifier {
+
+//   var _userName = '';
+
+//   String get userName => _userName;
+//   bool get loggedIn => _userName.isNotEmpty;
+
+//   void login(String userName) {
+//     _userName = userName;
+//     notifyListeners();
+//     print("se agrega el usuario");
+//   }
+
+//   void logout(String userName) {
+//     _userName = '';
+//     notifyListeners();
+//   }
+
+// }
 class AuthProvider extends ChangeNotifier {
 
-  var _userName = '';
+  final StreamController<bool> _onAuthStateChange = StreamController.broadcast();
 
-  String get userName => _userName;
-  bool get loggedIn => _userName.isNotEmpty;
+  Stream<bool> get onAuthStateChange => _onAuthStateChange.stream;
 
-  void login(String userName) {
-    _userName = userName;
-    notifyListeners();
-    print("se agrega el usuario");
+  Future<bool> login() async {
+
+    // This is just to demonstrate the login process time.
+    // In real-life applications, it is not recommended to interrupt the user experience by doing such things.
+    await Future.delayed(const Duration(seconds: 1));
+
+    _onAuthStateChange.add(true);
+    return true;
   }
 
-  void logout(String userName) {
-    _userName = '';
-    notifyListeners();
+  void logOut() {
+    _onAuthStateChange.add(false);
   }
 
 }

@@ -1,5 +1,6 @@
 
 import 'package:appetit/constants.dart';
+import 'package:appetit/src/providers/auth_provider.dart';
 // import 'package:appetit/src/helpers/strings_helper.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/widgets/buttons/circle_btn_widget.dart';
@@ -57,6 +58,7 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
 
     // final _stringsHelper = StringsHelper();
     final _themeProvider = Provider.of<ThemeProvider>(context);
+    final _authProvider = Provider.of<AuthProvider>(context);
 
     return SafeArea(
       top: true,
@@ -154,7 +156,8 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
                     visible: showAvatar,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, 'profile');
+                        // Navigator.pushNamed(context, 'profile');
+                        _authProvider.logOut();
                       },
                       child: AvatarWidget(
                         sizeRadius: 18,

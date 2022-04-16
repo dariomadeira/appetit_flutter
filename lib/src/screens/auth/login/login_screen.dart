@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _authProvider = Provider.of<AuthProvider>(context);
 
   void _loginNow() {
-    _authProvider.login("user1");
+    _authProvider.login();
   }    
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

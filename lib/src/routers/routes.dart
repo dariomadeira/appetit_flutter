@@ -1,21 +1,22 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
 import 'package:appetit/src/screens/auth/register/register_screen.dart';
 import 'package:appetit/src/screens/auth/reset/reset_screen.dart';
 import 'package:appetit/src/screens/home/home_screen.dart';
 import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
 import 'package:appetit/src/screens/states/error/error_screen.dart';
+import 'package:appetit/src/services/app_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
 
-  final _authProvider = AuthProvider();
+  late final AppService appService;
+
+  AppRoutes(this.appService);
 
   late final router = GoRouter(
-    // initialLocation: '/',
-    refreshListenable: _authProvider,
+    refreshListenable: appService,
     debugLogDiagnostics: true,
     urlPathStrategy: UrlPathStrategy.path,
     routes: [
@@ -71,7 +72,7 @@ class AppRoutes {
     ),
     redirect: (state) {
       /// Si esta logueado segun el provider
-      final loggedIn = _authProvider.loggedIn;
+      final loggedIn = appService.isloggedUser;
 
       // Si esta en el screen de login
       final loginLoc = state.namedLocation(loginRouteName);
