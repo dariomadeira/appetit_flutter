@@ -72,9 +72,11 @@ const kSpecialGray = Color(0xff666667);
 
 
 // Preferences strings
-const String kStLoggedIn = 'userLoggedIn';
+// const String kStLoggedIn = 'userLoggedIn';
 
 // Screens strings
+const String rootRouteName = 'root';
+const String onboardingRouteName = 'onboarding';
 const String loginRouteName = 'login';
 const String registerRouteName = 'register';
 const String resetRouteName = 'reset';

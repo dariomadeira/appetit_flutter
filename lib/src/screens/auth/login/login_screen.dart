@@ -1,5 +1,6 @@
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/helpers/validations_helper.dart';
+import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
 import 'package:appetit/src/widgets/buttons/big_btn_widget.dart';
 import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
@@ -9,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:focus_detector/focus_detector.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -61,6 +63,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+  final _authProvider = Provider.of<AuthProvider>(context);
+
+  void _loginNow() {
+    _authProvider.login("user1");
+  }    
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: _handleStatusBarColor ? kSpecialPrimary : Colors.transparent,
@@ -169,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               RoundedBtnWidget(
                                 btnAccion: () {
                                   if (_formKey.currentState!.validate()) {
-                                    // _loginNow();
+                                    _loginNow();
                                   }
                                 },
                                 btnText: tr('login_btn'),
