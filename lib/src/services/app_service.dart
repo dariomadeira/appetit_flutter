@@ -35,11 +35,12 @@ class AppService with ChangeNotifier {
     notifyListeners();
   }
 
-  // inicio
+  // Funciones
   Future<void> onAppStart() async {
     _showOnboarding = _prefs.readPreferenceBool(kShowOnboarding);
     _isLoggedUser = _prefs.readPreferenceBool(kIsLoggedUser);
     _appInitialized = true;
     notifyListeners();
   }
+  
 }

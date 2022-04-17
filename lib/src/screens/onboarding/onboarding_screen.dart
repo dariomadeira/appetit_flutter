@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingScreen extends StatelessWidget {
   @override
@@ -96,8 +97,10 @@ class _OnboardingSlider extends StatelessWidget {
         tr('onboarding_slider3_description'),
       ],
       finalsliderbutton: () async {
-        _prefs.savePreferenceBool('userSeeOnboarding', true);
-        await Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+        _prefs.savePreferenceBool(kShowOnboarding, true);
+        context.pushNamed(loginRouteName);
+
+        // await Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
       }
     );
   }

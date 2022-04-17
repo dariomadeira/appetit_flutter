@@ -12,7 +12,6 @@ import 'package:go_router/go_router.dart';
 class AppRoutes {
 
   late final AppService appService;
-
   AppRoutes(this.appService);
 
   late final router = GoRouter(
@@ -71,30 +70,31 @@ class AppRoutes {
       child: ErrorScreen(error: state.error),
     ),
     redirect: (state) {
-      /// Si esta logueado segun el provider
+      // Si esta logueado segun el provider
       final loggedIn = appService.isloggedUser;
-
+      // Si ha visto el onboarding
+      final seeOnboarding = appService.showOnboarding;
       // Si esta en el screen de login
       final loginLoc = state.namedLocation(loginRouteName);
-      final inLoginScreen = state.subloc == loginLoc; // no dice si esta en la login screen
-
+      final inLoginScreen = state.subloc == loginLoc; // nos dice si esta en la login screen
       // Si esta en el screen de register
       final registerLoc = state.namedLocation(registerRouteName);
-      final inRegisterScreen = state.subloc == registerLoc; // no dice si esta en la register screen
-
+      final inRegisterScreen = state.subloc == registerLoc; // nos dice si esta en la register screen
       // Si esta en el screen de reset
       final resetLoc = state.namedLocation(resetRouteName);
-      final inResetScreen = state.subloc == resetLoc; // no dice si esta en la reset screen
-
+      final inResetScreen = state.subloc == resetLoc; // nos dice si esta en la reset screen
       // Si esta en el screen de onboarding
       final onboardingLoc = state.namedLocation(onboardingRouteName);
-      final inOnboardingScreen = state.subloc == onboardingLoc; // no dice si esta en la reset screen
-
+      final inOnboardingScreen = state.subloc == onboardingLoc; // nos dice si esta en la reset screen
       // ruta del root
       final rootLoc = state.namedLocation(rootRouteName);
-
+      // lógica de que mostrar
       if (!loggedIn && !inLoginScreen && !inRegisterScreen && !inResetScreen && !inOnboardingScreen) {
-        return loginLoc;
+        if (seeOnboarding) {
+          return loginLoc;
+        } else {
+          return onboardingLoc;
+        }
       }
       if (loggedIn && (inLoginScreen || inRegisterScreen || inResetScreen || inOnboardingScreen)) {
         return rootLoc;
