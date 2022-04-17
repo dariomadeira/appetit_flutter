@@ -96,7 +96,7 @@ class _OnboardingSlider extends StatelessWidget {
         tr('onboarding_slider3_description'),
       ],
       finalsliderbutton: () async {
-        _prefs.savePreferenceBool('userSeeOnboarding', true);
+        _prefs.savePreferenceBool(kShowOnboardingPref, true);
         await Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
       }
     );

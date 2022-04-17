@@ -70,3 +70,6 @@ const kSpecialTextColor = Colors.black;
 const kSpecialGray = Color(0xff666667);
 
 Color? kBadgeColor = Colors.amber[900];
+
+
+const String kShowOnboardingPref = "userSeeOnboarding";
