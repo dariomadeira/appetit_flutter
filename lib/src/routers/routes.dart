@@ -14,3 +14,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'register': (_) => RegisterScreen(),
   'reset': (_) => ResetScreen(),
 };
+
+// '/': (context) => ChangeNotifierProvider<MyModel>(
+//   create: (_) => MyModel(),
+//   child: MyScreen()),

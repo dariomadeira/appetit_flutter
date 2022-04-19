@@ -39,7 +39,6 @@ void main() async {
             create: (_)=> ThemeProvider()
           ),
           ChangeNotifierProvider(
-            lazy: false,
             create: (_)=> AuthPhotoProvider()
           ),
           ChangeNotifierProvider(
