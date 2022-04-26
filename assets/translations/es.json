@@ -67,14 +67,14 @@
 
   "register_appbar_title": "Crear cuenta",
   "register_process": "Creando tu cuenta...",
-  "register_btn_create": "Guardar y continuar",
+  "register_btn_create": "Guardar",
   "register_name_hint": "Nombre y apellido",
   "register_password_hint": "Contraseña",
   "register_password_verification": "Confirmar contraseña",
   "register_photo_area_title": "¡Bienvenido!",
   "register_photo_area_subtitle": "Busca una foto para tu perfíl",
-  "register_data_area_title": "Tus datos",
-  "register_data_area_subtitle": "Completa algunos datos adicionales",
+  "register_data_area_title": "Inicia aquí",
+  "register_data_area_subtitle": "Completa los datos requeridos para crear una cuenta",
   "register_search_photo": "Elige tu foto",
   "register_success": "Hemos creado su cuenta",
   "register_password_short": "Su contraseña es muy corta",
@@ -83,6 +83,9 @@
   "register_invalid_password": "No es una contraseña válida",
   "register_invalid_same": "Ambas contraseñas no son iguales",
   "register_no_photo": "No elegiste tu foto",
+
+  "userData_appbar_title": "Tu perfil",
+  "userData_btn_next": "Continuar",
 
   "reset_appbar_title": "Mi contraseña",
   "reset_area_title": "Cambiar",

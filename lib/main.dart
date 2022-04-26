@@ -1,6 +1,8 @@
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/providers/auth_photo_provider.dart';
+import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/providers/bottom_navigation_provider.dart';
+import 'package:appetit/src/providers/data_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +44,14 @@ void main() async {
             create: (_)=> AuthPhotoProvider()
           ),
           ChangeNotifierProvider(
-            lazy: false,
             create: (_)=> new BottomNavigationProvider()
+          ),
+          ChangeNotifierProvider(
+            lazy: false,
+            create: (_)=> AuthProvider()
+          ),
+          ChangeNotifierProvider(
+            create: (_)=> DataProvider()
           ),
         ],    
         child: MyApp()
@@ -64,6 +72,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     Provider.of<ThemeProvider>(context, listen: false).initTheme();
+    Provider.of<AuthProvider>(context, listen: false).initSuperbase();
   }
 
   @override

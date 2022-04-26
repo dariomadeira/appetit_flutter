@@ -73,3 +73,5 @@ Color? kBadgeColor = Colors.amber[900];
 
 
 const String kShowOnboardingPref = "userSeeOnboarding";
+const String kSupabaseUrl = 'https://ljcsdgatxhumnkedqdaf.supabase.co';
+const String kSupabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqY3NkZ2F0eGh1bW5rZWRxZGFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTA0MDQyMjEsImV4cCI6MTk2NTk4MDIyMX0.QTvnQaiUDgjFl9LdtoeflS18M36jnSCJBgiGKSgXqvc';
