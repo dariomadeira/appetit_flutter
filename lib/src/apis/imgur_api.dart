@@ -1,3 +1,4 @@
+import 'package:appetit/constants.dart';
 import 'package:appetit/src/helpers/http_responses_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,7 +10,7 @@ class ImgurApi {
 
   final Dio _dio = Dio();
   final Logger _logger = Logger();
-  final String _authID = '41f027e06084c3e';
+  final String _authID = kImgurApiKey;
 
   /// Cargar la imágen
   Future<HttpResponses> loadImage({

@@ -4,6 +4,7 @@ import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/providers/bottom_navigation_provider.dart';
 import 'package:appetit/src/providers/data_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
+import 'package:appetit/src/screens/auth/address/user_address_screen.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
@@ -116,7 +117,8 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             routes: appRoutes,
-            home: showOnboarding ? LoginScreen() : OnboardingScreen(),
+            // home: showOnboarding ? LoginScreen() : OnboardingScreen(),
+            home: UserAddressScreen(),
           );
         }
       )

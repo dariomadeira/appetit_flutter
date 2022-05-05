@@ -13,6 +13,7 @@
   "general_cancel": "Cancelar",
   "general_error_canceled": "Cancelaste la acción",
   "general_next": "Siguiente",
+  "general_type_here": "Escribe aquí",
 
   "onboarding_slider1_title": "¡Bienvenido!",
   "onboarding_slider1_description": "Con Appetit explora los mejores sitios para comer cerca tuyo.",
@@ -97,6 +98,10 @@
   "bottom_nav_explorer": "Explorar",
   "bottom_nav_cart": "Pedidos",
   "bottom_nav_favorites": "Favoritos",
-  "bottom_nav_news": "Nuevos"
+  "bottom_nav_news": "Nuevos",
+
+  "userAddress_appbar_title": "¿Dónde vives?",
+  "userAddress_area_title": "Tu dirección",
+  "userAddress_area_subtitle": "Usaremos estos datos para realizarte envíos"
 
 }

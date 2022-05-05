@@ -21,6 +21,8 @@ class SimpleInputWidget extends StatelessWidget {
   final Function? inputValidate;
   /// formateador de texto
   final TextInputFormatter? textInputFormatter;
+  /// Funcion de validar
+  final Function? onChanged;
 
   const SimpleInputWidget({
     Key? key,
@@ -31,6 +33,7 @@ class SimpleInputWidget extends StatelessWidget {
     this.textCapitalization = TextCapitalization.none,
     this.inputValidate,
     this.textInputFormatter,
+    this.onChanged,
   }) : super(key: key);
 
   @override
@@ -60,6 +63,9 @@ class SimpleInputWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          onChanged: (value) {
+            onChanged!(value);
+          },
           controller:  textController,
           autocorrect: autoCorrect,
           textCapitalization: textCapitalization,

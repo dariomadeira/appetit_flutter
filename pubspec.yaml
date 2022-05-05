@@ -47,6 +47,7 @@ dependencies:
   logger: ^1.1.0
   focus_detector: ^2.0.1
   supabase: ^0.3.2
+  google_place: ^0.4.7
 
 dev_dependencies:
   flutter_test:
