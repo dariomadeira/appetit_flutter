@@ -14,6 +14,8 @@
   "general_error_canceled": "Cancelaste la acción",
   "general_next": "Siguiente",
   "general_type_here": "Escribe aquí",
+  "general_yes": "Sí",
+  "general_no": "No",
 
   "onboarding_slider1_title": "¡Bienvenido!",
   "onboarding_slider1_description": "Con Appetit explora los mejores sitios para comer cerca tuyo.",
@@ -102,6 +104,8 @@
 
   "userAddress_appbar_title": "¿Dónde vives?",
   "userAddress_area_title": "Tu dirección",
-  "userAddress_area_subtitle": "Usaremos estos datos para realizarte envíos"
+  "userAddress_area_subtitle": "Usaremos estos datos para realizarte envíos",
+
+  "bottomsheet_address_question":"¿Vives en {address}?"
 
 }

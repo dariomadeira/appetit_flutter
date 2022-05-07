@@ -8,7 +8,7 @@ class BigBtnWidget extends StatelessWidget {
   /// Texto del botón
   final String btnFirstLine;
   /// Texto del botón
-  final String btnSecondLine;
+  final String? btnSecondLine;
   /// Asset para el botón
   final String? btnAsset;
   /// Acción del botón
@@ -25,7 +25,7 @@ class BigBtnWidget extends StatelessWidget {
   const BigBtnWidget({
     Key? key,
     required this.btnFirstLine,
-    required this.btnSecondLine,
+    this.btnSecondLine = "",
     this.btnAsset = "",
     required this.btnAccion,
     this.btnWidth,
@@ -63,23 +63,30 @@ class BigBtnWidget extends StatelessWidget {
               const SizedBox( width: kDefaultPadding/2),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: btnSecondLine != "" ? CrossAxisAlignment.start : CrossAxisAlignment.center,
                   children: [
                     Text(
                       btnFirstLine,
                       style: TextStyle(
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w500,
+                        fontSize: btnSecondLine != "" ? 11.sp : 13.sp,
+                        fontWeight: btnSecondLine != "" ? FontWeight.w500 : FontWeight.w800,
                         color: isLighten ? _colorsHelpers.calculateHintColor(color: btnColor,context: context) : Colors.white,
                       ),
                     ),
-                    const SizedBox( height: kDefaultPadding/3),
-                    Text(
-                      btnSecondLine,
-                      style: TextStyle(
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w900,
-                        color: isLighten ? btnColor : Colors.white,
+                    Visibility(
+                      visible: btnSecondLine != "",
+                      child: Column(
+                        children: [
+                          const SizedBox( height: kDefaultPadding/3),
+                          Text(
+                            btnSecondLine!,
+                            style: TextStyle(
+                              fontSize: 11.sp,
+                              fontWeight: FontWeight.w900,
+                              color: isLighten ? btnColor : Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:appetit/constants.dart';
+import 'package:appetit/src/customs/sheets_customs.dart';
 import 'package:appetit/src/widgets/tiles/option_tile_widget.dart';
 import 'package:appetit/src/widgets/appbars/general_appbar_widget.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
@@ -82,7 +83,17 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
                       iconBtn: Icons.pin_drop_outlined,
                       noEllipsis: true,
                       ramdomColor: true,
-                      accion: () {},
+                      accion: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        sheetAcceptMapAddress(
+                          useAddress: predictions[index].structuredFormatting!.mainText!,
+                          context: context,
+                          actionOk: () {
+                          },
+                          actionCancel: () {
+                          }
+                        );
+                      },
                     );
                   },
                 ),
