@@ -1,5 +1,4 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -27,8 +26,6 @@ class DividerTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _colorsHelper = ColorsHelper();
-
     return Padding(
       padding: useTopPadding ? const EdgeInsets.only(top: kDefaultPadding/2) : EdgeInsets.zero,
       child: Column(
@@ -52,7 +49,7 @@ class DividerTitleWidget extends StatelessWidget {
               subTitle,
               style: TextStyle(
                 fontSize: 12.sp,
-                color: _colorsHelper.darken( amount: 0.3, color: kSpecialPrimary),
+                color: kSpecialTextColor,
                 fontWeight: FontWeight.w600,
               ),
               maxLines: 2,

@@ -96,8 +96,8 @@ class LoadingWidget extends StatelessWidget {
             children: [
               Lottie.asset(
                 _animation,
-                width: _size.width / 4,
-                height: _size.width / 4,
+                width: simpleLoad ? _size.width/2 : _size.width / 4,
+                height: simpleLoad ? _size.width/2 : _size.width / 4,
                 fit: BoxFit.fill,
               ),
               Visibility(

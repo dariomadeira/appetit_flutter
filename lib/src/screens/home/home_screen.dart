@@ -1,5 +1,6 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/customs/appetit_icons.dart';
+import 'package:appetit/src/customs/app_icons_icons.dart';
+// import 'package:appetit/src/customs/appetit_icons.dart';
 import 'package:appetit/src/providers/bottom_navigation_provider.dart';
 import 'package:appetit/src/screens/home/widgets/app_nav_Item_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -40,32 +41,32 @@ class HomeScreen extends StatelessWidget {
           items: [
             AppNavItem(
               size: 32,
-              iconNormal: Icon(Appetit.compass),
-              iconSelect: Icon(Appetit.compass2),
+              iconNormal: Icon(AppIcons.compass),
+              iconSelect: Icon(AppIcons.compass_l),
               bottomNavigationProvider: _bottomNavigationProvider,
               navText: tr("bottom_nav_explorer"),
               navIndex: 0,
             ),
             AppNavItem(
               size: 32,
-              iconNormal: Icon(Appetit.tableware2),
-              iconSelect: Icon(Appetit.tableware),
+              iconNormal: Icon(AppIcons.tableware),
+              iconSelect: Icon(AppIcons.tableware_l),
               bottomNavigationProvider: _bottomNavigationProvider,
               navText: tr("bottom_nav_news"),
               navIndex: 1,
             ),
             AppNavItem(
               size: 32,
-              iconNormal: Icon(Appetit.heart2),
-              iconSelect: Icon(Appetit.heart),
+              iconNormal: Icon(AppIcons.heart),
+              iconSelect: Icon(AppIcons.heart_l),
               bottomNavigationProvider: _bottomNavigationProvider,
               navText: tr("bottom_nav_favorites"),
               navIndex: 2,
             ),
             AppNavItemWithBadge(
               size: 32,
-              iconNormal: Icon(Appetit.bill2),
-              iconSelect: Icon(Appetit.bill),
+              iconNormal: Icon(AppIcons.bill),
+              iconSelect: Icon(AppIcons.bill_l),
               bottomNavigationProvider: _bottomNavigationProvider,
               navText: tr("bottom_nav_cart"),
               navIndex: 3,

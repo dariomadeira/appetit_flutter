@@ -1,5 +1,6 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/customs/sheets_customs.dart';
+import 'package:appetit/src/providers/theme_provider.dart';
+import 'package:appetit/src/screens/auth/address/widgets/sheet_map_view_widget.dart';
 import 'package:appetit/src/widgets/tiles/option_tile_widget.dart';
 import 'package:appetit/src/widgets/appbars/general_appbar_widget.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
@@ -10,6 +11,7 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:flutter/services.dart';
 import 'package:google_place/google_place.dart';
 import 'dart:developer';
+import 'package:provider/provider.dart';
 
 class UserAddressScreen extends StatefulWidget {
   @override
@@ -29,7 +31,16 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
   }
 
   @override
+  void dispose() {
+    _placeController.dispose();
+    super.dispose();
+  }  
+
+  @override
   Widget build(BuildContext context) {
+
+    final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
     return FocusDetector(
       onVisibilityGained: () {
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -85,13 +96,24 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
                       ramdomColor: true,
                       accion: () {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        sheetAcceptMapAddress(
-                          useAddress: predictions[index].structuredFormatting!.mainText!,
+                        showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(kDefaultPadding),
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          backgroundColor: _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,
                           context: context,
-                          actionOk: () {
-                          },
-                          actionCancel: () {
-                          }
+                          builder: (_) => SheetMapViewWidget(
+                            useAddress: predictions[index].structuredFormatting!.mainText!,
+                            placeId: predictions[index].placeId!,
+                            googlePlace: googlePlace,
+                            actionOk: () {
+                            },
+                            actionCancel: () {
+                            }
+                          ),
                         );
                       },
                     );

@@ -6,13 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-/// Crear un sheet para elegir una imágen   
+/// Crear un sheet para elegir una imágen
 void sheetSelectphoto({
   required BuildContext context,
   required Function actionCamera,
   required Function actionGallery,
 }) {
-
   final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
   showModalBottomSheet(
@@ -62,77 +61,4 @@ void sheetSelectphoto({
       );
     }
   );
-
-}
-
-// Crear un sheet para mostrar un mapa
-void sheetAcceptMapAddress({
-  required BuildContext context,
-  required Function actionOk,
-  required Function actionCancel,
-  required String useAddress
-}) {
-
-  final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-
-  showModalBottomSheet(
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(kDefaultPadding),
-      ),
-    ),
-    clipBehavior: Clip.antiAliasWithSaveLayer,
-    backgroundColor: _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,
-    context: context,
-    builder: (context) {
-      return Padding(
-        padding: const EdgeInsets.all(kDefaultPadding),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              tr("bottomsheet_address_question", namedArgs: {'address': useAddress}),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            const SizedBox( height: kDefaultPadding),
-
-
-
-
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BigBtnWidget(
-                  btnFirstLine: tr('general_no'),
-                  btnAccion: () {
-                    Navigator.pop(context);
-                    actionCancel();
-                  },
-                  btnWidth: 41.w,
-                  btnColor: Colors.red[600],
-                  btnIcon: Icons.cancel_outlined,
-                ),
-                BigBtnWidget(
-                  btnFirstLine: tr('general_yes'),
-                  btnAccion: () {
-                    Navigator.pop(context);
-                    actionOk();
-                  },
-                  btnWidth: 41.w,
-                  btnIcon: Icons.check_circle_outline,
-                  btnColor: Colors.green[600],
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    }
-  );
-
 }

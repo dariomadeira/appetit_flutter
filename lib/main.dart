@@ -6,6 +6,7 @@ import 'package:appetit/src/providers/data_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/screens/auth/address/user_address_screen.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
+import 'package:appetit/src/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
 import 'package:appetit/src/routers/routes.dart';
@@ -119,6 +120,7 @@ class _MyAppState extends State<MyApp> {
             routes: appRoutes,
             // home: showOnboarding ? LoginScreen() : OnboardingScreen(),
             home: UserAddressScreen(),
+            // home: HomeScreen(),
           );
         }
       )
