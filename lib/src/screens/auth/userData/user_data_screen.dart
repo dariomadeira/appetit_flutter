@@ -164,7 +164,8 @@ class _UserDataScreenState extends State<UserDataScreen> {
                   child: Column(
                     children: [
                       SimpleInputWidget(
-                        placeholder: tr('register_name_hint'),
+                        label: tr('register_name_label'),
+                        placeholder: tr('general_type_here'),
                         textController: _nameController,
                         keyboardType: TextInputType.text,
                         textCapitalization: TextCapitalization.words,

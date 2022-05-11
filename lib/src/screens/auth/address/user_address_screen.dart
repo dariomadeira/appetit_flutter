@@ -67,6 +67,7 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
               ),
               const SizedBox(height: kDefaultPadding),
               SimpleInputWidget(
+                label: tr('register_address_label'),
                 placeholder: tr('general_type_here'),
                 textController: _placeController,
                 keyboardType: TextInputType.text,

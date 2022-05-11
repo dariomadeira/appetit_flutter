@@ -22,16 +22,22 @@ class SimpleInputPasswordWidget extends StatefulWidget {
   final Function? inputValidate;
   /// formateador de texto
   final TextInputFormatter? textInputFormatter;
+  /// Funcion de validar
+  final Function? onChanged;
+  /// Etiqueta
+  final String label;
 
   const SimpleInputPasswordWidget({
     Key? key,
     required this.textController,
-    required this.placeholder, 
+    this.placeholder, 
     this.autoCorrect = false,
     this.keyboardType = TextInputType.text,
     this.textCapitalization = TextCapitalization.none,
     this.inputValidate,
     this.textInputFormatter,
+    this.onChanged, 
+    required this.label,
   }) : super(key: key);
 
   @override
@@ -40,7 +46,11 @@ class SimpleInputPasswordWidget extends StatefulWidget {
 
 class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
   
-  final BorderRadius _useThisRadius = BorderRadius.circular(kDefaultPadding + kDefaultPadding/2);
+  final BorderRadius _useThisRadius = BorderRadius.only(
+    topRight: Radius.circular(kDefaultPadding),
+    bottomRight: Radius.circular(kDefaultPadding),
+    bottomLeft: Radius.circular(kDefaultPadding)
+  );
   final _colorsHelper = ColorsHelper();
   bool _obscureText = true;
 
@@ -73,7 +83,31 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          padding: EdgeInsets.only(left: kDefaultPadding-4, right: kDefaultPadding-4, top: kDefaultPadding/2.5),
+          height: kDefaultPadding+4,
+          decoration: BoxDecoration(
+            color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(kDefaultPadding),
+              topRight: Radius.circular(kDefaultPadding)
+            ),
+          ),
+          child: Text(
+            widget.label,
+            style: TextStyle(
+              fontSize: 8.sp,
+              color: _colorsHelper.darken(color: kSpecialGray, amount: 0.1 ),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
         TextFormField(
+          onChanged: (value) {
+            if (widget.onChanged != null) {
+              widget.onChanged!(value);
+            }
+          },
           obscureText: _obscureText,
           controller:  widget.textController,
           autocorrect: widget.autoCorrect,
@@ -94,7 +128,7 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
               fontSize: 11.sp,
               fontWeight: FontWeight.w600,
             ),
-            hintText: widget.placeholder,
+            hintText: widget.placeholder!,
             filled: true,
             fillColor: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
             border: OutlineInputBorder(

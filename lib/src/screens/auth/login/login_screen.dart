@@ -126,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SimpleInputWidget(
                                   textController: _emailController,
                                   placeholder: tr('general_email_hint'),
+                                  label: tr('general_email_label'),
                                   inputValidate: (value) {
                                     bool _valid = _validationHelper.isValidEmail(value: value);
                                     if (_valid) {
@@ -144,6 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 SimpleInputPasswordWidget(
                                   textController: _passwordController,
                                   placeholder: tr('register_password_hint'),
+                                  label: tr('register_password_label'),
                                   inputValidate: (value) {
                                     bool _valid = _validationHelper.isValidPassword(value: value);
                                     if (_valid) {

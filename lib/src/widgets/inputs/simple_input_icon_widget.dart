@@ -24,23 +24,30 @@ class SimpleInputIconWidget extends StatelessWidget {
   final TextInputFormatter? textInputFormatter;
  /// Ícono inicial
   final IconData icon;
+  /// Funcion de validar
+  final Function? onChanged;
+  /// Etiqueta
+  final String label;
 
   const SimpleInputIconWidget({
     Key? key,
     required this.textController,
-    required this.placeholder, 
+    this.placeholder, 
     this.autoCorrect = false,
     this.keyboardType = TextInputType.text,
     this.textCapitalization = TextCapitalization.none,
     this.inputValidate,
     this.textInputFormatter,
     required this.icon,
+    this.onChanged,
+    required this.label,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    final BorderRadius _useThisRadius = BorderRadius.circular(kDefaultPadding + kDefaultPadding/2);
+    // final BorderRadius _useThisRadius = BorderRadius.circular(kDefaultPadding + kDefaultPadding/2);
+    final BorderRadius _useThisRadius = BorderRadius.circular(kDefaultPadding);
     final _colorsHelper = ColorsHelper();
 
     dynamic _handleValidate(String value) {
@@ -63,7 +70,31 @@ class SimpleInputIconWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Container(
+          padding: EdgeInsets.only(left: kDefaultPadding-4, right: kDefaultPadding-4, top: kDefaultPadding/2.5),
+          height: kDefaultPadding+4,
+          decoration: BoxDecoration(
+            color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(kDefaultPadding),
+              topRight: Radius.circular(kDefaultPadding)
+            ),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 8.sp,
+              color: _colorsHelper.darken(color: kSpecialGray, amount: 0.1 ),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
         TextFormField(
+          onChanged: (value) {
+            if (onChanged != null) {
+              onChanged!(value);
+            }
+          },
           controller:  textController,
           autocorrect: autoCorrect,
           textCapitalization: textCapitalization,
@@ -83,7 +114,7 @@ class SimpleInputIconWidget extends StatelessWidget {
               fontSize: 11.sp,
               fontWeight: FontWeight.w400,
             ),
-            hintText: placeholder,
+            hintText: placeholder!,
             filled: true,
             fillColor: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
             border: OutlineInputBorder(

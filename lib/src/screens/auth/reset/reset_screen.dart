@@ -89,6 +89,7 @@ class _ResetScreenState extends State<ResetScreen> {
                   key: _formKey,
                   child: SimpleInputWidget(
                     placeholder: tr('general_email_hint'),
+                    label: tr('general_email_label'),
                     keyboardType: TextInputType.emailAddress,
                     textController: _emailController,
                     inputValidate: (value) {

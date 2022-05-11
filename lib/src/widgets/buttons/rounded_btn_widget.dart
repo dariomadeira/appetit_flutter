@@ -79,7 +79,7 @@ class RoundedBtnWidget extends StatelessWidget {
               shadowColor: Colors.transparent,
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(_btnHeight/2),
+                borderRadius: BorderRadius.circular(_btnHeight/3),
               ),
               textStyle: GoogleFonts.quicksand(
                 textStyle: TextStyle(
