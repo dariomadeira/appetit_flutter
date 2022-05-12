@@ -154,8 +154,8 @@ class _UserDataScreenState extends State<UserDataScreen> {
                 ),
                 const SizedBox(height: kDefaultPadding),
                 DividerTitleWidget(
-                  title: tr('register_data_area_title'),
-                  subTitle: tr('register_data_area_subtitle'),
+                  title: tr('register_data_area_profile_title'),
+                  subTitle: tr('register_data_area_profile_subtitle'),
                 ),
                 const SizedBox(height: kDefaultPadding),
                 Form(

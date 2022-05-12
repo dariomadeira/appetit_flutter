@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'dart:math';
 
 /// Appbar para toda la app
 class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -56,6 +57,7 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
 
     // final _stringsHelper = StringsHelper();
     final _themeProvider = Provider.of<ThemeProvider>(context);
+    Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
     return SafeArea(
       top: true,
@@ -76,6 +78,8 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
                   Visibility(
                     visible: showBack,
                     child: CircleBtnWidget(
+                      iconColor: _randomColor,
+                      backgroundColor: _randomColor.withOpacity(0.15),
                       accion: accionBack ?? () {
                         Navigator.pop(context);
                       },
@@ -116,7 +120,7 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
               style: TextStyle(
                 fontSize: 15.sp,
                 color: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
               ),
             ),
 

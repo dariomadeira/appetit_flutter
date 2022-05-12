@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       SimpleInputWidget(
                         label: tr('general_email_label'),
-                        placeholder: tr('general_email_hint'),
+                        placeholder: tr('general_type_here'),
                         keyboardType: TextInputType.emailAddress,
                         textController: _emailController,
                         inputValidate: (value) {
@@ -111,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SimpleInputPasswordWidget(
                         textController: _passwordController,
                         label: tr('register_password_label'),
-                        placeholder: tr('register_password_hint'),
+                        placeholder: tr('general_type_here'),
                         inputValidate: (value) {
                           bool _valid = _validationsHelper.isValidPassword(value: value);
                           if (_valid) {
@@ -125,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SimpleInputPasswordWidget(
                         textController: _passwordVerificationController,
                         label: tr('register_password_verification_label'),
-                        placeholder: tr('register_password_verification_hint'),
+                        placeholder: tr('general_type_here'),
                         inputValidate: (value) {
                           bool _valid = _validationsHelper.isValidPassword(value: value);
                           bool _validVerification = _validationsHelper.isPasswordsSame(

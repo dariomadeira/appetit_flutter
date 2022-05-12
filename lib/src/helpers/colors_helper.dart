@@ -24,13 +24,14 @@ class ColorsHelper {
   /// Calcular el color de los hinText en base al estado del tema
   Color calculateHintColor({
     Color? color,
-    BuildContext? context
+    BuildContext? context,
+    double? opacity = 0.6,
   }) {
     final _themeProvider = Provider.of<ThemeProvider>(context!, listen: false);
     if (_themeProvider.darkTheme) {
       return color!;
     } else {
-      return color!.withOpacity(0.6);
+      return color!.withOpacity(opacity!);
     }
   }
 

@@ -109,7 +109,7 @@ class SimpleInputWidget extends StatelessWidget {
           ),
           decoration: InputDecoration(
             hintStyle: TextStyle(
-              color: _colorsHelper.calculateHintColor(context: context, color: kSpecialGray),
+              color: _colorsHelper.calculateHintColor(context: context, color: kSpecialGray, opacity: 0.3),
               fontSize: 11.sp,
               fontWeight: FontWeight.w600,
             ),

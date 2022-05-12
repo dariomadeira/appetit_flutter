@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               children: [
                                 SimpleInputWidget(
                                   textController: _emailController,
-                                  placeholder: tr('general_email_hint'),
+                                  placeholder: tr('general_type_here'),
                                   label: tr('general_email_label'),
                                   inputValidate: (value) {
                                     bool _valid = _validationHelper.isValidEmail(value: value);
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const SizedBox(height: kDefaultPadding),
                                 SimpleInputPasswordWidget(
                                   textController: _passwordController,
-                                  placeholder: tr('register_password_hint'),
+                                  placeholder: tr('general_type_here'),
                                   label: tr('register_password_label'),
                                   inputValidate: (value) {
                                     bool _valid = _validationHelper.isValidPassword(value: value);

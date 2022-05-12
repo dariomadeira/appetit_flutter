@@ -50,7 +50,7 @@ class DividerTitleWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12.sp,
                 color: kSpecialTextColor,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
