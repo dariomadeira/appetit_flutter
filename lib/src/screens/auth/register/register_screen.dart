@@ -71,10 +71,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           showAvatar: false,
           showBack: !_authProvider.isLoading,
           appbarTitle: tr('register_appbar_title'),
+          hideTitle: _authProvider.isLoading,
         ),
         body: _authProvider.isLoading
         ? Center(
-            child: LoadingWidget(),
+            child: LoadingWidget(
+              simpleLoad: true,
+              loadingMessage: tr("register_loading"),
+            ),
           )
         : SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

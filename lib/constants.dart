@@ -77,6 +77,8 @@ const String kSupabaseUrl = 'https://ljcsdgatxhumnkedqdaf.supabase.co';
 const String kSupabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqY3NkZ2F0eGh1bW5rZWRxZGFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTA0MDQyMjEsImV4cCI6MTk2NTk4MDIyMX0.QTvnQaiUDgjFl9LdtoeflS18M36jnSCJBgiGKSgXqvc';
 const String kGooglePlacesApiKey = "AIzaSyA_0BULRV-1AYr4BLTFbhGpC-fI1uSqw-4";
 const String kImgurApiKey = '41f027e06084c3e';
+const String kAbstractApiKey = '8a1b43447fc945669eb17f7011f0e002';
+const String kAbstractApiCountryCode = '+54';
 const String kMapBoxUrl = 'https://api.mapbox.com/styles/v1/dariomadeira/cl2w9cqk5003215qy45uinesi/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGFyaW9tYWRlaXJhIiwiYSI6ImNrYW4wNW9vcDBjODQyeGx1cnBpd3J2cHYifQ.g8wfS80HeFpdbpJETMagJQ';
 const String kMapBoxToken = 'pk.eyJ1IjoiZGFyaW9tYWRlaXJhIiwiYSI6ImNrYW4wNW9vcDBjODQyeGx1cnBpd3J2cHYifQ.g8wfS80HeFpdbpJETMagJQ';
 const String kMapBoxId = 'mapbox.mapbox-streets-v8';

@@ -96,7 +96,7 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
           child: Text(
             widget.label,
             style: TextStyle(
-              fontSize: 8.sp,
+              fontSize: 8.4.sp,
               color: _colorsHelper.darken(color: kSpecialGray, amount: 0.1 ),
               fontWeight: FontWeight.w600,
             ),

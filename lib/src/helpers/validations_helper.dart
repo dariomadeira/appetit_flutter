@@ -20,4 +20,11 @@ class ValidationsHelper {
     return pass1 == pass2;
   }
 
+  /// Validar teléfono
+  bool isValidPhone({String? phone}) {
+    String pattern = r'^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$';
+    RegExp regExp = RegExp(pattern);
+    return regExp.hasMatch(phone!);
+  }
+
 }

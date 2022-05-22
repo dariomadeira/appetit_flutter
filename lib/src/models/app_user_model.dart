@@ -6,44 +6,60 @@ String appUserToJson(AppUser data) => json.encode(data.toJson());
 
 class AppUser {
   AppUser({
-    required this.authMessage,
+    this.authMessage,
     required this.authToken,
-    required this.userName,
-    required this.userProfilePicture,
     required this.userEmail,
-    required this.userCreation,
-    required this.userLastAccess,
-    required this.userPhone,
+    this.userProfilePicture,
+    this.userName,
+    this.userAddress,
+    this.userLat,
+    this.userLng,
+    this.userPhone,
+    this.userPhonePrefix,
+    this.userCreation,
+    this.userLastAccess,
   });
 
-  final String authMessage;
+  String? authMessage;
   final String authToken;
-  final String userName;
-  final String userProfilePicture;
   final String userEmail;
-  final String userCreation;
-  final String userLastAccess;
-  final String userPhone;
+  String? userProfilePicture;
+  String? userName;
+  String? userAddress;
+  String? userLat;
+  String? userLng;
+  String? userPhone;
+  String? userPhonePrefix;
+  String? userCreation;
+  String? userLastAccess;
 
   factory AppUser.fromJson(Map<String, dynamic> json) => AppUser(
     authMessage: json["authMessage"],
     authToken: json["authToken"],
-    userName: json["userName"],
-    userProfilePicture: json["userProfilePicture"],
     userEmail: json["userEmail"],
+    userProfilePicture: json["userProfilePicture"],
+    userName: json["userName"],
+    userAddress: json["userAddress"],
+    userLat: json["userLat"],
+    userLng: json["userLng"],
+    userPhone: json["userPhone"],
+    userPhonePrefix: json["userPhonePrefix"],
     userCreation: json["userCreation"],
     userLastAccess: json["userLastAccess"],
-    userPhone: json["userPhone"],
   );
 
   Map<String, dynamic> toJson() => {
     "authMessage": authMessage,
     "authToken": authToken,
-    "userName": userName,
-    "userProfilePicture": userProfilePicture,
     "userEmail": userEmail,
+    "userProfilePicture": userProfilePicture,
+    "userName": userName,
+    "userAddress": userAddress,
+    "userLat": userLat,
+    "userLng": userLng,
+    "userPhone": userPhone,
+    "userPhonePrefix": userPhonePrefix,
     "userCreation": userCreation,
     "userLastAccess": userLastAccess,
-    "userPhone": userPhone,
   };
 }

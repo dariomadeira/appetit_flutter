@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:supabase/supabase.dart';
+import 'dart:developer';
 
 class DataProvider with ChangeNotifier {
-
-  final Logger _logger = Logger();
 
   Future<bool> saveUserData({
     required String email,
@@ -29,14 +27,16 @@ class DataProvider with ChangeNotifier {
 
 
       if (insertResponse.error == null) {
-        print('insertResponse.data: ${insertResponse.data}');
+        print("**** INSERT OK ****");
+        inspect(insertResponse.data);
         result = true;
       } else {
-        _logger.i(insertResponse.error);
+        print("**** INSERT ERROR ****");
+        inspect(insertResponse.error);
         result = false;
       }
     } catch(e) {
-      print(e);
+      print("**** ERROR - ${e}");
       result = false;
     }
     return result;

@@ -44,7 +44,6 @@ dependencies:
   flutter_svg_provider: ^1.0.3
   image_picker: ^0.8.4+11
   dio: ^4.0.6
-  logger: ^1.1.0
   focus_detector: ^2.0.1
   supabase: ^0.3.2
   google_place: ^0.4.7

@@ -1,6 +1,7 @@
 
 import 'package:appetit/src/screens/auth/address/user_address_screen.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
+import 'package:appetit/src/screens/auth/phone/user_phone_screen.dart';
 import 'package:appetit/src/screens/auth/register/register_screen.dart';
 import 'package:appetit/src/screens/auth/reset/reset_screen.dart';
 import 'package:appetit/src/screens/auth/userData/user_data_screen.dart';
@@ -17,6 +18,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'reset': (_) => ResetScreen(),
   'userData': (_) => UserDataScreen(),
   'userAddress': (_) => UserAddressScreen(),
+  'userPhone': (_) => UserPhoneScreen(),
 };
 
 // '/': (context) => ChangeNotifierProvider<MyModel>(

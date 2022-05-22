@@ -27,7 +27,7 @@ class LoadingWidget extends StatelessWidget {
 
     final _themeProvider = Provider.of<ThemeProvider>(context);
     final _size = MediaQuery.of(context).size;
-    final String _defaultMessage = loadingMessage == "" ? tr('general_loading') : tr(loadingMessage!);
+    final String _defaultMessage = loadingMessage == "" ? tr('general_loading') : loadingMessage!;
     final String _defaultAnimation = 'assets/animations/loader.json';
     final List<String> _listAnimations = [
       'assets/animations/bbq_l.json',

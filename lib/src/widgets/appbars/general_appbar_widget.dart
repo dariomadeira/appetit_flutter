@@ -35,6 +35,8 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
   final VoidCallback? accionBack;
   /// color de fondo de la barra
   final Color? backgroundColor;
+  /// ocultar titulo si es necesario
+  final bool hideTitle;
 
   /// Constructor
   const GeneralAppbarWidget({
@@ -50,6 +52,7 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
     this.appbarTitle = '',
     this.accionBack,
     this.backgroundColor = null,
+    this.hideTitle = false,
   }) : super(key: key);
 
   @override
@@ -70,7 +73,7 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
         color: backgroundColor != null ? backgroundColor : _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,
         child: Row(
           children: [
-            const SizedBox(width: kDefaultPadding/2),
+            const SizedBox(width: kDefaultPadding),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -115,12 +118,15 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
                 width: 100,
               ),
             )
-            : Text(
-              appbarTitle,
-              style: TextStyle(
-                fontSize: 15.sp,
-                color: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
-                fontWeight: FontWeight.w600,
+            : Visibility(
+              visible: !hideTitle,
+              child: Text(
+                appbarTitle,
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  color: _themeProvider.darkTheme ? kTitleDark : kTitleLight,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
 
@@ -176,7 +182,7 @@ class GeneralAppbarWidget extends StatelessWidget implements PreferredSizeWidget
                 ],
               ),
             ),
-            const SizedBox( width: kDefaultPadding/2),
+            const SizedBox( width: kDefaultPadding),
           ],
         ),
       ),

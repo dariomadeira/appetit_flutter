@@ -14,6 +14,7 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'dart:developer';
 
 class UserDataScreen extends StatefulWidget {
   @override
@@ -53,6 +54,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
   Widget build(BuildContext context) {
 
     final _authPhoto = Provider.of<AuthPhotoProvider>(context);
+    final _authProvider = Provider.of<AuthProvider>(context);
 
     void _showSnack({
       required BuildContext context,
@@ -85,6 +87,11 @@ class _UserDataScreenState extends State<UserDataScreen> {
     }
 
     void _saveData() async {
+      _authProvider.authStatus = "ADD_USER_DATA_SUCCESS";
+      _authProvider.currentUser.userName = _nameController.text;
+      _authProvider.currentUser.userProfilePicture = _authPhoto.addPhotoUrl;
+      print("**** APP USER ****");
+      inspect(_authProvider.currentUser);
       Navigator.pushNamed(context, 'userAddress');
     }
 

@@ -1,4 +1,5 @@
 import 'package:appetit/constants.dart';
+import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:appetit/src/helpers/validations_helper.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
 import 'package:appetit/src/widgets/buttons/big_btn_widget.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
+import 'dart:math';
 
 class LoginScreen extends StatefulWidget {
 
@@ -27,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
   ScrollController _scrollController = ScrollController();
   bool _handleStatusBarColor = false;
   double _decorationHeight = 100.w/2;
+  Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  final _colorsHelper = ColorsHelper();
 
   _scrollListener() {
     if (_scrollController.offset >= _decorationHeight - kDefaultPadding/2) {
@@ -62,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: _handleStatusBarColor ? kSpecialPrimary : Colors.transparent,
+      statusBarColor: _handleStatusBarColor ? Colors.white : Colors.transparent,
       systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
@@ -70,8 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return FocusDetector(
       onVisibilityGained: () {
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.light,
-          statusBarColor: _handleStatusBarColor ? kSpecialPrimary : Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarColor: _handleStatusBarColor ? Colors.white : Colors.transparent,
         ));
       },
       child: Scaffold(
@@ -96,14 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               image: Svg('assets/svgs/login.svg'),
                               fit: BoxFit.cover
                             ),
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                kPrimaryColor,
-                                kSecondaryColor,
-                              ]
-                            )
+                            color: _colorsHelper.calculateBGColor(color: _randomColor, context: context, opacity: 0.4),
                           ),
                         ),
                       ],

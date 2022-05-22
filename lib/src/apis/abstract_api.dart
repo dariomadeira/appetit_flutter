@@ -2,33 +2,25 @@ import 'package:appetit/constants.dart';
 import 'package:appetit/src/helpers/http_responses_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'dart:developer';
 
-/// clase para manejar la api de Imgur
-class ImgurApi {
+/// clase para manejar la api de Abstract
+class AbstractApi {
 
   final Dio _dio = Dio();
-  final String _authID = kImgurApiKey;
+  final String _authID = kAbstractApiKey;
+  final String _countryCode = kAbstractApiCountryCode;
 
-  /// Cargar la imágen
-  Future<HttpResponses> loadImage({
-    required BuildContext context,
-    String? filePath
+  /// Verificar el número
+  Future<HttpResponses> verifyPhone({
+    required String phone
   }) async {
     try {
-      FormData _formData = FormData.fromMap({
-        'image': await MultipartFile.fromFile(filePath!, filename: 'dp')
-      });
-      final response = await _dio.post('https://api.imgur.com/3/image', 
-        options: Options(
-          headers: {
-            'Authorization': 'Client-ID $_authID'
-          },
-        ),
-        data: _formData,
-      );
-      print("**** IMGUR API RESPONSE ****");
+      String _useUrl = "https://phonevalidation.abstractapi.com/v1/?api_key=${_authID}&phone=${_countryCode}${phone}";
+      print("**** URL ****");
+      print("${_useUrl}");
+      final response = await _dio.get(_useUrl);
+      print("**** ABSTRACT API RESPONSE ****");
       inspect(response.data);
       return HttpResponses.success(response.data);
     } catch(e) {

@@ -4,7 +4,7 @@ import 'package:appetit/src/helpers/http_responses_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-/// Clase para manejar la autentificación en la app
+/// Clase para manejar la foto del usuario
 class AuthPhotoProvider with ChangeNotifier {
 
   /// Instancias

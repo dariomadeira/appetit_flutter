@@ -1,9 +1,9 @@
 import 'package:appetit/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase/supabase.dart';
-import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:appetit/src/models/app_user_model.dart';
+import 'dart:developer';
 
 class AuthProvider with ChangeNotifier {
 
@@ -19,12 +19,16 @@ class AuthProvider with ChangeNotifier {
     return AppUser(
       authMessage: message,
       authToken: '',
-      userEmail: '', 
-      userName: '',
+      userEmail: '',
       userProfilePicture: '', 
+      userName: '',
+      userAddress: '',
+      userLat: '',
+      userLng: '',
+      userPhone: '',
+      userPhonePrefix: '',
       userCreation: '',
       userLastAccess: '',
-      userPhone: '',   
     );
   }
 
@@ -32,7 +36,7 @@ class AuthProvider with ChangeNotifier {
     _client = SupabaseClient(kSupabaseUrl, kSupabaseKey);
     _supaClient = _client.auth;
     authStatus = "INIT";
-    print('Supabase init');
+    print("**** SUPABASE INIT ****");
   }
 
   Future<AppUser> registerUser({
@@ -45,30 +49,35 @@ class AuthProvider with ChangeNotifier {
     try {
       final response = await _supaClient.signUp(email, password);
       if (response.error == null) {
-        print('Sign up was successful for user ID: ${response.user!.id}');
+        print('**** SIGN UP SUCCESSS - USER ID: ${response.user!.id} ****');
         _user = AppUser(
           authMessage: tr('register_success'),
           authToken: response.user!.id,
-          userEmail: email, 
-          userName: "", 
+          userEmail: email,
           userProfilePicture: "",
-          userCreation: "",
-          userLastAccess: "",
+          userName: "", 
+          userAddress: "", 
+          userLat: "", 
+          userLng: "", 
           userPhone: "",
+          userPhonePrefix: "",
+          userCreation: DateTime.now().toString(),
+          userLastAccess: DateTime.now().toString(),
         );
         authStatus = "CREATE_USER_SUCCESS";
       } else {
-        print('Sign up error: ${response.error!.message}');
+        print('**** SING UP ERROR - ${response.error!.message} ****');
         _user = _authError(tr('general_error'));
       }
     } catch(e) {
-      print(e);
+      print("**** ERROR - ${e}");
       _user = _authError(tr('general_error'));
     }
     currentUser = _user;
     isLoading = false;
     notifyListeners();
-    print(json.encode(_user));
+    print("**** APP USER ****");
+    inspect(_user);
     return _user;
   }
 

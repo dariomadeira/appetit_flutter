@@ -16,6 +16,7 @@
   "general_type_here": "Escribe aquí",
   "general_yes": "Sí",
   "general_no": "No",
+  "general_phone": "Número de teléfono",
 
   "onboarding_slider1_title": "¡Bienvenido!",
   "onboarding_slider1_description": "Con Appetit explora los mejores sitios para comer cerca tuyo.",
@@ -79,7 +80,7 @@
   "register_data_area_title": "Inicia aquí",
   "register_data_area_subtitle": "Completa los datos requeridos para crear una cuenta",
   "register_search_photo": "Elige tu foto",
-  "register_success": "Hemos creado su cuenta",
+  "register_success": "Hemos creado su cuenta y te enviaremos un mail para verificarla",
   "register_password_short": "Su contraseña es muy corta",
   "register_mail_used": "Ya existe un usuario con ese correo eletrónico",
   "register_invalid_email": "No es un mail válido",
@@ -89,6 +90,7 @@
   "register_address_label": "Dirección",
   "register_data_area_profile_title": "Un poco mas...",
   "register_data_area_profile_subtitle": "Te pediremos algunos datos adicionales para crear tu perfil",
+  "register_loading": "Creando cuenta...",
 
   "userData_appbar_title": "Tu perfil",
   "userData_btn_next": "Continuar",
@@ -108,7 +110,17 @@
   "userAddress_appbar_title": "¿Dónde vives?",
   "userAddress_area_title": "Tu dirección",
   "userAddress_area_subtitle": "Usaremos estos datos para realizarte envíos",
+  "userAddress_loading_address": "Cargando mapa...",
 
-  "bottomsheet_address_question":"¿Vives en {address}?"
+  "bottomsheet_address_question":"¿Vives en {address}?",
+
+  "phone_appbar_title": "Contacto",
+  "phone_area_title": "Teléfono",
+  "phone_area_subtitle": "Escribe tu número de teléfono y te enviaremos un código de verificación",
+  "phone_btn_send": "Validar",
+  "phone_invalid": "No es un número válido",
+  "phone_verify_success": "Tu teléfono ha sido verificado",
+  "phone_verify_error": "No hemos podido verificar tu teléfono",
+  "phone_verify_loading": "Verificando..."
 
 }

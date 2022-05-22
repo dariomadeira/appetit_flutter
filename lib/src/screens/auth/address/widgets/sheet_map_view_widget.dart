@@ -1,10 +1,12 @@
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/customs/app_icons_icons.dart';
+import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/widgets/buttons/big_btn_widget.dart';
 import 'package:appetit/src/widgets/states/loading_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_place/google_place.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart' as lat_lng;
@@ -62,6 +64,7 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
           ),
         ),
       );
+      print("**** MAP MARKER ****");
       inspect(markers);
       setState(() {
         uselat = lat;
@@ -73,6 +76,9 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    final _authProvider = Provider.of<AuthProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(kDefaultPadding),
       child: showMap
@@ -91,6 +97,10 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
                 Container(
                   height: 30.h,
                   width: 100.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(kDefaultPadding+1),
+                    border: Border.all(color: Color(0xffebe0cb), width: 1),
+                  ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(kDefaultPadding),
                     child: FlutterMap(
@@ -132,6 +142,10 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
                     BigBtnWidget(
                       btnFirstLine: tr('general_yes'),
                       btnAccion: () {
+                        _authProvider.currentUser.userLat = uselat.toString();
+                        _authProvider.currentUser.userLng = uselong.toString();
+                        print("**** APP USER ****");
+                        inspect(_authProvider.currentUser);
                         Navigator.pop(context);
                         widget.actionOk();
                       },
@@ -145,6 +159,7 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
             )
           : LoadingWidget(
             simpleLoad: true,
+            loadingMessage: tr("userAddress_loading_address"),
           ),
     );
   }

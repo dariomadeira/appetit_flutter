@@ -1,4 +1,5 @@
 import 'package:appetit/constants.dart';
+import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/screens/auth/address/widgets/sheet_map_view_widget.dart';
 import 'package:appetit/src/widgets/tiles/option_tile_widget.dart';
@@ -40,6 +41,13 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
   Widget build(BuildContext context) {
 
     final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final _authProvider = Provider.of<AuthProvider>(context);
+
+    void _saveData() async {
+      _authProvider.authStatus = "ADD_USER_ADDRESS_SUCCESS";
+      _authProvider.currentUser.userAddress = _placeController.text;
+      Navigator.pushNamed(context, 'userPhone');
+    }
 
     return FocusDetector(
       onVisibilityGained: () {
@@ -111,6 +119,7 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
                             placeId: predictions[index].placeId!,
                             googlePlace: googlePlace,
                             actionOk: () {
+                              _saveData();
                             },
                             actionCancel: () {
                             }
@@ -130,6 +139,7 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
 
   void autoCompleteSearch(String value) async {
     var result = await googlePlace.autocomplete.get(value, language: "es", );
+    print("**** PLACE RESULT ****");
     inspect(result);
     if (result != null && result.predictions != null && mounted) {
       if (predictions.length == 0) {
