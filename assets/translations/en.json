@@ -116,11 +116,12 @@
 
   "phone_appbar_title": "Contacto",
   "phone_area_title": "Teléfono",
-  "phone_area_subtitle": "Escribe tu número de teléfono y te enviaremos un código de verificación",
+  "phone_area_subtitle": "Escribe tu número de teléfono para verificarlo",
   "phone_btn_send": "Validar",
   "phone_invalid": "No es un número válido",
   "phone_verify_success": "Tu teléfono ha sido verificado",
   "phone_verify_error": "No hemos podido verificar tu teléfono",
-  "phone_verify_loading": "Verificando..."
+  "phone_verify_loading": "Verificando...",
+  "phone_save_data": "Guardando sus datos..."
 
 }

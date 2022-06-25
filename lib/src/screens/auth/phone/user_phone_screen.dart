@@ -1,5 +1,4 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/customs/snacks_customs.dart';
 import 'package:appetit/src/helpers/validations_helper.dart';
 import 'package:appetit/src/providers/phone_provider.dart';
 import 'package:appetit/src/widgets/appbars/general_appbar_widget.dart';
@@ -13,10 +12,10 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-/// Pantalla verificarión de teléfono
+// PANTALLA DE VALIDACIÓN DE TELÉFONO
 class UserPhoneScreen extends StatefulWidget {
 
-  /// Constructor
+  // CONSTRUCTOR
   const UserPhoneScreen({
     Key? key
   }) : super(key: key);
@@ -43,29 +42,13 @@ class _UserPhoneScreenState extends State<UserPhoneScreen> {
 
     final _authPhone = Provider.of<PhoneProvider>(context);
 
-    void _showSnack({
-      required BuildContext context,
-      required bool evaluate,
-      required String messageSuccess,
-      required String messageError
-    }) {
-      if (evaluate) {
-        wSnackSuccess(message: messageSuccess, context: context);
-      } else {
-        wSnackError(message: messageError, context: context);
-      }
-    }    
-
     void _validatePhone() async {
-      bool _obtainPhoto = await _authPhone.verifyIsValidPhone(
-        phoneNumber: _phoneController.text
+      bool _isValidPhone = await _authPhone.verifyIsValidPhone(
+        phoneNumber: _phoneController.text,
       );
-      _showSnack(
-        context: _scaffoldKey.currentContext!,
-        evaluate: _obtainPhoto,
-        messageError: tr('phone_verify_error'),
-        messageSuccess: tr('phone_verify_success'),
-      );
+      if (_isValidPhone) {
+        await Navigator.pushNamedAndRemoveUntil(context, 'successUserCreate', (route) => false);
+      }
     }
 
     return FocusDetector(
@@ -89,7 +72,7 @@ class _UserPhoneScreenState extends State<UserPhoneScreen> {
         ? Center(
             child: LoadingWidget(
               simpleLoad: true,
-              loadingMessage: tr("phone_verify_loading"),
+              loadingMessage: _authPhone.loadingMessage,
             ),
           )
         : SingleChildScrollView(

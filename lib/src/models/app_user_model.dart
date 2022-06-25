@@ -15,7 +15,7 @@ class AppUser {
     this.userLat,
     this.userLng,
     this.userPhone,
-    this.userPhonePrefix,
+    this.userPhoneValid,
     this.userCreation,
     this.userLastAccess,
   });
@@ -29,7 +29,7 @@ class AppUser {
   String? userLat;
   String? userLng;
   String? userPhone;
-  String? userPhonePrefix;
+  String? userPhoneValid;
   String? userCreation;
   String? userLastAccess;
 
@@ -43,7 +43,7 @@ class AppUser {
     userLat: json["userLat"],
     userLng: json["userLng"],
     userPhone: json["userPhone"],
-    userPhonePrefix: json["userPhonePrefix"],
+    userPhoneValid: json["userPhoneValid"],
     userCreation: json["userCreation"],
     userLastAccess: json["userLastAccess"],
   );
@@ -58,7 +58,7 @@ class AppUser {
     "userLat": userLat,
     "userLng": userLng,
     "userPhone": userPhone,
-    "userPhonePrefix": userPhonePrefix,
+    "userPhoneValid": userPhoneValid,
     "userCreation": userCreation,
     "userLastAccess": userLastAccess,
   };
