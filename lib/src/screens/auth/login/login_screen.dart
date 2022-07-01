@@ -1,15 +1,20 @@
 import 'package:appetit/constants.dart';
+import 'package:appetit/src/customs/snacks_customs.dart';
 import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:appetit/src/helpers/validations_helper.dart';
+import 'package:appetit/src/models/app_user_model.dart';
+import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
 import 'package:appetit/src/widgets/buttons/big_btn_widget.dart';
 import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
 import 'package:appetit/src/widgets/inputs/simple_input_password_widget.dart';
 import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
+import 'package:appetit/src/widgets/states/loading_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:focus_detector/focus_detector.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
@@ -65,6 +70,23 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
 
+    final _authProvider = Provider.of<AuthProvider>(context);
+
+  void _loginNow() async {
+    AppUser _loginResult = await _authProvider.login(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+    if (_loginResult.authToken != '') {
+      await Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+    } else {
+      wSnackError(
+        message: _loginResult.statusMessage,
+        context: context
+      );
+    }
+  }    
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: _handleStatusBarColor ? Colors.white : Colors.transparent,
       systemNavigationBarColor: Colors.white,
@@ -79,7 +101,14 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
       },
       child: Scaffold(
-        body: NotificationListener<OverscrollIndicatorNotification>(
+        body: _authProvider.isLoading
+          ? Center(
+            child: LoadingWidget(
+              simpleLoad: true,
+              loadingMessage: tr('login_process'),
+            ),
+          ) 
+          : NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (OverscrollIndicatorNotification? overscroll) {
               overscroll!.disallowIndicator();
               return true;
@@ -167,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               RoundedBtnWidget(
                                 btnAccion: () {
                                   if (_formKey.currentState!.validate()) {
-                                    // _loginNow();
+                                    _loginNow();
                                   }
                                 },
                                 btnText: tr('login_btn'),

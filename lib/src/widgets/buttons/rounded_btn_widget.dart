@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Botón redondeado especial
+/// BOTÓN REDONDEADO
 class RoundedBtnWidget extends StatelessWidget {
 
-  /// Constructor
+  // CONSTRUCTOR
   const RoundedBtnWidget({
     Key? key,
     required this.btnText,
@@ -16,20 +16,23 @@ class RoundedBtnWidget extends StatelessWidget {
     this.btnIcon,
     this.isLighten = false,
     this.variation = 1,
+    this.noRounded = true,
   }) : super(key: key);
 
-  /// Texto del botón
+  // TEXTO DEL BOTÓN
   final String btnText;
-  /// Acción del botón
+  // ACCIÓN DEL BOTÓN
   final VoidCallback btnAccion;
-  /// Color del botón
+  // COLOR DEL BOTÓN
   final Color? btnColor;
-  /// Icono del botón
+  // ICONO DEL BOTÓN
   final IconData? btnIcon;
-  /// Botón light
+  // BOTÓN LIGHT
   final bool isLighten;
-  /// Variaciones
+  // VARIACIONES
   final int variation;
+  // BOTÓN NO REDONDEADO
+  final bool noRounded;
   
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,7 @@ class RoundedBtnWidget extends StatelessWidget {
               shadowColor: Colors.transparent,
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(_btnHeight/2),
+                borderRadius: noRounded ? BorderRadius.circular(_btnHeight/3.6) : BorderRadius.circular(_btnHeight/2),
               ),
               textStyle: GoogleFonts.quicksand(
                 textStyle: TextStyle(
@@ -79,7 +82,7 @@ class RoundedBtnWidget extends StatelessWidget {
               shadowColor: Colors.transparent,
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(_btnHeight/3),
+                borderRadius: noRounded ? BorderRadius.circular(_btnHeight/4.8) : BorderRadius.circular(_btnHeight/3.2),
               ),
               textStyle: GoogleFonts.quicksand(
                 textStyle: TextStyle(

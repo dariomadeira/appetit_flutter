@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:math';
 
-/// Opción de porfile
+// WIDGET DE OPCIÓN
 class OptionTile extends StatelessWidget {
 
-  /// Constructor
+  // CONSTRUCTOR
   const OptionTile({
     Key? key,
     required this.btnTitle,
@@ -27,32 +27,33 @@ class OptionTile extends StatelessWidget {
     this.ramdomColor = false,
   }) : super(key: key);
   
-  /// Título de la opción
+  // TÍTULO DE LA OPCIÓN
   final String btnTitle;
-  /// Subtítulo de la opcion
+  // SUBTÍTULO DE LA OPCIÓN
   final String btnSubtitle;
-  /// Ícono a usar
+  // ÍCONO A USAR
   final IconData iconBtn;
-  /// Espaciado inferior
+  // ESPACIADO INFERIOR
   final bool noBottomSpace;
-  /// COlor de la opción
+  // COLOR DE LA OPCIÓN
   final Color iconColor;
-  /// Acción a tocar
+  // ACCIÓN A TOCAR
   final VoidCallback? accion;
-  /// Mostrar el switch
+  // MOSTRAR EL SWITCH
   final bool showSwich;
-  /// Valor del swich
+  // VALOR DEL SWICH
   final bool swichValue;
-  /// accion del Swich
+  // ACCION DEL SWICH
   final Function? swichAccion;
-  /// Valor del swich
+  // MOSTRAR EL EDIT
   final bool showEdit;
-  /// Accion del Swich
+  // ACCION DEL EDIT
   final VoidCallback? editAccion;
-  /// Valor del mostrar todo el texto
+  // QUITAR ELLIPSIS
   final bool noEllipsis;
-  /// Usar color aleatorio
+  // USAR COLOR ALEATORIO
   final bool ramdomColor;
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +68,8 @@ class OptionTile extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                height: 52,
-                width: 52,
+                height: 13.w,
+                width: 13.w,
                 decoration: BoxDecoration(
                   color: _colorHelpers.calculateBGColor(color: ramdomColor ? _randomColor : iconColor, context: context),
                   borderRadius: BorderRadius.circular(26),
@@ -77,7 +78,7 @@ class OptionTile extends StatelessWidget {
                   child: Icon(
                     iconBtn,
                     color: _colorHelpers.calculateColorInicials(color: ramdomColor ? _randomColor : iconColor, context: context, opacity: 0.96),
-                    size: 28,
+                    size: 7.w,
                   ),
                 ),
               ),
@@ -123,7 +124,8 @@ class OptionTile extends StatelessWidget {
                             editAccion!();
                           }
                         },
-                        btnSize: 40,
+                        // btnSize: 40,
+                        btnSize: 13.w,
                         icon: Icons.edit,
                       ),
                     ),

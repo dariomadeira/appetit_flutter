@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 
-/// Clase para manejo de strings
+// CLASE PARA MANEJO DE STRINGS
 class StringsHelper {
 
-  /// Obtener las iniciales del nombre de una persona
+  // OBTENER LAS INICIALES DE UN NOMBRE
   String getInicials ({
     String? name,
   }) {

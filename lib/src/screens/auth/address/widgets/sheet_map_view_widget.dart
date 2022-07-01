@@ -13,6 +13,7 @@ import 'package:latlong2/latlong.dart' as lat_lng;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:developer';
 
+// CLASE PARA MOSTRAR EL SHEET CON EL MAPA
 class SheetMapViewWidget extends StatefulWidget {
   final String useAddress;
   final Function actionCancel;
@@ -50,6 +51,8 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
   void getCords(String value) async {
     var result = await widget.googlePlace.details.get(value);
     if (result != null && mounted) {
+      print("**** MAP RESULT ****");
+      inspect(result);
       var lat = result.result!.geometry!.location!.lat;
       var long = result.result!.geometry!.location!.lng;
       markers.add(
@@ -92,6 +95,8 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w900,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,                 
                 ),
                 const SizedBox(height: kDefaultPadding),
                 Container(
@@ -142,8 +147,8 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
                     BigBtnWidget(
                       btnFirstLine: tr('general_yes'),
                       btnAccion: () {
-                        _authProvider.currentUser.userLat = uselat.toString();
-                        _authProvider.currentUser.userLng = uselong.toString();
+                        _authProvider.currentUser!.userLat = uselat.toString();
+                        _authProvider.currentUser!.userLng = uselong.toString();
                         print("**** APP USER ****");
                         inspect(_authProvider.currentUser);
                         Navigator.pop(context);
@@ -165,13 +170,13 @@ class _SheetMapViewWidgetState extends State<SheetMapViewWidget> {
   }
 }
 
+// USO DE LA CACHE PARA LAS IMAGES DEL MAPA
 class CachedTileProvider extends TileProvider {
   const CachedTileProvider();
   @override
   ImageProvider getImage(Coords<num> coords, TileLayerOptions options) {
     return CachedNetworkImageProvider(
       getTileUrl(coords, options),
-      //Now you can set options that determine how the image gets cached via whichever plugin you use.
     );
   }
 }

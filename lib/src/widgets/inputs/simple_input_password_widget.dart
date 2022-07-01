@@ -6,25 +6,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
+// INPUT DE CONTRASEÑA
 class SimpleInputPasswordWidget extends StatefulWidget {
 
-  /// Controlador
+  // CONTROLADOR
   final TextEditingController textController;
-  /// Ayuda del campo
+  // AYUDA DEL CAMPO
   final String? placeholder;
-  /// Autorrección
+  // AUTORRECCIÓN
   final bool autoCorrect;
- /// Tipo de teclado
+ // TIPO DE TECLADO
   final TextInputType keyboardType;
-  /// Capitalizaciones del texto
+  // CAPITALIZACIONES DEL TEXTO
   final TextCapitalization textCapitalization;
-  /// Funcion de validar
+  // FUNCION DE VALIDAR
   final Function? inputValidate;
-  /// formateador de texto
+  // FORMATEADOR DE TEXTO
   final TextInputFormatter? textInputFormatter;
-  /// Funcion de validar
+  // FUNCION DE CAMBIO
   final Function? onChanged;
-  /// Etiqueta
+  // ETIQUETA
   final String label;
 
   const SimpleInputPasswordWidget({
@@ -47,9 +48,9 @@ class SimpleInputPasswordWidget extends StatefulWidget {
 class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
   
   final BorderRadius _useThisRadius = BorderRadius.only(
-    topRight: Radius.circular(kDefaultPadding),
-    bottomRight: Radius.circular(kDefaultPadding),
-    bottomLeft: Radius.circular(kDefaultPadding)
+    topRight: Radius.circular(kDefaultPadding-6),
+    bottomRight: Radius.circular(kDefaultPadding-6),
+    bottomLeft: Radius.circular(kDefaultPadding-6)
   );
   final _colorsHelper = ColorsHelper();
   bool _obscureText = true;
@@ -89,8 +90,8 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
           decoration: BoxDecoration(
             color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(kDefaultPadding),
-              topRight: Radius.circular(kDefaultPadding)
+              topLeft: Radius.circular(kDefaultPadding-6),
+              topRight: Radius.circular(kDefaultPadding-6)
             ),
           ),
           child: Text(
@@ -161,10 +162,10 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
               color: kSpecialError,
             ),
             suffixIcon: Padding(
-              padding: const EdgeInsets.only(right: kDefaultPadding/2),
+              padding: const EdgeInsets.only(right: kDefaultPadding/2, top: 4, bottom: 4),
               child: CircleBtnWidget(
                 accion: _showPassword,
-                btnSize: 40,
+                btnSize: 10.4.w,
                 icon: _obscureText ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                 iconColor: kSpecialGray,
                 backgroundColor: kSpecialGray.withOpacity(0.15),

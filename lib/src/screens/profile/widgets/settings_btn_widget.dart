@@ -1,11 +1,12 @@
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/widgets/buttons/circle_btn_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
-/// Botón de configuración
+// BOTÓN DE CONFIGURACIÓN
 class SettingsBtnWidget extends StatelessWidget {
 
-  /// Contructor
+  // CONSTRUCTOR
   const SettingsBtnWidget({
     Key? key,
     required this.textBtn,
@@ -15,15 +16,15 @@ class SettingsBtnWidget extends StatelessWidget {
     this.isSolid = false,
   }) : super(key: key);
 
-  /// Texto del botón
+  // TEXTO DEL BOTÓN
   final String textBtn;
-  /// Color del botón
+  // COLOR DEL BOTÓN
   final Color btnColor;
-  /// Ícono del botón
+  // ÍCONO DEL BOTÓN
   final IconData icon;
-  /// Acción al tocar
+  // ACCIÓN AL TOCAR
   final VoidCallback accion;
-  /// Color del icono
+  // COLOR DEL ICONO
   final bool isSolid;
 
   @override
@@ -33,7 +34,7 @@ class SettingsBtnWidget extends StatelessWidget {
       children: [
         CircleBtnWidget(
           accion: accion,
-          btnSize: 56,
+          btnSize: 14.w,
           icon: icon,
           backgroundColor: btnColor,
           specialState: true,
@@ -43,9 +44,10 @@ class SettingsBtnWidget extends StatelessWidget {
         Text(
           textBtn,
           style: TextStyle(
-            fontSize: 15,
-            height: 1.1,
+            fontSize: 11.sp,
+            height: 1.05,
             color: Colors.black,
+            fontWeight: FontWeight.w600,
           ),
           maxLines: 2,
           textAlign: TextAlign.center,

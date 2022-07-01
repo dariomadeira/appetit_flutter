@@ -2,7 +2,7 @@ import 'package:appetit/constants.dart';
 import 'package:appetit/src/providers/auth_photo_provider.dart';
 import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/providers/bottom_navigation_provider.dart';
-import 'package:appetit/src/providers/data_provider.dart';
+import 'package:appetit/src/providers/user_data_provider.dart';
 import 'package:appetit/src/providers/phone_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
@@ -55,7 +55,7 @@ void main() async {
             create: (_)=> AuthProvider()
           ),
           ChangeNotifierProvider(
-            create: (_)=> DataProvider()
+            create: (_)=> UserDataProvider()
           ),
         ],    
         child: MyApp()
@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
     final bool showOnboarding = _prefs.readPreferenceBool(kShowOnboardingPref);
     final _themeProvider = Provider.of<ThemeProvider>(context);
 
-    WidgetsBinding.instance!.renderView.automaticSystemUiAdjustment=false;
+    WidgetsBinding.instance.renderView.automaticSystemUiAdjustment=false;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
       statusBarColor: _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,

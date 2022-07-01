@@ -15,6 +15,7 @@ import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
+// CLASE PARA REGISTRAR UN USUARIO
 class RegisterScreen extends StatefulWidget {
 
   const RegisterScreen({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (_loginResult.authToken != '') {
         await Navigator.pushNamedAndRemoveUntil(context, 'userData', (route) => false);
       } else {
-        wSnackError(message: _loginResult.authMessage, context: context);
+        wSnackError(message: _loginResult.statusMessage, context: context);
       }
     }
 
@@ -72,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           showBack: !_authProvider.isLoading,
           appbarTitle: tr('register_appbar_title'),
           hideTitle: _authProvider.isLoading,
+          backColor: Colors.green,
         ),
         body: _authProvider.isLoading
         ? Center(

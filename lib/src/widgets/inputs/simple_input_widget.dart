@@ -5,25 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
+// SIMPLE INPUT
 class SimpleInputWidget extends StatelessWidget {
 
-  /// Controlador
+  // CONTROLADOR
   final TextEditingController textController;
-  /// Ayuda del campo
+  // AYUDA DEL CAMPO
   final String? placeholder;
-  /// Autorrección
+  // AUTORRECCIÓN
   final bool autoCorrect;
- /// Tipo de teclado
+ // TIPO DE TECLADO
   final TextInputType keyboardType;
-  /// Capitalizaciones del texto
+  // CAPITALIZACIONES DEL TEXTO
   final TextCapitalization textCapitalization;
-  /// Funcion de validar
+  // FUNCION DE VALIDAR
   final Function? inputValidate;
-  /// formateador de texto
+  // FORMATEADOR DE TEXTO
   final TextInputFormatter? textInputFormatter;
-  /// Funcion de validar
+  // FUNCION DE CAMBIO
   final Function? onChanged;
-  /// Etiqueta
+  // ETIQUETA
   final String label;
 
   const SimpleInputWidget({
@@ -43,9 +44,9 @@ class SimpleInputWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final BorderRadius _useThisRadius = BorderRadius.only(
-      topRight: Radius.circular(kDefaultPadding),
-      bottomRight: Radius.circular(kDefaultPadding),
-      bottomLeft: Radius.circular(kDefaultPadding)
+      topRight: Radius.circular(kDefaultPadding-6),
+      bottomRight: Radius.circular(kDefaultPadding-6),
+      bottomLeft: Radius.circular(kDefaultPadding-6)
     );
     final _colorsHelper = ColorsHelper();
 
@@ -75,8 +76,8 @@ class SimpleInputWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(kDefaultPadding),
-              topRight: Radius.circular(kDefaultPadding)
+              topLeft: Radius.circular(kDefaultPadding-6),
+              topRight: Radius.circular(kDefaultPadding-6)
             ),
           ),
           child: Text(

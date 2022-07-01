@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// TAB DE EXPLORAR DEL HOME
 class ExploreNav extends StatelessWidget {
 
   @override

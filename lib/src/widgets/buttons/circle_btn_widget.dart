@@ -3,25 +3,27 @@ import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-/// Botón redondo
+// BOTÓN REDONDO
 class CircleBtnWidget extends StatelessWidget {
 
-  /// Tamaño del círculo del botón
+  // TAMAÑO DEL CÍRCULO DEL BOTÓN
   final double btnSize;
-  /// Ícono a usar
+  // ÍCONO A USAR
   final IconData icon;
-  /// Acción al tocar
+  // ACCIÓN AL TOCAR
   final VoidCallback accion;
-  /// Color de fondo
+  // COLOR DE FONDO
   final Color? backgroundColor;
-  /// Estado especial
+  // ESTADO ESPECIAL
   final bool specialState;
-  /// Color del icono
+  // COLOR DEL ICONO
   final Color? iconColor;
-  /// Color del icono
+  // COLOR DEL ICONO
   final bool isSolid;
+  // NO REDONDO
+  final bool noRounded;
 
-  /// Constructor
+  // CONTRUCTOR
   const CircleBtnWidget({
     Key? key,
     this.btnSize = 40,
@@ -31,6 +33,7 @@ class CircleBtnWidget extends StatelessWidget {
     this.specialState = false,
     this.iconColor, 
     this.isSolid = false,
+    this.noRounded = true,
   }) : super(key: key);
 
 
@@ -84,7 +87,11 @@ class CircleBtnWidget extends StatelessWidget {
         onPressed: accion,
         style: TextButton.styleFrom(
           backgroundColor: isSolid ? kPrimaryColor : _calculateBgColor(_themeProvider),
-          shape: const CircleBorder(),
+          shape: noRounded
+            ? RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kDefaultPadding/2+4),
+            )
+            : const CircleBorder(),
           primary: (backgroundColor != null) 
             ? Colors.white 
             : (_themeProvider.darkTheme 

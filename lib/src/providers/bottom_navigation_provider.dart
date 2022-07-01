@@ -14,7 +14,7 @@ class BottomNavigationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // MANEJO DE LAS PANTALLAS
+  // MANEJO DE LAS TABS
   Widget callScreen(int index) {
     switch (index) {
       case 0:

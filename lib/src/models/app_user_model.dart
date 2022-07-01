@@ -4,9 +4,11 @@ AppUser appUserFromJson(String str) => AppUser.fromJson(json.decode(str));
 
 String appUserToJson(AppUser data) => json.encode(data.toJson());
 
+// CLASE PARA MENJAR LOS DATOS DEL USUARIO
 class AppUser {
+
   AppUser({
-    this.authMessage,
+    this.statusMessage,
     required this.authToken,
     required this.userEmail,
     this.userProfilePicture,
@@ -15,12 +17,11 @@ class AppUser {
     this.userLat,
     this.userLng,
     this.userPhone,
-    this.userPhoneValid,
     this.userCreation,
     this.userLastAccess,
   });
 
-  String? authMessage;
+  String? statusMessage;
   final String authToken;
   final String userEmail;
   String? userProfilePicture;
@@ -29,12 +30,11 @@ class AppUser {
   String? userLat;
   String? userLng;
   String? userPhone;
-  String? userPhoneValid;
   String? userCreation;
   String? userLastAccess;
 
   factory AppUser.fromJson(Map<String, dynamic> json) => AppUser(
-    authMessage: json["authMessage"],
+    statusMessage: json["statusMessage"],
     authToken: json["authToken"],
     userEmail: json["userEmail"],
     userProfilePicture: json["userProfilePicture"],
@@ -43,13 +43,12 @@ class AppUser {
     userLat: json["userLat"],
     userLng: json["userLng"],
     userPhone: json["userPhone"],
-    userPhoneValid: json["userPhoneValid"],
     userCreation: json["userCreation"],
     userLastAccess: json["userLastAccess"],
   );
 
   Map<String, dynamic> toJson() => {
-    "authMessage": authMessage,
+    "statusMessage": statusMessage,
     "authToken": authToken,
     "userEmail": userEmail,
     "userProfilePicture": userProfilePicture,
@@ -58,8 +57,8 @@ class AppUser {
     "userLat": userLat,
     "userLng": userLng,
     "userPhone": userPhone,
-    "userPhoneValid": userPhoneValid,
     "userCreation": userCreation,
     "userLastAccess": userLastAccess,
   };
+
 }

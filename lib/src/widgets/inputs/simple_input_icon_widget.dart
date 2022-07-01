@@ -7,32 +7,31 @@ import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
 class SimpleInputIconWidget extends StatelessWidget {
-
-  /// Controlador
+  // CONTROLADOR
   final TextEditingController textController;
-  /// Ayuda del campo
+  // AYUDA DEL CAMPO
   final String? placeholder;
-  /// Autorrección
+  // AUTORRECCIÓN
   final bool autoCorrect;
- /// Tipo de teclado
+  // TIPO DE TECLADO
   final TextInputType keyboardType;
-  /// Capitalizaciones del texto
+  // CAPITALIZACIONES DEL TEXTO
   final TextCapitalization textCapitalization;
-  /// Funcion de validar
+  // FUNCION DE VALIDAR
   final Function? inputValidate;
-  /// formateador de texto
+  // FORMATEADOR DE TEXTO
   final TextInputFormatter? textInputFormatter;
- /// Ícono inicial
+  // ÍCONO INICIAL
   final IconData icon;
-  /// Funcion de validar
+  // FUNCION DE VALIDAR
   final Function? onChanged;
-  /// Etiqueta
+  // ETIQUETA
   final String label;
 
   const SimpleInputIconWidget({
     Key? key,
     required this.textController,
-    this.placeholder, 
+    this.placeholder,
     this.autoCorrect = false,
     this.keyboardType = TextInputType.text,
     this.textCapitalization = TextCapitalization.none,
@@ -45,8 +44,6 @@ class SimpleInputIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    // final BorderRadius _useThisRadius = BorderRadius.circular(kDefaultPadding + kDefaultPadding/2);
     final BorderRadius _useThisRadius = BorderRadius.circular(kDefaultPadding);
     final _colorsHelper = ColorsHelper();
 
@@ -71,20 +68,17 @@ class SimpleInputIconWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.only(left: kDefaultPadding-4, right: kDefaultPadding-4, top: kDefaultPadding/2.5),
-          height: kDefaultPadding+4,
+          padding: EdgeInsets.only(left: kDefaultPadding - 4, right: kDefaultPadding - 4, top: kDefaultPadding / 2.5),
+          height: kDefaultPadding + 4,
           decoration: BoxDecoration(
             color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(kDefaultPadding),
-              topRight: Radius.circular(kDefaultPadding)
-            ),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(kDefaultPadding), topRight: Radius.circular(kDefaultPadding)),
           ),
           child: Text(
             label,
             style: TextStyle(
               fontSize: 8.4.sp,
-              color: _colorsHelper.darken(color: kSpecialGray, amount: 0.1 ),
+              color: _colorsHelper.darken(color: kSpecialGray, amount: 0.1),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -95,14 +89,12 @@ class SimpleInputIconWidget extends StatelessWidget {
               onChanged!(value);
             }
           },
-          controller:  textController,
+          controller: textController,
           autocorrect: autoCorrect,
           textCapitalization: textCapitalization,
           keyboardType: keyboardType,
           validator: (value) => _handleValidate(value!),
-          inputFormatters: (textInputFormatter != null) ? [
-            textInputFormatter!
-          ] : [],
+          inputFormatters: (textInputFormatter != null) ? [textInputFormatter!] : [],
           style: TextStyle(
             color: kSpecialTextColor,
             fontSize: 11.sp,
@@ -141,16 +133,16 @@ class SimpleInputIconWidget extends StatelessWidget {
               vertical: kDefaultPadding - 2,
               horizontal: kDefaultPadding - 2,
             ),
-            errorStyle: TextStyle (
+            errorStyle: TextStyle(
               fontSize: 9.sp,
               fontWeight: FontWeight.w600,
               color: kSpecialError,
             ),
             suffixIcon: Padding(
-              padding: const EdgeInsets.only(right: kDefaultPadding/2),
+              padding: const EdgeInsets.only(right: kDefaultPadding / 2),
               child: CircleBtnWidget(
                 accion: () {},
-                btnSize: 40,
+                btnSize: 10.4.w,
                 icon: icon,
                 iconColor: kSpecialGray,
                 backgroundColor: Colors.transparent,

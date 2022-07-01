@@ -5,21 +5,21 @@ import 'package:sizer/sizer.dart';
 
 class BigBtnWidget extends StatelessWidget {
 
-  /// Texto del botón
+  // TEXTO DEL BOTÓN
   final String btnFirstLine;
-  /// Texto del botón
+  // TEXTO DEL BOTÓN
   final String? btnSecondLine;
-  /// Asset para el botón
+  // ASSET PARA EL BOTÓN
   final String? btnAsset;
-  /// Acción del botón
+  // ACCIÓN DEL BOTÓN
   final VoidCallback btnAccion;
-  /// Largo del botón
+  // LARGO DEL BOTÓN
   final double? btnWidth;
-  /// Botón light
+  // BOTÓN LIGHT
   final bool isLighten;
-  /// Color del botón
+  // COLOR DEL BOTÓN
   final Color? btnColor;
-  /// Icono del botón
+  // ICONO DEL BOTÓN
   final IconData? btnIcon;
 
   const BigBtnWidget({
@@ -102,7 +102,7 @@ class BigBtnWidget extends StatelessWidget {
           shadowColor: Colors.transparent,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kDefaultPadding + kDefaultPadding/2 -8),
+            borderRadius: BorderRadius.circular(kDefaultPadding-2),
           ),
         ),
       ),

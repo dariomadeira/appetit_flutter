@@ -67,6 +67,7 @@ class _UserPhoneScreenState extends State<UserPhoneScreen> {
           appbarTitle: tr('phone_appbar_title'),
           showBack: !_authPhone.isLoading,
           hideTitle: _authPhone.isLoading,
+          backColor: Colors.green,
         ),
         body: _authPhone.isLoading
         ? Center(

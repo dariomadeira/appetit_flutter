@@ -39,7 +39,7 @@ dependencies:
   lottie: ^1.2.2
   easy_localization: ^3.0.0
   google_fonts: ^2.3.1
-  another_flushbar: ^1.10.28
+  another_flushbar: ^1.10.29
   sizer: ^2.0.15
   flutter_svg_provider: ^1.0.3
   image_picker: ^0.8.4+11
@@ -48,7 +48,7 @@ dependencies:
   supabase: ^0.3.2
   google_place: ^0.4.7
   flutter_map: ^0.14.0
-  cached_network_image: ^3.2.0
+  cached_network_image: ^3.2.1
 
 dev_dependencies:
   flutter_test:

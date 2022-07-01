@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:developer';
 
+// CLASE PARA TOMAR DATOS DEL USUARIOS
 class UserDataScreen extends StatefulWidget {
   @override
   State<UserDataScreen> createState() => _UserDataScreenState();
@@ -30,7 +31,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
   @override
   void initState() {
     final _authProvider = Provider.of<AuthProvider>(context, listen: false);
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _showAccountSuccessSnack(authProvider: _authProvider);
     });
     super.initState();
@@ -46,7 +47,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
     required AuthProvider authProvider,
   }) {
     if (authProvider.authStatus == "CREATE_USER_SUCCESS") {
-      wSnackSuccess(message: authProvider.currentUser.authMessage, context: context);
+      wSnackSuccess(message: authProvider.currentUser!.statusMessage, context: context);
     }
   }
 
@@ -88,8 +89,8 @@ class _UserDataScreenState extends State<UserDataScreen> {
 
     void _saveData() async {
       _authProvider.authStatus = "ADD_USER_DATA_SUCCESS";
-      _authProvider.currentUser.userName = _nameController.text;
-      _authProvider.currentUser.userProfilePicture = _authPhoto.addPhotoUrl;
+      _authProvider.currentUser!.userName = _nameController.text;
+      _authProvider.currentUser!.userProfilePicture = _authPhoto.addPhotoUrl;
       print("**** APP USER ****");
       inspect(_authProvider.currentUser);
       Navigator.pushNamed(context, 'userAddress');
@@ -111,6 +112,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
           showBack: !_authPhoto.isLoadingImg ? true : false,
           appbarTitle: tr('userData_appbar_title'),
           accionBack: _navLogin,
+          backColor: Colors.green,
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

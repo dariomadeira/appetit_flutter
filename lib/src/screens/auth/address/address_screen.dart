@@ -14,6 +14,7 @@ import 'package:google_place/google_place.dart';
 import 'dart:developer';
 import 'package:provider/provider.dart';
 
+// AGREGAR LA DIRECCIÓN DEL USUARIO
 class UserAddressScreen extends StatefulWidget {
   @override
   State<UserAddressScreen> createState() => _UserAddressScreenState();
@@ -43,9 +44,11 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
     final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     final _authProvider = Provider.of<AuthProvider>(context);
 
-    void _saveData() async {
-      _authProvider.authStatus = "ADD_USER_ADDRESS_SUCCESS";
-      _authProvider.currentUser.userAddress = _placeController.text;
+    void _saveData({
+      required String address,
+    }) async {
+      _authProvider.authStatus = "USER_ADDRESS_SUCCESS";
+      _authProvider.currentUser!.userAddress = address;
       Navigator.pushNamed(context, 'userPhone');
     }
 
@@ -63,6 +66,7 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
           showAvatar: false,
           showBack: true,
           appbarTitle: tr('userAddress_appbar_title'),
+          backColor: Colors.green,
         ),
         body: Padding(
           padding: EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding, top: kDefaultPadding),
@@ -119,7 +123,7 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
                             placeId: predictions[index].placeId!,
                             googlePlace: googlePlace,
                             actionOk: () {
-                              _saveData();
+                              _saveData(address: predictions[index].structuredFormatting!.mainText!);
                             },
                             actionCancel: () {
                             }
