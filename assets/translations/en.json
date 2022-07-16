@@ -147,7 +147,7 @@
   "profile_delete_now": "Borrando cuenta...",
   "profile_delete_user": "¿Borrar tu cuenta?",
   "profile_last_access": "Última conección",
-  "profile_modal_warning_delete_account": "No podrás acceder más",
+  "profile_warning_delete_account": "No podrás acceder más",
   "profile_no_phone": "No especificado o verificado"
 
 }

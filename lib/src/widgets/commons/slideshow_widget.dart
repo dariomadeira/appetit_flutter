@@ -1,8 +1,8 @@
+import 'package:appetit/constants.dart';
 import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:appetit/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -98,7 +98,7 @@ class Slideshow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => new _SliderModel(),
+      create: (_) => _SliderModel(),
       child: Center(
         child: Builder(
           builder: (BuildContext context) {
@@ -190,10 +190,10 @@ class _Dot extends StatelessWidget {
       finalDotColor = ssModel._colorSecundario;
     }
     return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       width: finalSize,
       height: finalSize,
-      margin: EdgeInsets.symmetric(horizontal: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
       decoration: BoxDecoration(
         color: finalDotColor,
         shape: BoxShape.circle,
@@ -220,7 +220,7 @@ class _Slides extends StatefulWidget {
 
 class __SlidesState extends State<_Slides> {
 
-  final pageViewController = new PageController();
+  final pageViewController = PageController();
 
   @override
   void initState() {
@@ -240,7 +240,7 @@ class __SlidesState extends State<_Slides> {
   Widget build(BuildContext context) {
     return Container(
       child: PageView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         controller: pageViewController,
         children: widget.slides.map((element) {
           final int index = widget.slides.indexOf(element);
@@ -277,7 +277,7 @@ class _Slide extends StatelessWidget {
     final _colorsHelper = ColorsHelper();
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(40, 0, 40, 10),
+      padding: const EdgeInsets.fromLTRB(40, 0, 40, 10),
       child: Column(
         children: <Widget>[
           Expanded(
@@ -295,7 +295,7 @@ class _Slide extends StatelessWidget {
               fontWeight: FontWeight.w900,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: kDefaultPadding / 2,
           ),
           Text(
@@ -307,7 +307,7 @@ class _Slide extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: kDefaultPadding*2-10,
           ),
           if (totalSliders == theSlider) Container(

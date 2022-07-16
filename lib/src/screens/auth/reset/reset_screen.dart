@@ -6,15 +6,15 @@ import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
 import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:flutter/services.dart';
+import 'package:focus_detector/focus_detector.dart';
 
 /// Pantalla de reseteo de contraseña
 class ResetScreen extends StatefulWidget {
 
   /// Constructor
   const ResetScreen({
-    Key? key
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -92,14 +92,14 @@ class _ResetScreenState extends State<ResetScreen> {
                     label: tr('general_email_label'),
                     keyboardType: TextInputType.emailAddress,
                     textController: _emailController,
-                    inputValidate: (value) {
-                      bool _valid = _validationsHelper.isValidEmail(value: value);
+                    inputValidate: (String value) {
+                      final bool _valid = _validationsHelper.isValidEmail(value: value);
                       if (_valid) {
                           return {"status": true };
                       } else {
                           return {"status": false, "message" : tr('register_invalid_email')};
                       }
-                    }
+                    },
                   ),
                 ),
                 const SizedBox(height: kDefaultPadding*3),

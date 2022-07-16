@@ -1,10 +1,10 @@
 
+import 'dart:developer';
 import 'package:appetit/src/apis/abstract_api.dart';
 import 'package:appetit/src/helpers/http_responses_helper.dart';
 import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 // CLASE PARA MANEJAR LA VERIFICACIÓN DEL NÚMERO DE TELÉFONO
 class PhoneProvider with ChangeNotifier {
@@ -18,6 +18,7 @@ class PhoneProvider with ChangeNotifier {
   // VERIFICAR SI UN TELÉFONO ES VÁLIDO
   Future <bool> verifyIsValidPhone({
     required String phoneNumber,
+    bool notificate = false,
   }) async {
     bool _result = false;
     loadingMessage = tr("phone_verify_loading");
@@ -32,7 +33,7 @@ class PhoneProvider with ChangeNotifier {
       if (_response.data["valid"] == true) {
         loadingMessage = tr("phone_save_data");
         notifyListeners();
-        _result = await _authProvider.updateValidatePhone(userPhone: _response.data["format"]["international"]);
+        _result = await _authProvider.updateValidatePhone(userPhone: _response.data["format"]["international"].toString(), notificate: notificate);
         isLoading = false;
       } else {
         isLoading = false;

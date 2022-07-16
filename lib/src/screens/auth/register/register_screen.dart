@@ -11,9 +11,9 @@ import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:appetit/src/widgets/states/loading_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 
 // CLASE PARA REGISTRAR UN USUARIO
 class RegisterScreen extends StatefulWidget {
@@ -45,8 +45,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     final _authProvider = Provider.of<AuthProvider>(context);
 
-    void _saveData() async {
-      AppUser _loginResult = await _authProvider.registerUser(
+    Future <void> _saveData() async {
+      final AppUser _loginResult = await _authProvider.registerUser(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
@@ -85,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         : SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.all(kDefaultPadding),
+            padding: const EdgeInsets.all(kDefaultPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,8 +104,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         placeholder: tr('general_type_here'),
                         keyboardType: TextInputType.emailAddress,
                         textController: _emailController,
-                        inputValidate: (value) {
-                          bool _valid = _validationsHelper.isValidEmail(value: value);
+                        inputValidate: (String value) {
+                          final bool _valid = _validationsHelper.isValidEmail(value: value);
                           if (_valid) {
                             return {"status": true};
                           } else {
@@ -118,23 +118,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         textController: _passwordController,
                         label: tr('register_password_label'),
                         placeholder: tr('general_type_here'),
-                        inputValidate: (value) {
-                          bool _valid = _validationsHelper.isValidPassword(value: value);
+                        inputValidate: (String value) {
+                          final bool _valid = _validationsHelper.isValidPassword(value: value);
                           if (_valid) {
                             return {"status": true};
                           } else {
                             return {"status": false, "message": tr('register_invalid_password')};
                           }
-                        }
+                        },
                       ),
                       const SizedBox(height: kDefaultPadding),
                       SimpleInputPasswordWidget(
                         textController: _passwordVerificationController,
                         label: tr('register_password_verification_label'),
                         placeholder: tr('general_type_here'),
-                        inputValidate: (value) {
-                          bool _valid = _validationsHelper.isValidPassword(value: value);
-                          bool _validVerification = _validationsHelper.isPasswordsSame(
+                        inputValidate: (String value) {
+                          final bool _valid = _validationsHelper.isValidPassword(value: value);
+                          final bool _validVerification = _validationsHelper.isPasswordsSame(
                             pass1: _passwordController.text.trim(),
                             pass2: value,
                           );
@@ -154,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               };
                             }
                           }
-                        }
+                        },
                       ),
                     ],
                   ),

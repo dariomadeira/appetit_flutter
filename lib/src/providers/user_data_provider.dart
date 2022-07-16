@@ -1,7 +1,7 @@
+import 'dart:developer';
 import 'package:appetit/src/models/app_user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase/supabase.dart';
-import 'dart:developer';
 
 // CLASE PARA MANEJAR LA BASE DE DATOS
 class UserDataProvider with ChangeNotifier {
@@ -37,7 +37,7 @@ class UserDataProvider with ChangeNotifier {
         result = false;
       }
     } catch(e) {
-      print("**** INSERT ERROR - ${e}");
+      print("**** INSERT ERROR - $e");
       result = false;
     }
     return result;
@@ -55,7 +55,7 @@ class UserDataProvider with ChangeNotifier {
       final searchResponse = await client
         .from('appUsers')
         .select()
-        .textSearch('userToken', "$userToken")
+        .textSearch('userToken', userToken)
         .execute(count: CountOption.exact);
       if (searchResponse.error == null) {
         print("**** SEARCH OK ****");
@@ -73,7 +73,7 @@ class UserDataProvider with ChangeNotifier {
           _result.addAll(searchResponse.data[0]);
         }
         if (searchResponse.count! > 1) {
-          bool deleteResult = await deleteUserData(userToken: userToken, client: client);
+          final bool deleteResult = await deleteUserData(userToken: userToken, client: client);
           if (deleteResult) {
             _result["result"] = false;
           } else {
@@ -90,7 +90,7 @@ class UserDataProvider with ChangeNotifier {
         _result["result"] = false;
       }
     } catch(e) {
-      print("**** SEARCH ERROR - ${e}");
+      print("**** SEARCH ERROR - $e");
       _result["result"] = false;
     }
     return _result;
@@ -116,7 +116,7 @@ class UserDataProvider with ChangeNotifier {
             'userToken': userData.authToken,
           },
         )
-        .eq('userToken', '${userData.authToken}')
+        .eq('userToken', userData.authToken)
         .execute();
       if (updateResponse.error == null) {
         print("**** UPDATE OK ****");
@@ -128,7 +128,7 @@ class UserDataProvider with ChangeNotifier {
         result = false;
       }
     } catch(e) {
-      print("**** UPDATE ERROR - ${e}");
+      print("**** UPDATE ERROR - $e");
       result = false;
     }
     return result;
@@ -144,7 +144,7 @@ class UserDataProvider with ChangeNotifier {
       final deleteResponse = await client
         .from('appUsers')
         .delete()
-        .match({'userToken': "${userToken}"})
+        .match({'userToken': userToken})
         .execute();
       if (deleteResponse.error == null) {
         print("**** DELETE OK ****");
@@ -156,7 +156,7 @@ class UserDataProvider with ChangeNotifier {
         result = false;
       }
     } catch(e) {
-      print("**** DELETE ERROR - ${e}");
+      print("**** DELETE ERROR - $e");
       result = false;
     }
     return result;

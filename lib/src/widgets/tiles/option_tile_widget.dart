@@ -1,10 +1,10 @@
+import 'dart:math';
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:appetit/src/widgets/buttons/circle_btn_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'dart:math';
 
 // WIDGET DE OPCIÓN
 class OptionTile extends StatelessWidget {
@@ -59,12 +59,12 @@ class OptionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     
     final _colorHelpers = ColorsHelper();
-    Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+    final Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
 
     return Column(
       children: [
         GestureDetector(
-          onTap: accion!,
+          onTap: accion,
           child: Row(
             children: [
               Container(

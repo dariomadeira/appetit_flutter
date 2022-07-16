@@ -1,13 +1,13 @@
+import 'dart:developer';
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/helpers/formats_helper.dart';
+import 'package:appetit/src/models/app_user_model.dart';
 import 'package:appetit/src/providers/auth_photo_provider.dart';
 import 'package:appetit/src/providers/user_data_provider.dart';
 import 'package:appetit/src/services/preferences_service.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase/supabase.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:appetit/src/models/app_user_model.dart';
-import 'dart:developer';
 
 // CLASE PARA MANEJAR LA CUENTA
 class AuthProvider with ChangeNotifier {
@@ -33,7 +33,7 @@ class AuthProvider with ChangeNotifier {
   AppUser? currentUser;
   bool isLoading = false;
 
-  SupabaseClient get client => this._client;
+  SupabaseClient get client => _client;
 
   AppUser _authModel(String message) {
     return AppUser(
@@ -52,7 +52,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   // INIT DE SUPABASE
-  Future<void> initSuperbase() async {
+  Future<void> initSupabase() async {
     _client = SupabaseClient(kSupabaseUrl, kSupabaseKey);
     _supaClient = _client.auth;
     authStatus = "INIT_SUPABASE";
@@ -87,6 +87,7 @@ class AuthProvider with ChangeNotifier {
         );
         authStatus = "CREATE_USER_SUCCESS";
         _prefs.savePreferenceString("authType", "MAIL");
+        _prefs.savePreferenceString("user", response.data!.persistSessionString);
       } else {
         print('**** SING UP ERROR - ${response.error!.message} ****');
         inspect(response);
@@ -98,7 +99,7 @@ class AuthProvider with ChangeNotifier {
         }
       }
     } catch(e) {
-      print("**** SING UP ERROR - ${e}");
+      print("**** SING UP ERROR - $e");
       inspect(e);
       _user = _authModel(tr('general_error'));
     }
@@ -112,14 +113,15 @@ class AuthProvider with ChangeNotifier {
 
   // ACTUALIZAR EL NÚMERO DE TELÉFONO
   Future<bool> updateValidatePhone({
-    required String userPhone,   
+    required String userPhone,
+    bool notificate = false,
   }) async {
     bool _result = false;
     currentUser!.userPhone = userPhone;
     authStatus = "USER_VALID_PHONE_SUCCESS";
     print("**** APP USER ****");
     inspect(currentUser);
-    Map<String, dynamic> _exist = await _userDataProvider.getUserData(userToken: currentUser!.authToken, client: _client);
+    final Map<String, dynamic> _exist = await _userDataProvider.getUserData(userToken: currentUser!.authToken, client: _client);
     print("**** APP USER EXIST ****");
     inspect(_exist);
     if (_exist["result"]) {
@@ -132,6 +134,9 @@ class AuthProvider with ChangeNotifier {
       if (_result) {
         authStatus = "USER_LOGGED_FIRST_TIME";
       }
+    }
+    if (notificate) {
+      notifyListeners();
     }
     return _result;
   }
@@ -171,24 +176,25 @@ class AuthProvider with ChangeNotifier {
       if (response.error == null) {
         print('**** LOGIN SUCCESSS - USER ID: ${response.user!.id} ****');
         inspect(response.user);
-        Map<String, dynamic> _existData = await _userDataProvider.getUserData(userToken: response.user!.id, client: _client);
+        final Map<String, dynamic> _existData = await _userDataProvider.getUserData(userToken: response.user!.id, client: _client);
         print('**** GET DATABASE USER DATA ****');
         inspect(_existData);
         _user = AppUser(
           statusMessage: tr('login_success'),
           authToken: response.user!.id,
           userEmail: email,
-          userProfilePicture: _existData["profile"],
-          userName: _existData["name"], 
-          userAddress: _existData["address"], 
-          userLat: _existData["lat"], 
-          userLng: _existData["lng"], 
-          userPhone: _existData["phone"],
+          userProfilePicture: _existData["profile"].toString(),
+          userName: _existData["name"].toString(), 
+          userAddress: _existData["address"].toString(), 
+          userLat: _existData["lat"].toString(), 
+          userLng: _existData["lng"].toString(), 
+          userPhone: _existData["phone"].toString(),
           userCreation: _formatsHelper.localizeDateTime(dateString: response.user!.createdAt),
           userLastAccess: _formatsHelper.localizeDateTime(dateString: response.user!.updatedAt),
         );
         authStatus = "USER_LOGGED";
         _prefs.savePreferenceString("authType", "MAIL");
+        _prefs.savePreferenceString("user", response.data!.persistSessionString);
       } else {
         print('**** LOGIN ERROR - ${response.error!.message} ****');
         if (response.error!.message == 'Email not confirmed') {
@@ -200,7 +206,7 @@ class AuthProvider with ChangeNotifier {
         }
       }
     } catch(e) {
-      print("**** LOGIN ERROR - ${e}");
+      print("**** LOGIN ERROR - $e");
       _user = _authModel(tr('general_error'));
     }
     currentUser = _user;
@@ -209,6 +215,80 @@ class AuthProvider with ChangeNotifier {
     print("**** APP USER ****");
     inspect(_user);
     return _user;
+  }
+
+  // TODO esto no funciona porque no esta implementado en la biblioteca, hay que buscar alternativas
+  // BORRAR UNA CUENTA
+  Future <bool> deleteAccount() async {
+    // loadingText = 'login_process';
+    // isLoading = true;
+    // notifyListeners();
+    bool _result = false;
+    final _authPhoto = AuthPhotoProvider();
+    await Future.delayed( const Duration(milliseconds: 1), () async {
+      try {
+        final bool _resultDeleteData = await _userDataProvider.deleteUserData(userToken: currentUser!.authToken, client: _client);
+        if (_resultDeleteData) {
+          // _client.auth.api.deleteUser(
+          // await _supaClient.deleteUser();
+          // await supabase.auth.api.deleteUser(
+          //   currentUser!.authToken
+          // );
+          _prefs.removePreference('authType');
+          _authPhoto.addPhotoUrl = '';
+          _result = true;
+          // isLoading = false;
+        }
+      } catch (_) {
+        // isLoading = false;
+        // notifyListeners();
+      }
+    });
+    return _result;
+  }
+
+  // ACTUALIZAR DIRECCIÓN
+  Future <void> updateAddress({
+    required String newAddress,
+  }) async {
+    currentUser!.userAddress = newAddress;
+    notifyListeners();
+  }
+
+  // RECOBRAR LA SESIÓN
+  Future<bool> recoverSession() async {
+    bool _result = false;
+    final String session = _prefs.readPreferenceString("user");
+    if (session != "") {
+      isLoading = true;
+      late AppUser _user;
+      final response = await _supaClient.recoverSession(session);
+      final Map<String, dynamic> _existData = await _userDataProvider.getUserData(userToken: response.user!.id, client: _client);
+      print('**** GET DATABASE USER DATA ****');
+      inspect(_existData);
+      _user = AppUser(
+        statusMessage: tr('login_success'),
+        authToken: response.user!.id,
+        userEmail: response.user!.email!,
+        userProfilePicture: _existData["profile"].toString(),
+        userName: _existData["name"].toString(), 
+        userAddress: _existData["address"].toString(), 
+        userLat: _existData["lat"].toString(), 
+        userLng: _existData["lng"].toString(), 
+        userPhone: _existData["phone"].toString(),
+        userCreation: _formatsHelper.localizeDateTime(dateString: response.user!.createdAt),
+        userLastAccess: _formatsHelper.localizeDateTime(dateString: response.user!.updatedAt),
+      );
+      authStatus = "USER_SESSION_RECOVER";
+      _prefs.savePreferenceString("authType", "MAIL");
+      _prefs.savePreferenceString("user", response.data!.persistSessionString);
+      currentUser = _user;
+      isLoading = false;
+      print("**** APP USER ****");
+      inspect(_user);
+      _result = true;
+    }
+    return _result;
   }
 
 }

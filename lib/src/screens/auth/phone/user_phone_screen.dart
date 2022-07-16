@@ -8,8 +8,8 @@ import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:appetit/src/widgets/states/loading_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:flutter/services.dart';
+import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
 
 // PANTALLA DE VALIDACIÓN DE TELÉFONO
@@ -17,7 +17,7 @@ class UserPhoneScreen extends StatefulWidget {
 
   // CONSTRUCTOR
   const UserPhoneScreen({
-    Key? key
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -41,13 +41,20 @@ class _UserPhoneScreenState extends State<UserPhoneScreen> {
   Widget build(BuildContext context) {
 
     final _authPhone = Provider.of<PhoneProvider>(context);
+    final _arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
 
-    void _validatePhone() async {
-      bool _isValidPhone = await _authPhone.verifyIsValidPhone(
+    Future <void> _validatePhone() async {
+      dynamic _result = _arguments['isEdit'];
+      final bool _isValidPhone = await _authPhone.verifyIsValidPhone(
         phoneNumber: _phoneController.text,
+        notificate: (_result != null && _result) ? true : false,
       );
       if (_isValidPhone) {
-        await Navigator.pushNamedAndRemoveUntil(context, 'successUserCreate', (route) => false);
+        if (_result != null && _result) {
+          Navigator.pop(context);
+        } else {
+          await Navigator.pushNamedAndRemoveUntil(context, 'successUserCreate', (route) => false);
+        }
       }
     }
 
@@ -97,14 +104,14 @@ class _UserPhoneScreenState extends State<UserPhoneScreen> {
                     keyboardType: TextInputType.number,
                     textInputFormatter: FilteringTextInputFormatter.digitsOnly,
                     textController: _phoneController,
-                    inputValidate: (value) {
-                      bool _valid = _validationsHelper.isValidPhone(phone: value);
+                    inputValidate: (String value) {
+                      final bool _valid = _validationsHelper.isValidPhone(phone: value);
                       if (_valid) {
                         return {"status": true };
                       } else {
                         return {"status": false, "message" : tr('phone_invalid')};
                       }
-                    }
+                    },
                   ),
                 ),
                 const SizedBox(height: kDefaultPadding*3),

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/apis/imgur_api.dart';
 import 'package:appetit/src/helpers/http_responses_helper.dart';
@@ -5,7 +6,6 @@ import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/providers/user_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:developer';
 
 // CLASE PARA MANEJAR LA FOTO DEL USUARIO
 class AuthPhotoProvider with ChangeNotifier {
@@ -34,6 +34,7 @@ class AuthPhotoProvider with ChangeNotifier {
     required bool fromCam,
     bool updateProfile = false
   }) async {
+    String _oldPhoto = "";
     bool _result = false;
     XFile? image;
     if (fromCam) {
@@ -53,9 +54,10 @@ class AuthPhotoProvider with ChangeNotifier {
     }
     isLoadingImg = true;
     if (updateProfile) {
+      _oldPhoto = _authUser.currentUser!.userProfilePicture!;
       _authUser.currentUser!.userProfilePicture = '';
     }
-    addPhotoUrl="";
+    addPhotoUrl = "";
     notifyListeners();
     if (image != null) {
       final HttpResponses _response = await _imgurApi.loadImage(
@@ -64,11 +66,11 @@ class AuthPhotoProvider with ChangeNotifier {
       );
       if (_response.data != null) {
         if (_response.data['status'] == 200) {
-          addPhotoUrl = _response.data['data']['link'];
+          addPhotoUrl = _response.data['data']['link'].toString();
           _result = true;
           if (updateProfile) {
             _authUser.currentUser!.userProfilePicture = addPhotoUrl;
-            print("**** NEW USER PHOTO **** ${addPhotoUrl}");
+            print("**** NEW USER PHOTO **** $addPhotoUrl");
             print("**** APP USER ****");
             inspect(_authUser.currentUser);
             _authUser.notifyListeners();
@@ -76,6 +78,10 @@ class AuthPhotoProvider with ChangeNotifier {
             await _userDataProvider.updateUserData(userData: _authUser.currentUser!, client: _authUser.client);
           }
         }
+      }
+    } else {
+      if (updateProfile) {
+        _authUser.currentUser!.userProfilePicture = _oldPhoto;
       }
     }
     isLoadingImg = false;

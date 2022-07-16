@@ -47,10 +47,10 @@ class SimpleInputPasswordWidget extends StatefulWidget {
 
 class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
   
-  final BorderRadius _useThisRadius = BorderRadius.only(
+  final BorderRadius _useThisRadius = const BorderRadius.only(
     topRight: Radius.circular(kDefaultPadding-6),
     bottomRight: Radius.circular(kDefaultPadding-6),
-    bottomLeft: Radius.circular(kDefaultPadding-6)
+    bottomLeft: Radius.circular(kDefaultPadding-6),
   );
   final _colorsHelper = ColorsHelper();
   bool _obscureText = true;
@@ -65,10 +65,10 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
     } 
 
     dynamic _handleValidate(String value) {
-      String result = tr("general_empty");
-      if (!value.isEmpty) {
+      final String result = tr("general_empty");
+      if (value.isNotEmpty) {
         if (widget.inputValidate != null) {
-          Map _validations = widget.inputValidate!(value);
+          final Map _validations = widget.inputValidate!(value);
           if (_validations["status"]) {
             return null;
           } else {
@@ -85,7 +85,7 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.only(left: kDefaultPadding-4, right: kDefaultPadding-4, top: kDefaultPadding/2.5),
+          padding: const EdgeInsets.only(left: kDefaultPadding-4, right: kDefaultPadding-4, top: kDefaultPadding/2.5),
           height: kDefaultPadding+4,
           decoration: BoxDecoration(
             color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
@@ -98,7 +98,7 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
             widget.label,
             style: TextStyle(
               fontSize: 8.4.sp,
-              color: _colorsHelper.darken(color: kSpecialGray, amount: 0.1 ),
+              color: _colorsHelper.darken(color: kSpecialGray),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -152,7 +152,7 @@ class _SimpleInputPasswordWidgetState extends State<SimpleInputPasswordWidget> {
               borderSide: BorderSide.none,
               borderRadius: _useThisRadius,
             ),
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               vertical: kDefaultPadding - 2,
               horizontal: kDefaultPadding - 2,
             ),

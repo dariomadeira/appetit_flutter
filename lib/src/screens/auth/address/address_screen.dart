@@ -1,17 +1,18 @@
+import 'dart:developer';
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/providers/auth_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
+import 'package:appetit/src/providers/user_data_provider.dart';
 import 'package:appetit/src/screens/auth/address/widgets/sheet_map_view_widget.dart';
-import 'package:appetit/src/widgets/tiles/option_tile_widget.dart';
 import 'package:appetit/src/widgets/appbars/general_appbar_widget.dart';
 import 'package:appetit/src/widgets/areas/divider_title_widget.dart';
 import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
+import 'package:appetit/src/widgets/tiles/option_tile_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:focus_detector/focus_detector.dart';
 import 'package:flutter/services.dart';
+import 'package:focus_detector/focus_detector.dart';
 import 'package:google_place/google_place.dart';
-import 'dart:developer';
 import 'package:provider/provider.dart';
 
 // AGREGAR LA DIRECCIÓN DEL USUARIO
@@ -43,23 +44,34 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
 
     final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     final _authProvider = Provider.of<AuthProvider>(context);
+    final _arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
 
-    void _saveData({
+    Future <void> _saveData({
       required String address,
     }) async {
-      _authProvider.authStatus = "USER_ADDRESS_SUCCESS";
-      _authProvider.currentUser!.userAddress = address;
-      Navigator.pushNamed(context, 'userPhone');
+      final dynamic _result = _arguments['isEdit'];
+      if (_result != null && _result) {
+        _authProvider.updateAddress(newAddress: address);
+        final _userDataProvider = UserDataProvider();
+        await _userDataProvider.updateUserData(userData: _authProvider.currentUser!, client: _authProvider.client);
+        Navigator.pop(context);
+      } else {
+        _authProvider.currentUser!.userAddress = address;
+        _authProvider.authStatus = "USER_ADDRESS_SUCCESS";
+        await Navigator.pushNamed(context, 'userPhone');
+      }
     }
 
     return FocusDetector(
       onVisibilityGained: () {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-          statusBarColor: Colors.transparent,
-          systemNavigationBarColor: Colors.white,
-          systemNavigationBarIconBrightness: Brightness.dark,
-        ));
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.dark,
+            statusBarColor: Colors.transparent,
+            systemNavigationBarColor: Colors.white,
+            systemNavigationBarIconBrightness: Brightness.dark,
+          ),
+        );
       },
       child: Scaffold(
         appBar: GeneralAppbarWidget(
@@ -69,7 +81,7 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
           backColor: Colors.green,
         ),
         body: Padding(
-          padding: EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding, top: kDefaultPadding),
+          padding: const EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding, top: kDefaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -82,12 +94,11 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
                 label: tr('register_address_label'),
                 placeholder: tr('general_type_here'),
                 textController: _placeController,
-                keyboardType: TextInputType.text,
-                onChanged: (value) {
+                onChanged: (String value) {
                   if (value.isNotEmpty) {
                     autoCompleteSearch(value);
                   } else {
-                    if (predictions.length > 0 && mounted) {
+                    if (predictions.isNotEmpty && mounted) {
                       setState(() {
                         predictions = [];
                       });
@@ -134,19 +145,19 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
                   },
                 ),
               ),
-            ]
-          )
-        )
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  void autoCompleteSearch(String value) async {
-    var result = await googlePlace.autocomplete.get(value, language: "es", );
+  Future <void> autoCompleteSearch(String value) async {
+    final result = await googlePlace.autocomplete.get(value, language: "es", );
     print("**** PLACE RESULT ****");
     inspect(result);
     if (result != null && result.predictions != null && mounted) {
-      if (predictions.length == 0) {
+      if (predictions.isEmpty) {
         setState(() {
           predictions = result.predictions!;
         });
@@ -156,9 +167,9 @@ class _UserAddressScreenState extends State<UserAddressScreen> {
             predictions = result.predictions!;
           });
         } else {
-          var set1 = Set.from(predictions);
-          var set2 = Set.from(result.predictions!);
-          List <AutocompletePrediction> newPredictions = List.from(set2.difference(set1));
+          final set1 = Set.from(predictions);
+          final set2 = Set.from(result.predictions!);
+          final List <AutocompletePrediction> newPredictions = List.from(set2.difference(set1));
           setState(() {
             predictions = newPredictions;
           });

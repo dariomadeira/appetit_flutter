@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:appetit/constants.dart';
 import 'package:appetit/src/customs/snacks_customs.dart';
 import 'package:appetit/src/helpers/colors_helper.dart';
@@ -12,12 +13,11 @@ import 'package:appetit/src/widgets/inputs/simple_input_widget.dart';
 import 'package:appetit/src/widgets/states/loading_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:focus_detector/focus_detector.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:flutter/services.dart';
-import 'dart:math';
 
 class LoginScreen extends StatefulWidget {
 
@@ -31,10 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _validationHelper = ValidationsHelper();
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   bool _handleStatusBarColor = false;
-  double _decorationHeight = 100.w/2;
-  Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  final double _decorationHeight = 100.w/2;
+  final Color _randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
   final _colorsHelper = ColorsHelper();
 
   _scrollListener() {
@@ -72,8 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final _authProvider = Provider.of<AuthProvider>(context);
 
-  void _loginNow() async {
-    AppUser _loginResult = await _authProvider.login(
+  Future <void> _loginNow() async {
+    final AppUser _loginResult = await _authProvider.login(
       email: _emailController.text.trim(),
       password: _passwordController.text.trim(),
     );
@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: _decorationHeight + kDefaultPadding*2,
                           width: 100.w,
                           decoration: BoxDecoration(
-                            image: DecorationImage(
+                            image: const DecorationImage(
                               image: Svg('assets/svgs/login.svg'),
                               fit: BoxFit.cover
                             ),
@@ -153,8 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   textController: _emailController,
                                   placeholder: tr('general_type_here'),
                                   label: tr('general_email_label'),
-                                  inputValidate: (value) {
-                                    bool _valid = _validationHelper.isValidEmail(value: value);
+                                  inputValidate: (String value) {
+                                    final bool _valid = _validationHelper.isValidEmail(value: value);
                                     if (_valid) {
                                       return {
                                         "status": true
@@ -172,8 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   textController: _passwordController,
                                   placeholder: tr('general_type_here'),
                                   label: tr('register_password_label'),
-                                  inputValidate: (value) {
-                                    bool _valid = _validationHelper.isValidPassword(value: value);
+                                  inputValidate: (String value) {
+                                    final bool _valid = _validationHelper.isValidPassword(value: value);
                                     if (_valid) {
                                       return {
                                         "status": true
@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   // _loginWithServices(authService: "GOOGLE");
                                 },
                                 btnWidth: 41.w,
-                                btnColor: Color(0xffFFAB00),
+                                btnColor: const Color(0xffFFAB00),
                               ),
                               BigBtnWidget(
                                 btnAsset: 'assets/images/facebookLogo.png',
@@ -251,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   // _loginWithServices(authService: "FACEBOOK");
                                 },
                                 btnWidth: 41.w,
-                                btnColor: Color(0xff3278ef),
+                                btnColor: const Color(0xff3278ef),
                               ),
                             ],
                           ),

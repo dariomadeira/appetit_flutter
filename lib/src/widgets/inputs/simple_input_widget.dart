@@ -43,7 +43,7 @@ class SimpleInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BorderRadius _useThisRadius = BorderRadius.only(
+    const BorderRadius _useThisRadius = BorderRadius.only(
       topRight: Radius.circular(kDefaultPadding-6),
       bottomRight: Radius.circular(kDefaultPadding-6),
       bottomLeft: Radius.circular(kDefaultPadding-6)
@@ -51,10 +51,10 @@ class SimpleInputWidget extends StatelessWidget {
     final _colorsHelper = ColorsHelper();
 
     dynamic _handleValidate(String value) {
-      String result = tr("general_empty");
-      if (!value.isEmpty) {
+      final String result = tr("general_empty");
+      if (value.isNotEmpty) {
         if (inputValidate != null) {
-          Map _validations = inputValidate!(value);
+          final Map _validations = inputValidate!(value);
           if (_validations["status"]) {
             return null;
           } else {
@@ -71,11 +71,11 @@ class SimpleInputWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.only(left: kDefaultPadding-4, right: kDefaultPadding-4, top: kDefaultPadding/2.5),
+          padding: const EdgeInsets.only(left: kDefaultPadding-4, right: kDefaultPadding-4, top: kDefaultPadding/2.5),
           height: kDefaultPadding+4,
           decoration: BoxDecoration(
             color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(kDefaultPadding-6),
               topRight: Radius.circular(kDefaultPadding-6)
             ),
@@ -117,27 +117,27 @@ class SimpleInputWidget extends StatelessWidget {
             hintText: placeholder,
             filled: true,
             fillColor: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: _useThisRadius,
             ),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: _useThisRadius,
             ),
-            enabledBorder: OutlineInputBorder(
+            enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: _useThisRadius,
             ),
-            errorBorder: OutlineInputBorder(
+            errorBorder: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: _useThisRadius,
             ),
-            disabledBorder: OutlineInputBorder(
+            disabledBorder: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: _useThisRadius,
             ),
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               vertical: kDefaultPadding - 2,
               horizontal: kDefaultPadding - 2,
             ),

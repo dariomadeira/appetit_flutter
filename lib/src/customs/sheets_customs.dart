@@ -69,6 +69,7 @@ void sheetYesNo({
   required Function actionOK,
   required Function actionCANCEL,
   required String question,
+  String help = "",
 }) {
   final _themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
@@ -93,6 +94,21 @@ void sheetYesNo({
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w900,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis, 
+            ),
+            Visibility(
+              visible: help != "",
+              child: Text(
+                help,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis, 
               ),
             ),
             const SizedBox(height: kDefaultPadding),

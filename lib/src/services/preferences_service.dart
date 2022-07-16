@@ -34,7 +34,7 @@ class AppPreferences {
 
   // LEER CADENA
   String readPreferenceString(String key) {
-    return _prefs.getString(key)!;
+    return _prefs.getString(key) ?? "";
   }
 
   // GUARDAR CADENA

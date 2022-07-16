@@ -6,6 +6,7 @@ import 'package:appetit/src/providers/user_data_provider.dart';
 import 'package:appetit/src/providers/phone_provider.dart';
 import 'package:appetit/src/providers/theme_provider.dart';
 import 'package:appetit/src/screens/auth/login/login_screen.dart';
+import 'package:appetit/src/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:appetit/src/screens/onboarding/onboarding_screen.dart';
 import 'package:appetit/src/routers/routes.dart';
@@ -21,7 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   final _prefs = AppPreferences();
-  await _prefs.initPref();
+  _prefs.initPref();
   await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoderBuilder, 'assets/svgs/appLogo.svg'), null);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
@@ -76,7 +77,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     Provider.of<ThemeProvider>(context, listen: false).initTheme();
-    Provider.of<AuthProvider>(context, listen: false).initSuperbase();
+    Provider.of<AuthProvider>(context, listen: false).initSupabase();
   }
 
   @override
@@ -85,6 +86,7 @@ class _MyAppState extends State<MyApp> {
     final _prefs = AppPreferences();
     final bool showOnboarding = _prefs.readPreferenceBool(kShowOnboardingPref);
     final _themeProvider = Provider.of<ThemeProvider>(context);
+    final _auth = Provider.of<AuthProvider>(context);
 
     WidgetsBinding.instance.renderView.automaticSystemUiAdjustment=false;
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -93,7 +95,7 @@ class _MyAppState extends State<MyApp> {
       systemNavigationBarColor: _themeProvider.darkTheme ? kBackgroundDark : kBackgroundLight,
       systemNavigationBarIconBrightness: _themeProvider.darkTheme ? Brightness.light : Brightness.dark,
     ));
-    
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -120,7 +122,18 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             routes: appRoutes,
-            home: showOnboarding ? LoginScreen() : OnboardingScreen(),
+            home: FutureBuilder(
+              future: _auth.recoverSession(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                Widget _result = showOnboarding ? LoginScreen() : OnboardingScreen();
+                if (snapshot.hasData) {
+                  if (snapshot.data) {
+                    _result = HomeScreen();
+                  }
+                }
+                return _result;
+              },
+            ),
           );
         }
       )

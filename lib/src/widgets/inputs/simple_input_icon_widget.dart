@@ -48,10 +48,10 @@ class SimpleInputIconWidget extends StatelessWidget {
     final _colorsHelper = ColorsHelper();
 
     dynamic _handleValidate(String value) {
-      String result = tr("general_empty");
-      if (!value.isEmpty) {
+      final String result = tr("general_empty");
+      if (value.isNotEmpty) {
         if (inputValidate != null) {
-          Map _validations = inputValidate!(value);
+          final Map _validations = inputValidate!(value);
           if (_validations["status"]) {
             return null;
           } else {
@@ -68,17 +68,17 @@ class SimpleInputIconWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.only(left: kDefaultPadding - 4, right: kDefaultPadding - 4, top: kDefaultPadding / 2.5),
+          padding: const EdgeInsets.only(left: kDefaultPadding - 4, right: kDefaultPadding - 4, top: kDefaultPadding / 2.5),
           height: kDefaultPadding + 4,
           decoration: BoxDecoration(
             color: _colorsHelper.calculateBGColor(context: context, color: kSpecialGray),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(kDefaultPadding), topRight: Radius.circular(kDefaultPadding)),
+            borderRadius: const BorderRadius.only(topLeft: Radius.circular(kDefaultPadding), topRight: Radius.circular(kDefaultPadding)),
           ),
           child: Text(
             label,
             style: TextStyle(
               fontSize: 8.4.sp,
-              color: _colorsHelper.darken(color: kSpecialGray, amount: 0.1),
+              color: _colorsHelper.darken(color: kSpecialGray),
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -129,7 +129,7 @@ class SimpleInputIconWidget extends StatelessWidget {
               borderSide: BorderSide.none,
               borderRadius: _useThisRadius,
             ),
-            contentPadding: EdgeInsets.symmetric(
+            contentPadding: const EdgeInsets.symmetric(
               vertical: kDefaultPadding - 2,
               horizontal: kDefaultPadding - 2,
             ),

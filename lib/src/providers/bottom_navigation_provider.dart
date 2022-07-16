@@ -9,7 +9,7 @@ class BottomNavigationProvider with ChangeNotifier {
   int currentIndex = 0;
 
   // CAMBIO DE LA BOTTOMBAR
-  void changeBottomBarIndex(index) async {
+  Future <void> changeBottomBarIndex(int index) async {
     currentIndex = index;
     notifyListeners();
   }

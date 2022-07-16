@@ -1,8 +1,8 @@
 
 
 import 'package:appetit/src/providers/theme_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// Clase para manejo de los colores
 class ColorsHelper {
@@ -51,8 +51,8 @@ class ColorsHelper {
 
   /// Oscurecer un color
   Color darken({
-    double amount = .1,
-    Color? color
+    double amount = 0.1,
+    Color? color,
   }) {
     assert(amount >= 0 && amount <= 1);
     final hsl = HSLColor.fromColor(color!);
@@ -63,7 +63,7 @@ class ColorsHelper {
   /// Aclarar un color
   Color lighten({
     double amount = .1,
-    Color? color
+    Color? color,
   }) {
     assert(amount >= 0 && amount <= 1);
     final hsl = HSLColor.fromColor(color!);
