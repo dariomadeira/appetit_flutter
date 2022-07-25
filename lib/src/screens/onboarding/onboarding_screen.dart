@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+// MOSTRAR EL SLIDER DEL ONBOARDING
 class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

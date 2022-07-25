@@ -72,20 +72,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
     final _authProvider = Provider.of<AuthProvider>(context);
 
-  Future <void> _loginNow() async {
-    final AppUser _loginResult = await _authProvider.login(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
-    if (_loginResult.authToken != '') {
-      await Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
-    } else {
-      wSnackError(
-        message: _loginResult.statusMessage,
-        context: context
+    Future <void> _loginNow() async {
+      final AppUser _loginResult = await _authProvider.login(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
       );
-    }
-  }    
+      if (_loginResult.authToken != '') {
+        await Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+      } else {
+        wSnackError(
+          message: _loginResult.statusMessage,
+          context: context
+        );
+      }
+    }    
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: _handleStatusBarColor ? Colors.white : Colors.transparent,

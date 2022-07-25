@@ -20,6 +20,8 @@
   "general_phone": "Número de teléfono",
   "general_at_conector": "a las",
   "general_hs": "Hs.",
+  "general_loading": "Cargando...",
+  "general_send_mail": "Enviando mail...",
 
   "onboarding_slider1_title": "¡Bienvenido!",
   "onboarding_slider1_description": "Con Appetit explora los mejores sitios para comer cerca tuyo.",
@@ -28,7 +30,6 @@
   "onboarding_slider3_title": "¡Listo!",
   "onboarding_slider3_description": "Disfruta tu pedido con la mejor atención, en los mejores lugares.",
 
-  "general_loading": "Cargando...",
   "bbq_l_loading": "Prendiendo...",
   "cake_l_loading": "Sirviendo..",
   "chicken_l_loading": "Asando...",
@@ -98,8 +99,8 @@
   "userData_appbar_title": "Tu perfil",
   "userData_btn_next": "Continuar",
 
-  "reset_appbar_title": "Mi contraseña",
-  "reset_area_title": "Cambiar",
+  "reset_appbar_title": "Recordar",
+  "reset_area_title": "Contraseña",
   "reset_area_subtitle": "Te enviaremos un mail para cambiar tu contraseña",
   "reset_btn_sendmail": "Enviar mail",
   "reset_send_success": "Se ha enviado el mail con los pasos a seguir",

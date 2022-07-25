@@ -1,15 +1,14 @@
 import 'package:appetit/constants.dart';
-import 'package:appetit/src/helpers/colors_helper.dart';
 import 'package:appetit/src/widgets/buttons/rounded_btn_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-// modelo de datos privado para el provider
+// MODELO DE DATOS PRIVADOS PARA EL PROVIDER
 class _SliderModel with ChangeNotifier {
 
-  // declaraciones
+  // INSTANCIAS
   double _currentPage = 0;
   Color _colorPrimario = Colors.grey;
   Color _colorSecundario = Colors.blue;
@@ -19,7 +18,7 @@ class _SliderModel with ChangeNotifier {
   late List<String> _descriptions;
   late int _slidersCount;
 
-  // setters y getters
+  // SETTERS Y GETTERS
   double get currentPage {
     return this._currentPage;
   }
@@ -69,10 +68,10 @@ class _SliderModel with ChangeNotifier {
   int get slidersCount => this._slidersCount;
 }
 
-// clase principal
+// CLASE PRINCIPAL
 class Slideshow extends StatelessWidget {
 
-  // constructor
+  // CONSTRUCTOR
   final List<Widget> slides;
   final bool dotsTop;
   final Color? dotsColor;
@@ -116,10 +115,10 @@ class Slideshow extends StatelessWidget {
   }
 }
 
-// estructura del slider
+// ESTRUCTURA DEL SLIDER
 class _CreateEstructure extends StatelessWidget {
 
-  // contructor
+  // CONSTRUCTOR
   final bool dotsTop;
   final List<Widget> slides;
   final Function? finalsliderbutton;
@@ -144,10 +143,10 @@ class _CreateEstructure extends StatelessWidget {
   }
 }
 
-// creador de todos los puntos
+// CREADOR DE LOS PUNTOS
 class _Dots extends StatelessWidget {
 
-  // constructor
+  // CONSTRUCTOR
   final int slidesCount;
 
   const _Dots(
@@ -167,10 +166,10 @@ class _Dots extends StatelessWidget {
   }
 }
 
-// creador de un punto
+// CREADOR DE UN PUNTO
 class _Dot extends StatelessWidget {
 
-  // contructor
+  // CONSTRUCTOR
   final int index;
 
   const _Dot(
@@ -202,10 +201,10 @@ class _Dot extends StatelessWidget {
   }
 }
 
-// creador de los sliders (stateful)
+// CREADOR DE LOS SLIDERS
 class _Slides extends StatefulWidget {
 
-  // contructor
+  // CONSTRUCTOR
   final List<Widget> slides;
   final finalsliderbutton;
 
@@ -253,7 +252,7 @@ class __SlidesState extends State<_Slides> {
   }
 }
 
-// clase del slide
+// CLASE DEL SLIDER
 class _Slide extends StatelessWidget {
 
   final Widget slide;
@@ -274,7 +273,6 @@ class _Slide extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final totalSliders = Provider.of<_SliderModel>(context).slidersCount - 1;
-    final _colorsHelper = ColorsHelper();
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(40, 0, 40, 10),
@@ -303,7 +301,7 @@ class _Slide extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14.sp,
-              color: _colorsHelper.darken( amount: 0.3, color: kSpecialPrimary),
+              color: kSpecialTextColor,
               fontWeight: FontWeight.bold,
             ),
           ),

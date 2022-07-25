@@ -68,13 +68,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: GeneralAppbarWidget(
-          showAvatar: false,
-          showBack: !_authProvider.isLoading,
-          appbarTitle: tr('register_appbar_title'),
-          hideTitle: _authProvider.isLoading,
-          backColor: Colors.green,
-        ),
+        appBar: !_authProvider.isLoading 
+          ? GeneralAppbarWidget(
+            showAvatar: false,
+            showBack: true,
+            appbarTitle: tr('register_appbar_title'),
+            backColor: Colors.green,
+          ) : null,
         body: _authProvider.isLoading
         ? Center(
             child: LoadingWidget(

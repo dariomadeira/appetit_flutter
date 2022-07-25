@@ -143,21 +143,17 @@ class AuthProvider with ChangeNotifier {
 
   // CERRAR SESION
   Future <bool> singOut() async {
-    // loadingText = 'login_process';
-    // isLoading = true;
-    // notifyListeners();
     bool _result = false;
     final _authPhoto = AuthPhotoProvider();
-    await Future.delayed( const Duration(milliseconds: 1), () async {
+    await Future.delayed(kUIWait, () async {
       try {
         await _supaClient.signOut();
         _prefs.removePreference('authType');
         _authPhoto.addPhotoUrl = '';
         _result = true;
-        // isLoading = false;
-      } catch (_) {
-        // isLoading = false;
-        // notifyListeners();
+      } catch (e) {
+        print("**** SING OUT ERROR - $e");
+        inspect(e);
       }
     });
     return _result;
@@ -220,28 +216,19 @@ class AuthProvider with ChangeNotifier {
   // TODO esto no funciona porque no esta implementado en la biblioteca, hay que buscar alternativas
   // BORRAR UNA CUENTA
   Future <bool> deleteAccount() async {
-    // loadingText = 'login_process';
-    // isLoading = true;
-    // notifyListeners();
     bool _result = false;
     final _authPhoto = AuthPhotoProvider();
-    await Future.delayed( const Duration(milliseconds: 1), () async {
+    await Future.delayed(kUIWait, () async {
       try {
         final bool _resultDeleteData = await _userDataProvider.deleteUserData(userToken: currentUser!.authToken, client: _client);
         if (_resultDeleteData) {
-          // _client.auth.api.deleteUser(
-          // await _supaClient.deleteUser();
-          // await supabase.auth.api.deleteUser(
-          //   currentUser!.authToken
-          // );
           _prefs.removePreference('authType');
           _authPhoto.addPhotoUrl = '';
           _result = true;
-          // isLoading = false;
         }
-      } catch (_) {
-        // isLoading = false;
-        // notifyListeners();
+      } catch (e) {
+        print("**** DELETE ACCOUNT ERROR - $e");
+        inspect(e);
       }
     });
     return _result;
@@ -262,27 +249,32 @@ class AuthProvider with ChangeNotifier {
     if (session != "") {
       isLoading = true;
       late AppUser _user;
-      final response = await _supaClient.recoverSession(session);
-      final Map<String, dynamic> _existData = await _userDataProvider.getUserData(userToken: response.user!.id, client: _client);
-      print('**** GET DATABASE USER DATA ****');
-      inspect(_existData);
-      _user = AppUser(
-        statusMessage: tr('login_success'),
-        authToken: response.user!.id,
-        userEmail: response.user!.email!,
-        userProfilePicture: _existData["profile"].toString(),
-        userName: _existData["name"].toString(), 
-        userAddress: _existData["address"].toString(), 
-        userLat: _existData["lat"].toString(), 
-        userLng: _existData["lng"].toString(), 
-        userPhone: _existData["phone"].toString(),
-        userCreation: _formatsHelper.localizeDateTime(dateString: response.user!.createdAt),
-        userLastAccess: _formatsHelper.localizeDateTime(dateString: response.user!.updatedAt),
-      );
-      authStatus = "USER_SESSION_RECOVER";
-      _prefs.savePreferenceString("authType", "MAIL");
-      _prefs.savePreferenceString("user", response.data!.persistSessionString);
-      currentUser = _user;
+      try {
+        final response = await _supaClient.recoverSession(session);
+        final Map<String, dynamic> _existData = await _userDataProvider.getUserData(userToken: response.user!.id, client: _client);
+        print('**** GET DATABASE USER DATA ****');
+        inspect(_existData);
+        _user = AppUser(
+          statusMessage: tr('login_success'),
+          authToken: response.user!.id,
+          userEmail: response.user!.email!,
+          userProfilePicture: _existData["profile"].toString(),
+          userName: _existData["name"].toString(), 
+          userAddress: _existData["address"].toString(), 
+          userLat: _existData["lat"].toString(), 
+          userLng: _existData["lng"].toString(), 
+          userPhone: _existData["phone"].toString(),
+          userCreation: _formatsHelper.localizeDateTime(dateString: response.user!.createdAt),
+          userLastAccess: _formatsHelper.localizeDateTime(dateString: response.user!.updatedAt),
+        );
+        authStatus = "USER_SESSION_RECOVER";
+        _prefs.savePreferenceString("authType", "MAIL");
+        _prefs.savePreferenceString("user", response.data!.persistSessionString);
+        currentUser = _user;
+      } catch (e) {
+        print("**** RECOVER SESSION ERROR - $e");
+        inspect(e);
+      }
       isLoading = false;
       print("**** APP USER ****");
       inspect(_user);
@@ -290,5 +282,30 @@ class AuthProvider with ChangeNotifier {
     }
     return _result;
   }
+
+  // RESET DE CONTRASEÑA
+  Future <bool> resetUser({
+    required String email
+  }) async {
+    isLoading = true;
+    notifyListeners();
+    bool _solution = false;
+    try {
+      await Future.delayed(kUIWait, () async {
+        final _result = await _supaClient.api.resetPasswordForEmail(email);
+        print("**** RESET PASSWORD ****");
+        inspect(_solution);
+        if (_result.error == null && _result.statusCode == 200) {
+          _solution = true;
+        }
+      });
+    } catch (e) {
+      print("**** RESET ERROR - $e");
+      inspect(e);
+    }  
+    isLoading = false;
+    notifyListeners();
+    return _solution;
+  }  
 
 }

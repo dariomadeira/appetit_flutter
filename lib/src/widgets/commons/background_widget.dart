@@ -7,6 +7,7 @@ import 'package:appetit/src/helpers/image_helper.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+// CARGAR UN FONDO GENERAL PARA UNA PANTALLA
 class BackgroundApp extends StatelessWidget {
 
   final String? svgAsset;

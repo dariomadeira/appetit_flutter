@@ -83,3 +83,4 @@ const String kMapBoxUrl = 'https://api.mapbox.com/styles/v1/dariomadeira/cl2w9cq
 const String kMapBoxToken = 'pk.eyJ1IjoiZGFyaW9tYWRlaXJhIiwiYSI6ImNrYW4wNW9vcDBjODQyeGx1cnBpd3J2cHYifQ.g8wfS80HeFpdbpJETMagJQ';
 const String kMapBoxId = 'mapbox.mapbox-streets-v8';
 const double kMapBoxZoom = 18.0;
+const Duration kUIWait = Duration(milliseconds: 2);

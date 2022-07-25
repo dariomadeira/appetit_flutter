@@ -69,13 +69,13 @@ class _UserPhoneScreenState extends State<UserPhoneScreen> {
       },
       child: Scaffold(
         key: _scaffoldKey,
-        appBar: GeneralAppbarWidget(
-          showAvatar: false,
-          appbarTitle: tr('phone_appbar_title'),
-          showBack: !_authPhone.isLoading,
-          hideTitle: _authPhone.isLoading,
-          backColor: Colors.green,
-        ),
+        appBar: !_authPhone.isLoading 
+          ? GeneralAppbarWidget(
+            showAvatar: false,
+            appbarTitle: tr('phone_appbar_title'),
+            showBack: true,
+            backColor: Colors.green,
+          ) : null,
         body: _authPhone.isLoading
         ? Center(
             child: LoadingWidget(
